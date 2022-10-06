@@ -103,8 +103,12 @@ function renderLogs(logElements) {
     const logLinks = [];
     const inlineLogs = [];
     logElements.forEach(log => {
-        const name = log.getAttribute('name');
+        let name = log.getAttribute('name');
         const href = log.getAttribute('href');
+        // HACK: results.xml should have unique names; fix that, and then clean this up
+        const setup_stage = log.getAttribute('guest-setup-stage');
+        if (setup_stage && name == 'guest setup')
+            name = setup_stage;
         if (log.hasAttribute(SHOW_ATTR))
             inlineLogs.push(html`<h3><a href=${href}>${name}</a></h3>
                                  <log-viewer url=${href} />`);
