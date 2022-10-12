@@ -48,10 +48,11 @@
         <label for="show_passed">Show passed tests</label>
     </div>
     <div class="stretch"></div>
-    <a href="https://gitlab.com/testing-farm/oculus/-/issues">Feedback and issues about this page</a>
-    <span>&nbsp;|&nbsp;</span>
-    <a href="./old.html">Old version of this page</a>
-    <div id="junit"></div>
+    <a href="https://gitlab.com/testing-farm/oculus/-/issues">Issues for this page</a>
+    <span>|</span>
+    <a href="./old.html">Old version</a>
+    <span id="download-junit-separator" hidden>|</span>
+    <a id="download-junit" download hidden>Download JUnit</a>
   </header>
 
   <main id="main" />
@@ -253,15 +254,11 @@ if (resultsXml) {
     render(html`<pre>${pipelineLog}</pre>`, document.getElementById('main'));
 }
 
-// render results-junit.xml to header if exists
-if(await fetchHeader(baseUrl + '/results-junit.xml')) {
-    render(
-        [
-            html`<span>&nbsp;|&nbsp;</span>`,
-            html`<a href=${baseUrl}/results-junit.xml download="results-junit.xml">Download JUnit</a>`
-        ],
-        document.getElementById('junit')
-    );
+// show results-junit.xml in header if it exists
+if (await fetchHeader(baseUrl + '/results-junit.xml')) {
+    document.getElementById('download-junit-separator').removeAttribute('hidden');
+    document.getElementById('download-junit').removeAttribute('hidden');
+    document.getElementById('download-junit').setAttribute('href', baseUrl + '/results-junit.xml');
 }
 </script>
 
