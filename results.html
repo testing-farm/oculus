@@ -11,15 +11,18 @@
 
     details {
       padding: 1ex;
-      margin: 2ex;
+      margin: 3ex;
       background-color: #F2F2F2;
       box-shadow: 2px 2px 2px lightgrey;
     }
-    details > summary { padding: 1em; }
-    details details { background-color: white; } /* nested testcase in testsuite */
+    details > summary { padding: 1.5em; }
+
+    /* nested details are testcases in a testsuite */
+    details details { background-color: white; }
+    details details > summary { padding: 0.5em; }
 
     .result-pass, .result-passed { background-color: lightgreen; }
-    .result-failed, .result-failure { background-color: red; }
+    .result-failed, .result-failure, .result-needs_inspection { background-color: #ff4d4d; }
     .result-error, .result-undefined { background-color: darkorange; }
     .result-skipped { background-color: lightgrey; }
   </style>
