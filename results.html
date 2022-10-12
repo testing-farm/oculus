@@ -51,6 +51,7 @@
     <a href="https://gitlab.com/testing-farm/general/-/issues">Feedback and issues about this page</a>
     <span>&nbsp;|&nbsp;</span>
     <a href="./old.html">Old version of this page</a>
+    <div id="junit"></div>
   </header>
 
   <main id="main" />
@@ -73,6 +74,17 @@ async function fetchFile(url) {
     } catch (error) {
         console.warn('Failed to fetch', url, ':', error);
     }
+}
+
+async function fetchHeader(url) {
+    try {
+        const response = await fetch(url, { method: 'HEAD' });
+        if (response.ok)
+            return true;
+    } catch (error) {
+        console.warn('Failed to fetch header', url, ':', error)
+    }
+    return false;
 }
 
 async function fetchXML(url) {
@@ -220,6 +232,7 @@ function renderTests(showPassed) {
 
 // allow user to point to a different result URL, mostly for testing
 const baseUrl = new URLSearchParams(window.location.search).get('url') ?? '.';
+
 // first try to fetch results.xml; if we have it, test is done
 const resultsXml = await fetchXML(baseUrl + '/results.xml');
 if (resultsXml) {
@@ -238,6 +251,17 @@ if (resultsXml) {
     document.getElementById('overall-result').innerHTML = 'in progress';
     const pipelineLog = await fetchFile(baseUrl + '/pipeline.log');
     render(html`<pre>${pipelineLog}</pre>`, document.getElementById('main'));
+}
+
+// render results-junit.xml to header if exists
+if(await fetchHeader(baseUrl + '/results-junit.xml')) {
+    render(
+        [
+            html`<span>&nbsp;|&nbsp;</span>`,
+            html`<a href=${baseUrl}/results-junit.xml download="results-junit.xml">Download JUnit</a>`
+        ],
+        document.getElementById('junit')
+    );
 }
 </script>
 
