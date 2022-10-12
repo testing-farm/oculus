@@ -5,9 +5,19 @@
   <meta charset="utf-8">
 
   <style>
-    header { display: flex; }
-    header h1 { margin-left: 1em; }
+    header {
+        display: flex;
+        align-items: center;
+        gap: 2ex;
+    }
     .stretch { flex: auto; }
+    #config {
+        padding: 1em 0.5em;
+        border: lightgray;
+        border-width: 1px;
+        border-style: solid;
+        box-shadow: 2px 2px 2px lightgrey;
+    }
 
     details {
       padding: 1ex;
@@ -29,7 +39,12 @@
   <header>
     <img src="https://assets.gitlab-static.net/uploads/-/system/group/avatar/5515434/tft-logo.png"
         width="64" height="64" alt="Testing Farm Logo"/>
-    <h1 class="stretch" id="overall-result"></h1>
+    <h1 id="overall-result"></h1>
+    <div id="config">
+        <input id="show_passed" type="checkbox" />
+        <label for="show_passed">Show passed tests</label>
+    </div>
+    <div class="stretch"></div>
     <a href="https://gitlab.com/testing-farm/general/-/issues">Feedback and issues about this page</a>
   </header>
 
@@ -40,6 +55,8 @@
 import {LitElement, html, css, render } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js';
 
 const SHOW_ATTR = '_show'; /* marks logs which are shown inline */
+
+const isPassed = result => result.indexOf('pass') >= 0;
 
 async function fetchFile(url) {
     try {
@@ -124,15 +141,18 @@ function renderLogs(logElements) {
 
 // testsuites contain a list of testsuite, which contain a list of testcase; these have
 // exactly the same structure, so we can render them with just one function
-function renderTestList(doc, elementType, subElementType) {
+function renderTestList(doc, elementType, subElementType, showPassed) {
     const res = [];
     doc.querySelectorAll(elementType).forEach(item => {
         const result = item.getAttribute('result');
+        if (!showPassed && isPassed(result))
+            return;
+
         res.push(html`
           <details ?open=${result != 'passed'}>
             <summary class="result-${result}">${item.getAttribute('name')}</summary>
             ${renderLogs(item.querySelectorAll(':scope > logs > log'))}
-            ${subElementType ? renderTestList(item, subElementType) : null}
+            ${subElementType ? renderTestList(item, subElementType, null, showPassed) : null}
           </details>`);
     });
     return res;
@@ -142,7 +162,7 @@ function renderTestList(doc, elementType, subElementType) {
 
 function selectInlineTestcaseLogs(testcase) {
     /* don't show successful test logs by default; matter of taste/overzealous fetching
-    if (testcase.getAttribute('result').indexOf('pass') >= 0)
+    if (isPassed(testcase.getAttribute('result'))
         return;
     */
 
@@ -180,14 +200,25 @@ function selectInlineLogs(results) {
     });
 }
 
+function renderTests(showPassed) {
+    render(renderTestList(resultsXml, 'testsuite', 'testcase', showPassed), document.getElementById('main'));
+}
+
 // allow user to point to a different result URL, mostly for testing
 const baseUrl = new URLSearchParams(window.location.search).get('url') ?? '.';
 // first try to fetch results.xml; if we have it, test is done
 const resultsXml = await fetchXML(baseUrl + '/results.xml');
 if (resultsXml) {
     selectInlineLogs(resultsXml);
-    document.getElementById('overall-result').innerHTML = resultsXml.firstChild.getAttribute('overall-result');
-    render(renderTestList(resultsXml, 'testsuite', 'testcase'), document.getElementById('main'));
+    const overall_result = resultsXml.firstChild.getAttribute('overall-result');
+    document.getElementById('overall-result').innerHTML = overall_result;
+
+    /* hide config if there are only passed or only failed tests */
+    if (isPassed(overall_result) || resultsXml.querySelectorAll('testcase[result^="pass"]').length == 0)
+        document.getElementById('config').setAttribute('hidden', true);
+    else
+        document.getElementById('show_passed').addEventListener('change', ev => renderTests(ev.target.checked));
+    renderTests(isPassed(overall_result));
 } else {
     // no results.xml yet, fall back to "in progress" and showing pipeline.log
     document.getElementById('overall-result').innerHTML = 'in progress';
