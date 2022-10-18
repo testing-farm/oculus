@@ -65,6 +65,12 @@ const SHOW_ATTR = '_show'; /* marks logs which are shown inline */
 
 const isPassed = result => result.indexOf('pass') >= 0;
 
+const guestSetupPriority = [
+    'pre_artifact_installation',
+    'artifact_installation',
+    'post_artifact_installation'
+]
+
 async function fetchFile(url) {
     try {
         const response = await fetch(url);
@@ -175,10 +181,24 @@ function renderTestList(doc, elementType, subElementType, showPassed) {
         if (!showPassed && isPassed(result))
             return;
 
+        const logLinks = [];
+
+        // HACK: we need to sort guest-setup-stage ourselves, until sorted in source XML
+        guestSetupPriority.forEach(priority => {
+            const logs = item.querySelectorAll(`:scope > logs > log[guest-setup-stage="${priority}"]`);
+            logs.forEach(log => {
+                logLinks.push(log);
+            })
+        })
+
+        item.querySelectorAll(':scope > logs > log:not([guest-setup-stage])').forEach(log => {
+            logLinks.push(log);
+        })
+
         res.push(html`
           <details ?open=${result != 'passed'}>
             <summary class="result-${result}">${item.getAttribute('name')}</summary>
-            ${renderLogs(item.querySelectorAll(':scope > logs > log'))}
+            ${renderLogs(logLinks)}
             ${subElementType ? renderTestList(item, subElementType, null, showPassed) : null}
           </details>`);
     });
@@ -210,7 +230,7 @@ function selectInlineTestsuiteLogs(testsuite, failedSetup) {
         return;
 
     // check for guest setup stages in reverse order, i.e. only show the most recent one
-    for (let priority of ['post_artifact_installation', 'artifact_installation', 'pre_artifact_installation']) {
+    for (let priority of guestSetupPriority.reverse()) {
         const logs = testsuite.querySelectorAll(`:scope > logs > log[guest-setup-stage="${priority}"]`);
         if (logs.length > 0) {
             logs.forEach(log => log.setAttribute(SHOW_ATTR, ''));
