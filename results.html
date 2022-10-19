@@ -242,7 +242,7 @@ if (resultsXml) {
     document.getElementById('overall-result').innerHTML = overall_result;
 
     /* keep config hidden if there are only passed or only failed tests */
-    if (!isPassed(overall_result) && resultsXml.querySelectorAll('testcase[result^="pass"]').length >= 0) {
+    if (!isPassed(overall_result) && resultsXml.querySelectorAll('testcase[result^="pass"]').length > 0) {
         document.getElementById('config').removeAttribute('hidden');
         document.getElementById('show_passed').addEventListener('change', ev => renderTests(ev.target.checked));
     }
