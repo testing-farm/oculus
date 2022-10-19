@@ -154,7 +154,7 @@ function renderLogs(logElements) {
     // no logs means an infrastructure problem, provide some hints how to handle the situation
     if (logElements.length == 0) {
         return [
-            html`<p>Tests failed to run. See <a href=${baseUrl}pipeline.log>pipeline.log</a> for details.</p>`,
+            html`<p>Tests failed to run. See <a href=${baseUrl}/pipeline.log>pipeline.log</a> for details.</p>`,
             html`<p>This can be an infrastructure problem, check <a href=https://status.testing-farm.io>status page</a> for known outages.</p>`,
             html`<p><a href="https://gitlab.com/testing-farm/general/-/issues">File an issue</a> if you think you hit a bug.</p>`
         ];
