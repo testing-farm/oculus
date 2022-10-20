@@ -1,0 +1,2958 @@
+<testsuites overall-result="failed">
+ <properties>
+  <property name="baseosci.overall-result" value="failed"/>
+ </properties>
+ <testsuite name="/plans/features/advanced" result="passed" tests="16">
+  <logs>
+   <log guest-setup-stage="artifact_installation" href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/guest-setup-cdc2a760-0890-479c-86b9-d940a767e85c/artifact-installation-cdc2a760-0890-479c-86b9-d940a767e85c" name="Copr build(s) installation" schedule-stage="guest-setup"/>
+   <log guest-setup-stage="pre_artifact_installation" href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/guest-setup-cdc2a760-0890-479c-86b9-d940a767e85c/guest-setup-output-pre-artifact-installation.txt" name="guest setup" schedule-stage="guest-setup"/>
+   <log guest-setup-stage="post_artifact_installation" href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/guest-setup-cdc2a760-0890-479c-86b9-d940a767e85c/guest-setup-output-post-artifact-installation.txt" name="guest setup" schedule-stage="guest-setup"/>
+   <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-advancedw2ccwZ/tmt-reproducer.sh" name="tmt-reproducer"/>
+   <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-advancedw2ccwZ" name="workdir"/>
+  </logs>
+  <properties>
+   <property name="baseosci.result" value="passed"/>
+  </properties>
+  <testcase name="/tests/execute/filesubmit" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.218.162.208"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-advancedw2ccwZ/plans/features/advanced/execute/data/tests/execute/filesubmit" name="log_dir" schedule-entry="/plans/features/advanced" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-advancedw2ccwZ/plans/features/advanced/execute/data/tests/execute/filesubmit/output.txt" name="testout.log" schedule-entry="/plans/features/advanced" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/execute/framework" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.218.162.208"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-advancedw2ccwZ/plans/features/advanced/execute/data/tests/execute/framework" name="log_dir" schedule-entry="/plans/features/advanced" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-advancedw2ccwZ/plans/features/advanced/execute/data/tests/execute/framework/output.txt" name="testout.log" schedule-entry="/plans/features/advanced" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/execute/metadata" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.218.162.208"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-advancedw2ccwZ/plans/features/advanced/execute/data/tests/execute/metadata" name="log_dir" schedule-entry="/plans/features/advanced" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-advancedw2ccwZ/plans/features/advanced/execute/data/tests/execute/metadata/output.txt" name="testout.log" schedule-entry="/plans/features/advanced" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/execute/old" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.218.162.208"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-advancedw2ccwZ/plans/features/advanced/execute/data/tests/execute/old" name="log_dir" schedule-entry="/plans/features/advanced" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-advancedw2ccwZ/plans/features/advanced/execute/data/tests/execute/old/output.txt" name="testout.log" schedule-entry="/plans/features/advanced" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/libraries/local" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.218.162.208"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-advancedw2ccwZ/plans/features/advanced/execute/data/tests/libraries/local" name="log_dir" schedule-entry="/plans/features/advanced" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-advancedw2ccwZ/plans/features/advanced/execute/data/tests/libraries/local/output.txt" name="testout.log" schedule-entry="/plans/features/advanced" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/plugins" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.218.162.208"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-advancedw2ccwZ/plans/features/advanced/execute/data/tests/plugins" name="log_dir" schedule-entry="/plans/features/advanced" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-advancedw2ccwZ/plans/features/advanced/execute/data/tests/plugins/output.txt" name="testout.log" schedule-entry="/plans/features/advanced" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/precommit" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.218.162.208"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-advancedw2ccwZ/plans/features/advanced/execute/data/tests/precommit" name="log_dir" schedule-entry="/plans/features/advanced" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-advancedw2ccwZ/plans/features/advanced/execute/data/tests/precommit/output.txt" name="testout.log" schedule-entry="/plans/features/advanced" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/prepare/adjust" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.218.162.208"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-advancedw2ccwZ/plans/features/advanced/execute/data/tests/prepare/adjust" name="log_dir" schedule-entry="/plans/features/advanced" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-advancedw2ccwZ/plans/features/advanced/execute/data/tests/prepare/adjust/output.txt" name="testout.log" schedule-entry="/plans/features/advanced" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/prepare/ansible" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.218.162.208"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-advancedw2ccwZ/plans/features/advanced/execute/data/tests/prepare/ansible" name="log_dir" schedule-entry="/plans/features/advanced" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-advancedw2ccwZ/plans/features/advanced/execute/data/tests/prepare/ansible/output.txt" name="testout.log" schedule-entry="/plans/features/advanced" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/prepare/basic" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.218.162.208"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-advancedw2ccwZ/plans/features/advanced/execute/data/tests/prepare/basic" name="log_dir" schedule-entry="/plans/features/advanced" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-advancedw2ccwZ/plans/features/advanced/execute/data/tests/prepare/basic/output.txt" name="testout.log" schedule-entry="/plans/features/advanced" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/prepare/freeze" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.218.162.208"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-advancedw2ccwZ/plans/features/advanced/execute/data/tests/prepare/freeze" name="log_dir" schedule-entry="/plans/features/advanced" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-advancedw2ccwZ/plans/features/advanced/execute/data/tests/prepare/freeze/output.txt" name="testout.log" schedule-entry="/plans/features/advanced" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/prepare/install" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.218.162.208"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-advancedw2ccwZ/plans/features/advanced/execute/data/tests/prepare/install" name="log_dir" schedule-entry="/plans/features/advanced" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-advancedw2ccwZ/plans/features/advanced/execute/data/tests/prepare/install/output.txt" name="testout.log" schedule-entry="/plans/features/advanced" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/prepare/recommend" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.218.162.208"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-advancedw2ccwZ/plans/features/advanced/execute/data/tests/prepare/recommend" name="log_dir" schedule-entry="/plans/features/advanced" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-advancedw2ccwZ/plans/features/advanced/execute/data/tests/prepare/recommend/output.txt" name="testout.log" schedule-entry="/plans/features/advanced" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/prepare/require" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.218.162.208"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-advancedw2ccwZ/plans/features/advanced/execute/data/tests/prepare/require" name="log_dir" schedule-entry="/plans/features/advanced" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-advancedw2ccwZ/plans/features/advanced/execute/data/tests/prepare/require/output.txt" name="testout.log" schedule-entry="/plans/features/advanced" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/prepare/shell" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.218.162.208"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-advancedw2ccwZ/plans/features/advanced/execute/data/tests/prepare/shell" name="log_dir" schedule-entry="/plans/features/advanced" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-advancedw2ccwZ/plans/features/advanced/execute/data/tests/prepare/shell/output.txt" name="testout.log" schedule-entry="/plans/features/advanced" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/run/permissions" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.218.162.208"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-advancedw2ccwZ/plans/features/advanced/execute/data/tests/run/permissions" name="log_dir" schedule-entry="/plans/features/advanced" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-advancedw2ccwZ/plans/features/advanced/execute/data/tests/run/permissions/output.txt" name="testout.log" schedule-entry="/plans/features/advanced" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+ </testsuite>
+ <testsuite name="/plans/features/basic" result="failed" tests="77">
+  <logs>
+   <log guest-setup-stage="artifact_installation" href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/guest-setup-1688aa52-781f-48a7-8001-736e630363d2/artifact-installation-1688aa52-781f-48a7-8001-736e630363d2" name="Copr build(s) installation" schedule-stage="guest-setup"/>
+   <log guest-setup-stage="pre_artifact_installation" href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/guest-setup-1688aa52-781f-48a7-8001-736e630363d2/guest-setup-output-pre-artifact-installation.txt" name="guest setup" schedule-stage="guest-setup"/>
+   <log guest-setup-stage="post_artifact_installation" href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/guest-setup-1688aa52-781f-48a7-8001-736e630363d2/guest-setup-output-post-artifact-installation.txt" name="guest setup" schedule-stage="guest-setup"/>
+   <log href="./scenarios/tmt-mixed/work-basic_WExhR/tmt-reproducer.sh" name="tmt-reproducer"/>
+   <log href="./scenarios/tmt-mixed/work-basic_WExhR" name="workdir"/>
+  </logs>
+  <properties>
+   <property name="baseosci.result" value="failed"/>
+  </properties>
+  <testcase name="/tests/clean/chain" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/clean/chain" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/clean/chain/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/clean/guests" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+     <log href="./scenarios/tmt-mixed/work-basic_WExhR/plans/features/basic/execute/data/tests/clean/guests" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="./scenarios/tmt-mixed/work-basic_WExhR/plans/features/basic/execute/data/tests/clean/guests/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/clean/runs" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/clean/runs" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/clean/runs/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/discover/distgit" result="failed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/discover/distgit" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/discover/distgit/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <failure/>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/discover/filtering" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/discover/filtering" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/discover/filtering/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/discover/modified" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/discover/modified" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/discover/modified/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/discover/options" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/discover/options" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/discover/options/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/discover/parametrize" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/discover/parametrize" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/discover/parametrize/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/discover/references" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/discover/references" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/discover/references/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/discover/scripts" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/discover/scripts" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/discover/scripts/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/discover/duration" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/discover/duration" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/discover/duration/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/discover/manual" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/discover/manual" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/discover/manual/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/discover/no-git-needed" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/discover/no-git-needed" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/discover/no-git-needed/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/execute/basic" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/execute/basic" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/execute/basic/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/execute/codes" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/execute/codes" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/execute/codes/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/execute/duration" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/execute/duration" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/execute/duration/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/execute/exit-first" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/execute/exit-first" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/execute/exit-first/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/execute/multiline" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/execute/multiline" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/execute/multiline/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/execute/reboot/basic" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/execute/reboot/basic" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/execute/reboot/basic/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/execute/reboot/multi-part" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/execute/reboot/multi-part" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/execute/reboot/multi-part/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/execute/restraint/report-log" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/execute/restraint/report-log" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/execute/restraint/report-log/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/execute/restraint/report-result" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/execute/restraint/report-result" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/execute/restraint/report-result/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/execute/restraint/tmt-abort" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/execute/restraint/tmt-abort" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/execute/restraint/tmt-abort/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/execute/result/basic" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/execute/result/basic" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/execute/result/basic/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/execute/result/custom" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/execute/result/custom" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/execute/result/custom/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/execute/script" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/execute/script" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/execute/script/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/execute/upgrade/ignore_test" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/execute/upgrade/ignore_test" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/execute/upgrade/ignore_test/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/execute/upgrade/override" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/execute/upgrade/override" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/execute/upgrade/override/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/execute/upgrade/simple" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/execute/upgrade/simple" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/execute/upgrade/simple/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/execute/weird" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/execute/weird" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/execute/weird/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/finish/ansible" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/finish/ansible" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/finish/ansible/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/finish/basic" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/finish/basic" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/finish/basic/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/init/base" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/init/base" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/init/base/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/init/full" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/init/full" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/init/full/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/init/mini" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/init/mini" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/init/mini/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/init/nested" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/init/nested" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/init/nested/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/libraries/recursion" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/libraries/recursion" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/libraries/recursion/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/lint" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/lint" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/lint/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/login/debug" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/login/debug" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/login/debug/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/login/reserve" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/login/reserve" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/login/reserve/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/login/step" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/login/step" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/login/step/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/login/when" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/login/when" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/login/when/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/multihost/prepare" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/multihost/prepare" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/multihost/prepare/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/multihost/provision" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/multihost/provision" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/multihost/provision/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/plan/create" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/plan/create" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/plan/create/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/plan/export" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/plan/export" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/plan/export/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/plan/lint" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/plan/lint" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/plan/lint/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/plan/select" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/plan/select" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/plan/select/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/plan/show" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/plan/show" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/plan/show/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/provision/reboot" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/provision/reboot" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/provision/reboot/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/provision/user" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/provision/user" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/provision/user/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/pull/results" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/pull/results" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/pull/results/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/pull/simple" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/pull/simple" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/pull/simple/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/report/html" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/report/html" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/report/html/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/report/junit" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/report/junit" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/report/junit/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/report/summary" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/report/summary" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/report/summary/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/run/default" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/run/default" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/run/default/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/run/recursion" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/run/recursion" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/run/recursion/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/run/remove" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/run/remove" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/run/remove/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/run/root" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/run/root" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/run/root/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/run/worktree" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/run/worktree" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/run/worktree/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/security/ansible" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/security/ansible" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/security/ansible/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/status/base" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/status/base" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/status/base/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/steps/invalid" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/steps/invalid" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/steps/invalid/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/steps/select" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/steps/select" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/steps/select/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/story/create" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/story/create" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/story/create/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/story/lint" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/story/lint" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/story/lint/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/story/priority" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/story/priority" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/story/priority/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/story/show" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/story/show" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/story/show/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/test/create" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/test/create" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/test/create/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/test/debug" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/test/debug" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/test/debug/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/test/export" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/test/export" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/test/export/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/test/identifier" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/test/identifier" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/test/identifier/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/test/import" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/test/import" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/test/import/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/test/lint" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/test/lint" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/test/lint/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/test/select" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/test/select" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/test/select/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/test/show" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.188.21.115"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/test/show" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/test/show/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+ </testsuite>
+ <testsuite name="/plans/features/core" result="passed" tests="17">
+  <logs>
+   <log guest-setup-stage="artifact_installation" href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/guest-setup-fcdf92ec-8078-43c3-b5e7-1d8637035ba1/artifact-installation-fcdf92ec-8078-43c3-b5e7-1d8637035ba1" name="Copr build(s) installation" schedule-stage="guest-setup"/>
+   <log guest-setup-stage="pre_artifact_installation" href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/guest-setup-fcdf92ec-8078-43c3-b5e7-1d8637035ba1/guest-setup-output-pre-artifact-installation.txt" name="guest setup" schedule-stage="guest-setup"/>
+   <log guest-setup-stage="post_artifact_installation" href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/guest-setup-fcdf92ec-8078-43c3-b5e7-1d8637035ba1/guest-setup-output-post-artifact-installation.txt" name="guest setup" schedule-stage="guest-setup"/>
+   <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-core5IC43P/tmt-reproducer.sh" name="tmt-reproducer"/>
+   <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-core5IC43P" name="workdir"/>
+  </logs>
+  <properties>
+   <property name="baseosci.result" value="passed"/>
+  </properties>
+  <testcase name="/tests/core/adjust" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.117.169.166"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-core5IC43P/plans/features/core/execute/data/tests/core/adjust" name="log_dir" schedule-entry="/plans/features/core" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-core5IC43P/plans/features/core/execute/data/tests/core/adjust/output.txt" name="testout.log" schedule-entry="/plans/features/core" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/core/debug" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.117.169.166"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-core5IC43P/plans/features/core/execute/data/tests/core/debug" name="log_dir" schedule-entry="/plans/features/core" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-core5IC43P/plans/features/core/execute/data/tests/core/debug/output.txt" name="testout.log" schedule-entry="/plans/features/core" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/core/docs" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.117.169.166"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-core5IC43P/plans/features/core/execute/data/tests/core/docs" name="log_dir" schedule-entry="/plans/features/core" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-core5IC43P/plans/features/core/execute/data/tests/core/docs/output.txt" name="testout.log" schedule-entry="/plans/features/core" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/core/dry" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.117.169.166"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-core5IC43P/plans/features/core/execute/data/tests/core/dry" name="log_dir" schedule-entry="/plans/features/core" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-core5IC43P/plans/features/core/execute/data/tests/core/dry/output.txt" name="testout.log" schedule-entry="/plans/features/core" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/core/enabled" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.117.169.166"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-core5IC43P/plans/features/core/execute/data/tests/core/enabled" name="log_dir" schedule-entry="/plans/features/core" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-core5IC43P/plans/features/core/execute/data/tests/core/enabled/output.txt" name="testout.log" schedule-entry="/plans/features/core" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/core/env" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.117.169.166"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-core5IC43P/plans/features/core/execute/data/tests/core/env" name="log_dir" schedule-entry="/plans/features/core" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-core5IC43P/plans/features/core/execute/data/tests/core/env/output.txt" name="testout.log" schedule-entry="/plans/features/core" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/core/environment-file" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.117.169.166"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-core5IC43P/plans/features/core/execute/data/tests/core/environment-file" name="log_dir" schedule-entry="/plans/features/core" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-core5IC43P/plans/features/core/execute/data/tests/core/environment-file/output.txt" name="testout.log" schedule-entry="/plans/features/core" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/core/error" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.117.169.166"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-core5IC43P/plans/features/core/execute/data/tests/core/error" name="log_dir" schedule-entry="/plans/features/core" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-core5IC43P/plans/features/core/execute/data/tests/core/error/output.txt" name="testout.log" schedule-entry="/plans/features/core" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/core/escaping" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.117.169.166"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-core5IC43P/plans/features/core/execute/data/tests/core/escaping" name="log_dir" schedule-entry="/plans/features/core" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-core5IC43P/plans/features/core/execute/data/tests/core/escaping/output.txt" name="testout.log" schedule-entry="/plans/features/core" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/core/force" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.117.169.166"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-core5IC43P/plans/features/core/execute/data/tests/core/force" name="log_dir" schedule-entry="/plans/features/core" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-core5IC43P/plans/features/core/execute/data/tests/core/force/output.txt" name="testout.log" schedule-entry="/plans/features/core" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/core/link" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.117.169.166"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-core5IC43P/plans/features/core/execute/data/tests/core/link" name="log_dir" schedule-entry="/plans/features/core" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-core5IC43P/plans/features/core/execute/data/tests/core/link/output.txt" name="testout.log" schedule-entry="/plans/features/core" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/core/ls" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.117.169.166"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-core5IC43P/plans/features/core/execute/data/tests/core/ls" name="log_dir" schedule-entry="/plans/features/core" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-core5IC43P/plans/features/core/execute/data/tests/core/ls/output.txt" name="testout.log" schedule-entry="/plans/features/core" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/core/order" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.117.169.166"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-core5IC43P/plans/features/core/execute/data/tests/core/order" name="log_dir" schedule-entry="/plans/features/core" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-core5IC43P/plans/features/core/execute/data/tests/core/order/output.txt" name="testout.log" schedule-entry="/plans/features/core" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/core/path" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.117.169.166"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-core5IC43P/plans/features/core/execute/data/tests/core/path" name="log_dir" schedule-entry="/plans/features/core" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-core5IC43P/plans/features/core/execute/data/tests/core/path/output.txt" name="testout.log" schedule-entry="/plans/features/core" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/core/smoke" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.117.169.166"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-core5IC43P/plans/features/core/execute/data/tests/core/smoke" name="log_dir" schedule-entry="/plans/features/core" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-core5IC43P/plans/features/core/execute/data/tests/core/smoke/output.txt" name="testout.log" schedule-entry="/plans/features/core" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/core/spaces" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.117.169.166"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-core5IC43P/plans/features/core/execute/data/tests/core/spaces" name="log_dir" schedule-entry="/plans/features/core" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-core5IC43P/plans/features/core/execute/data/tests/core/spaces/output.txt" name="testout.log" schedule-entry="/plans/features/core" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/unit" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.117.169.166"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-core5IC43P/plans/features/core/execute/data/tests/unit" name="log_dir" schedule-entry="/plans/features/core" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-core5IC43P/plans/features/core/execute/data/tests/unit/output.txt" name="testout.log" schedule-entry="/plans/features/core" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+ </testsuite>
+ <testsuite name="/plans/install/docs" result="passed" tests="1">
+  <logs>
+   <log guest-setup-stage="artifact_installation" href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/guest-setup-d7a42c6a-1bfc-448d-aaef-635f94c4641c/artifact-installation-d7a42c6a-1bfc-448d-aaef-635f94c4641c" name="Copr build(s) installation" schedule-stage="guest-setup"/>
+   <log guest-setup-stage="pre_artifact_installation" href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/guest-setup-d7a42c6a-1bfc-448d-aaef-635f94c4641c/guest-setup-output-pre-artifact-installation.txt" name="guest setup" schedule-stage="guest-setup"/>
+   <log guest-setup-stage="post_artifact_installation" href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/guest-setup-d7a42c6a-1bfc-448d-aaef-635f94c4641c/guest-setup-output-post-artifact-installation.txt" name="guest setup" schedule-stage="guest-setup"/>
+   <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-docsm1YOi3/tmt-reproducer.sh" name="tmt-reproducer"/>
+   <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-docsm1YOi3" name="workdir"/>
+  </logs>
+  <properties>
+   <property name="baseosci.result" value="passed"/>
+  </properties>
+  <testcase name="/script-00" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="52.15.185.202"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-docsm1YOi3/plans/install/docs/execute/data/script-00" name="log_dir" schedule-entry="/plans/install/docs" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-docsm1YOi3/plans/install/docs/execute/data/script-00/output.txt" name="testout.log" schedule-entry="/plans/install/docs" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+ </testsuite>
+ <testsuite name="/plans/install/minimal" result="passed" tests="1">
+  <logs>
+   <log guest-setup-stage="artifact_installation" href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/guest-setup-5eac199b-9f64-440d-974d-0bee360f9bb3/artifact-installation-5eac199b-9f64-440d-974d-0bee360f9bb3" name="Copr build(s) installation" schedule-stage="guest-setup"/>
+   <log guest-setup-stage="pre_artifact_installation" href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/guest-setup-5eac199b-9f64-440d-974d-0bee360f9bb3/guest-setup-output-pre-artifact-installation.txt" name="guest setup" schedule-stage="guest-setup"/>
+   <log guest-setup-stage="post_artifact_installation" href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/guest-setup-5eac199b-9f64-440d-974d-0bee360f9bb3/guest-setup-output-post-artifact-installation.txt" name="guest setup" schedule-stage="guest-setup"/>
+   <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-minimalpuAs74/tmt-reproducer.sh" name="tmt-reproducer"/>
+   <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-minimalpuAs74" name="workdir"/>
+  </logs>
+  <properties>
+   <property name="baseosci.result" value="passed"/>
+  </properties>
+  <testcase name="/script-00" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="3.142.51.25"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-minimalpuAs74/plans/install/minimal/execute/data/script-00" name="log_dir" schedule-entry="/plans/install/minimal" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-minimalpuAs74/plans/install/minimal/execute/data/script-00/output.txt" name="testout.log" schedule-entry="/plans/install/minimal" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+ </testsuite>
+ <testsuite name="/plans/install/pip" result="passed" tests="3">
+  <logs>
+   <log guest-setup-stage="artifact_installation" href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/guest-setup-e264f002-c978-40fa-8fc6-1584f6f16e83/artifact-installation-e264f002-c978-40fa-8fc6-1584f6f16e83" name="Copr build(s) installation" schedule-stage="guest-setup"/>
+   <log guest-setup-stage="pre_artifact_installation" href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/guest-setup-e264f002-c978-40fa-8fc6-1584f6f16e83/guest-setup-output-pre-artifact-installation.txt" name="guest setup" schedule-stage="guest-setup"/>
+   <log guest-setup-stage="post_artifact_installation" href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/guest-setup-e264f002-c978-40fa-8fc6-1584f6f16e83/guest-setup-output-post-artifact-installation.txt" name="guest setup" schedule-stage="guest-setup"/>
+   <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-pipJkmFmQ/tmt-reproducer.sh" name="tmt-reproducer"/>
+   <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-pipJkmFmQ" name="workdir"/>
+  </logs>
+  <properties>
+   <property name="baseosci.result" value="passed"/>
+  </properties>
+  <testcase name="/script-00" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="3.143.108.92"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-pipJkmFmQ/plans/install/pip/execute/data/script-00" name="log_dir" schedule-entry="/plans/install/pip" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-pipJkmFmQ/plans/install/pip/execute/data/script-00/output.txt" name="testout.log" schedule-entry="/plans/install/pip" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/script-01" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="3.143.108.92"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-pipJkmFmQ/plans/install/pip/execute/data/script-01" name="log_dir" schedule-entry="/plans/install/pip" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-pipJkmFmQ/plans/install/pip/execute/data/script-01/output.txt" name="testout.log" schedule-entry="/plans/install/pip" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/script-02" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="3.143.108.92"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-pipJkmFmQ/plans/install/pip/execute/data/script-02" name="log_dir" schedule-entry="/plans/install/pip" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-pipJkmFmQ/plans/install/pip/execute/data/script-02/output.txt" name="testout.log" schedule-entry="/plans/install/pip" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+ </testsuite>
+ <testsuite name="/plans/integration" result="passed" tests="2">
+  <logs>
+   <log guest-setup-stage="artifact_installation" href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/guest-setup-8517374a-6de6-4126-9158-ec2cd867735b/artifact-installation-8517374a-6de6-4126-9158-ec2cd867735b" name="Copr build(s) installation" schedule-stage="guest-setup"/>
+   <log guest-setup-stage="pre_artifact_installation" href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/guest-setup-8517374a-6de6-4126-9158-ec2cd867735b/guest-setup-output-pre-artifact-installation.txt" name="guest setup" schedule-stage="guest-setup"/>
+   <log guest-setup-stage="post_artifact_installation" href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/guest-setup-8517374a-6de6-4126-9158-ec2cd867735b/guest-setup-output-post-artifact-installation.txt" name="guest setup" schedule-stage="guest-setup"/>
+   <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-integrationP8OHSN/tmt-reproducer.sh" name="tmt-reproducer"/>
+   <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-integrationP8OHSN" name="workdir"/>
+  </logs>
+  <properties>
+   <property name="baseosci.result" value="passed"/>
+  </properties>
+  <testcase name="/tests/integration/coverage_bugzilla" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.191.204.57"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-integrationP8OHSN/plans/integration/execute/data/tests/integration/coverage_bugzilla" name="log_dir" schedule-entry="/plans/integration" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-integrationP8OHSN/plans/integration/execute/data/tests/integration/coverage_bugzilla/output.txt" name="testout.log" schedule-entry="/plans/integration" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests/integration/the_rest" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="18.191.204.57"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-integrationP8OHSN/plans/integration/execute/data/tests/integration/the_rest" name="log_dir" schedule-entry="/plans/integration" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-integrationP8OHSN/plans/integration/execute/data/tests/integration/the_rest/output.txt" name="testout.log" schedule-entry="/plans/integration" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+ </testsuite>
+ <testsuite name="/plans/sanity/lint" result="passed" tests="2">
+  <logs>
+   <log guest-setup-stage="artifact_installation" href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/guest-setup-1ffbfd9b-a609-4ffe-aa68-dc4e6ffc64ee/artifact-installation-1ffbfd9b-a609-4ffe-aa68-dc4e6ffc64ee" name="Copr build(s) installation" schedule-stage="guest-setup"/>
+   <log guest-setup-stage="pre_artifact_installation" href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/guest-setup-1ffbfd9b-a609-4ffe-aa68-dc4e6ffc64ee/guest-setup-output-pre-artifact-installation.txt" name="guest setup" schedule-stage="guest-setup"/>
+   <log guest-setup-stage="post_artifact_installation" href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/guest-setup-1ffbfd9b-a609-4ffe-aa68-dc4e6ffc64ee/guest-setup-output-post-artifact-installation.txt" name="guest setup" schedule-stage="guest-setup"/>
+   <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-lintMKAmDc/tmt-reproducer.sh" name="tmt-reproducer"/>
+   <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-lintMKAmDc" name="workdir"/>
+  </logs>
+  <properties>
+   <property name="baseosci.result" value="passed"/>
+  </properties>
+  <testcase name="/lint/tests" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="3.143.238.222"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-lintMKAmDc/plans/sanity/lint/execute/data/lint/tests" name="log_dir" schedule-entry="/plans/sanity/lint" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-lintMKAmDc/plans/sanity/lint/execute/data/lint/tests/output.txt" name="testout.log" schedule-entry="/plans/sanity/lint" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/lint/plans" result="passed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="3.143.238.222"/>
+    <property name="baseosci.distro" value="Fedora-35"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-lintMKAmDc/plans/sanity/lint/execute/data/lint/plans" name="log_dir" schedule-entry="/plans/sanity/lint" schedule-stage="running"/>
+    <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-lintMKAmDc/plans/sanity/lint/execute/data/lint/plans/output.txt" name="testout.log" schedule-entry="/plans/sanity/lint" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-35"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+ </testsuite>
+</testsuites>

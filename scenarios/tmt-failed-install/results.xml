@@ -1,0 +1,14 @@
+<testsuites overall-result="error">
+ <properties>
+  <property name="baseosci.overall-result" value="error"/>
+ </properties>
+ <testsuite name="/plans/ci" result="undefined" tests="0">
+  <logs>
+    <log guest-setup-stage="artifact_installation" href="./scenarios/tmt-failed-install/guest-setup-2f53d6d4-ef46-42af-a3d1-c87db9490f27/artifact-installation-2f53d6d4-ef46-42af-a3d1-c87db9490f27" name="build installation" schedule-stage="guest-setup"/>
+    <log guest-setup-stage="pre_artifact_installation" href="./scenarios/tmt-failed-install/guest-setup-2f53d6d4-ef46-42af-a3d1-c87db9490f27/guest-setup-output-pre-artifact-installation.txt" name="guest setup" schedule-stage="guest-setup"/>
+  </logs>
+  <properties>
+   <property name="baseosci.result" value="undefined"/>
+  </properties>
+ </testsuite>
+</testsuites>

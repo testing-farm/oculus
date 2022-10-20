@@ -1,0 +1,872 @@
+# STDOUT:
+---v---v---v---v---v---
+Using /etc/ansible/ansible.cfg as config file
+
+PLAY [localhost] ***************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [sut]
+
+TASK [str-common-init : Check if system is Atomic Host] ************************
+ok: [sut] => {
+    "backup": "",
+    "changed": false,
+    "found": 0
+}
+
+TASK [str-common-init : Set fact 'is_atomic'] **********************************
+ok: [sut] => {
+    "ansible_facts": {
+        "is_atomic": false
+    },
+    "changed": false
+}
+
+TASK [str-common-init : Set facts about system] ********************************
+ok: [sut] => {
+    "ansible_facts": {
+        "is_dnf_os": true,
+        "is_rhel8_based": false,
+        "is_yum_os": false
+    },
+    "changed": false
+}
+
+TASK [str-common-init : Hardcode Python 3 interpreter for ansible modules] *****
+skipping: [sut] => {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+
+TASK [str-common-init : debug] *************************************************
+ok: [sut] => {}
+
+MSG:
+
+System uses yum: False
+
+TASK [str-common-init : debug] *************************************************
+ok: [sut] => {}
+
+MSG:
+
+System uses dnf: True
+
+TASK [str-common-init : debug] *************************************************
+ok: [sut] => {}
+
+MSG:
+
+System is Atomic Host: False
+
+TASK [str-common-init : Add test-runner to ansible inventory] ******************
+changed: [sut] => {
+    "add_host": {
+        "groups": [],
+        "host_name": "test-runner",
+        "host_vars": {
+            "ansible_connection": "local"
+        }
+    },
+    "changed": true
+}
+
+TASK [str-common-init : Set ansible_python_interpreter to /usr/bin/python3] ****
+skipping: [sut] => {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+
+TASK [str-common-init : Gather facts from test-runner] *************************
+ok: [sut -> test-runner]
+
+TASK [str-common-init : Set facts about test-runner] ***************************
+ok: [sut -> test-runner] => {
+    "ansible_facts": {
+        "is_dnf_os": true,
+        "is_rhel8_based": false,
+        "is_yum_os": false
+    },
+    "changed": false
+}
+
+TASK [str-common-init : Hardcode Python 3 interpreter for ansible modules for test-runner] ***
+skipping: [sut] => {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+
+TASK [str-common-init : Fetch tests from remote repositories] ******************
+skipping: [sut] => (item=None)  => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": null,
+    "skip_reason": "Conditional result was False"
+}
+
+TASK [str-common-init : set_fact] **********************************************
+ok: [sut -> test-runner] => {
+    "ansible_facts": {
+        "filter_command": "str-filter-tests"
+    },
+    "changed": false
+}
+
+TASK [str-common-init : set_fact] **********************************************
+skipping: [sut] => {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+
+TASK [str-common-init : set_fact] **********************************************
+skipping: [sut] => (item=None)  => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": null,
+    "skip_reason": "Conditional result was False"
+}
+
+TASK [str-common-init : debug] *************************************************
+ok: [sut -> test-runner] => {
+    "filter_command": "str-filter-tests"
+}
+
+TASK [str-common-init : set_fact] **********************************************
+ok: [sut -> test-runner] => {
+    "ansible_facts": {
+        "filter_tests": []
+    },
+    "changed": false
+}
+
+TASK [str-common-init : Filter tests according to provided fmf filters] ********
+skipping: [sut] => {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+
+TASK [str-common-init : debug] *************************************************
+skipping: [sut] => {
+    "skipped_reason": "Verbosity threshold not met."
+}
+
+TASK [str-common-init : set_fact] **********************************************
+skipping: [sut] => {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+
+TASK [str-common-init : debug] *************************************************
+ok: [sut -> test-runner] => {
+    "filter_tests": []
+}
+
+TASK [str-common-init : debug] *************************************************
+ok: [sut] => {}
+
+MSG:
+
+test-runner is: CentOS
+
+
+TASK [str-common-init : debug] *************************************************
+ok: [sut] => {}
+
+MSG:
+
+test-runner uses yum: False
+
+
+TASK [str-common-init : debug] *************************************************
+ok: [sut] => {}
+
+MSG:
+
+test-runner uses dnf: True
+
+
+TASK [str-common-init : debug] *************************************************
+ok: [sut] => {}
+
+MSG:
+
+test-runner is RHEL8 based OS: False
+
+
+TASK [Install packages requested in `required_packages` section from tests.yml] ***
+
+TASK [str-common-pkgs : Build packages lists to be present on test environment] ***
+ok: [sut] => (item=vdo) => {
+    "ansible_facts": {
+        "pkgs_debuginfo_req": [],
+        "pkgs_ordinary_req": [
+            "vdo"
+        ]
+    },
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "vdo"
+}
+ok: [sut] => (item=device-mapper-event) => {
+    "ansible_facts": {
+        "pkgs_debuginfo_req": [],
+        "pkgs_ordinary_req": [
+            "vdo",
+            "device-mapper-event"
+        ]
+    },
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "device-mapper-event"
+}
+ok: [sut] => (item=device-mapper-event-libs) => {
+    "ansible_facts": {
+        "pkgs_debuginfo_req": [],
+        "pkgs_ordinary_req": [
+            "vdo",
+            "device-mapper-event",
+            "device-mapper-event-libs"
+        ]
+    },
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "device-mapper-event-libs"
+}
+ok: [sut] => (item=device-mapper-persistent-data) => {
+    "ansible_facts": {
+        "pkgs_debuginfo_req": [],
+        "pkgs_ordinary_req": [
+            "vdo",
+            "device-mapper-event",
+            "device-mapper-event-libs",
+            "device-mapper-persistent-data"
+        ]
+    },
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "device-mapper-persistent-data"
+}
+ok: [sut] => (item=libaio) => {
+    "ansible_facts": {
+        "pkgs_debuginfo_req": [],
+        "pkgs_ordinary_req": [
+            "vdo",
+            "device-mapper-event",
+            "device-mapper-event-libs",
+            "device-mapper-persistent-data",
+            "libaio"
+        ]
+    },
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "libaio"
+}
+ok: [sut] => (item=lvm2) => {
+    "ansible_facts": {
+        "pkgs_debuginfo_req": [],
+        "pkgs_ordinary_req": [
+            "vdo",
+            "device-mapper-event",
+            "device-mapper-event-libs",
+            "device-mapper-persistent-data",
+            "libaio",
+            "lvm2"
+        ]
+    },
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "lvm2"
+}
+ok: [sut] => (item=lvm2-libs) => {
+    "ansible_facts": {
+        "pkgs_debuginfo_req": [],
+        "pkgs_ordinary_req": [
+            "vdo",
+            "device-mapper-event",
+            "device-mapper-event-libs",
+            "device-mapper-persistent-data",
+            "libaio",
+            "lvm2",
+            "lvm2-libs"
+        ]
+    },
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "lvm2-libs"
+}
+ok: [sut] => (item=beakerlib) => {
+    "ansible_facts": {
+        "pkgs_debuginfo_req": [],
+        "pkgs_ordinary_req": [
+            "vdo",
+            "device-mapper-event",
+            "device-mapper-event-libs",
+            "device-mapper-persistent-data",
+            "libaio",
+            "lvm2",
+            "lvm2-libs",
+            "beakerlib"
+        ]
+    },
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "beakerlib"
+}
+ok: [sut] => (item=rsync) => {
+    "ansible_facts": {
+        "pkgs_debuginfo_req": [],
+        "pkgs_ordinary_req": [
+            "vdo",
+            "device-mapper-event",
+            "device-mapper-event-libs",
+            "device-mapper-persistent-data",
+            "libaio",
+            "lvm2",
+            "lvm2-libs",
+            "beakerlib",
+            "rsync"
+        ]
+    },
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "rsync"
+}
+ok: [sut] => (item=make) => {
+    "ansible_facts": {
+        "pkgs_debuginfo_req": [],
+        "pkgs_ordinary_req": [
+            "vdo",
+            "device-mapper-event",
+            "device-mapper-event-libs",
+            "device-mapper-persistent-data",
+            "libaio",
+            "lvm2",
+            "lvm2-libs",
+            "beakerlib",
+            "rsync",
+            "make"
+        ]
+    },
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "make"
+}
+ok: [sut] => (item=beakerlib-libraries) => {
+    "ansible_facts": {
+        "pkgs_debuginfo_req": [],
+        "pkgs_ordinary_req": [
+            "vdo",
+            "device-mapper-event",
+            "device-mapper-event-libs",
+            "device-mapper-persistent-data",
+            "libaio",
+            "lvm2",
+            "lvm2-libs",
+            "beakerlib",
+            "rsync",
+            "make",
+            "beakerlib-libraries"
+        ]
+    },
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "beakerlib-libraries"
+}
+
+TASK [str-common-pkgs : Set package manager variable] **************************
+ok: [sut] => {
+    "ansible_facts": {
+        "pkg_mgr": "dnf\n"
+    },
+    "changed": false
+}
+
+TASK [str-common-pkgs : debug] *************************************************
+ok: [sut] => {}
+
+MSG:
+
+Package manager: dnf
+
+
+TASK [str-common-pkgs : include_tasks] *****************************************
+included: /usr/share/ansible/roles/str-common-pkgs/tasks/pkgs-dnf.yml for sut
+
+TASK [str-common-pkgs : Install additional dnf packages] ***********************
+changed: [sut] => (item=dnf-plugins-core) => {
+    "ansible_loop_var": "item",
+    "attempts": 1,
+    "changed": true,
+    "cmd": "dnf install --assumeyes --allowerasing dnf-plugins-core\n",
+    "delta": "0:00:01.064569",
+    "end": "2022-09-20 12:46:15.106904",
+    "item": "dnf-plugins-core",
+    "rc": 0,
+    "start": "2022-09-20 12:46:14.042335"
+}
+
+STDOUT:
+
+Test artifacts repository                       1.1 MB/s | 3.4 kB     00:00    
+Package dnf-plugins-core-4.1.0-3.el9.noarch is already installed.
+Dependencies resolved.
+Nothing to do.
+Complete!
+changed: [sut] => (item=dnf-utils) => {
+    "ansible_loop_var": "item",
+    "attempts": 1,
+    "changed": true,
+    "cmd": "dnf install --assumeyes --allowerasing dnf-utils\n",
+    "delta": "0:00:00.680236",
+    "end": "2022-09-20 12:46:16.178280",
+    "item": "dnf-utils",
+    "rc": 0,
+    "start": "2022-09-20 12:46:15.498044"
+}
+
+STDOUT:
+
+Last metadata expiration check: 0:00:01 ago on Tue 20 Sep 2022 12:46:14 PM UTC.
+Package yum-utils-4.1.0-3.el9.noarch is already installed.
+Dependencies resolved.
+Nothing to do.
+Complete!
+
+TASK [str-common-pkgs : Enable copr repos] *************************************
+
+TASK [str-common-pkgs : Install test-specific package requirements] ************
+changed: [sut] => (item=vdo) => {
+    "ansible_loop_var": "item",
+    "attempts": 1,
+    "changed": true,
+    "cmd": "dnf install --assumeyes --allowerasing vdo\n",
+    "delta": "0:00:01.433315",
+    "end": "2022-09-20 12:46:18.061511",
+    "item": "vdo",
+    "rc": 0,
+    "start": "2022-09-20 12:46:16.628196"
+}
+
+STDOUT:
+
+Last metadata expiration check: 0:00:02 ago on Tue 20 Sep 2022 12:46:14 PM UTC.
+Dependencies resolved.
+=======================================================================================
+ Package                    Arch    Version          Repository                    Size
+=======================================================================================
+Installing:
+ vdo                        x86_64  8.2.0.2-1.el9    testing-farm-tag-repository  107 k
+Installing dependencies:
+ device-mapper-event-libs   x86_64  9:1.02.185-3.el9 testing-farm-tag-repository   32 k
+
+Transaction Summary
+=======================================================================================
+Install  2 Packages
+
+Total download size: 139 k
+Installed size: 443 k
+Downloading Packages:
+(1/2): device-mapper-event-libs-1.02.185-3.el9. 179 kB/s |  32 kB     00:00    
+(2/2): vdo-8.2.0.2-1.el9.x86_64.rpm             429 kB/s | 107 kB     00:00    
+--------------------------------------------------------------------------------
+Total                                           553 kB/s | 139 kB     00:00     
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                        1/1 
+  Installing       : device-mapper-event-libs-9:1.02.185-3.el9.x86_64       1/2 
+  Installing       : vdo-8.2.0.2-1.el9.x86_64                               2/2 
+  Running scriptlet: vdo-8.2.0.2-1.el9.x86_64                               2/2 
+  Verifying        : device-mapper-event-libs-9:1.02.185-3.el9.x86_64       1/2 
+  Verifying        : vdo-8.2.0.2-1.el9.x86_64                               2/2 
+
+Installed:
+  device-mapper-event-libs-9:1.02.185-3.el9.x86_64   vdo-8.2.0.2-1.el9.x86_64  
+
+Complete!
+changed: [sut] => (item=device-mapper-event) => {
+    "ansible_loop_var": "item",
+    "attempts": 1,
+    "changed": true,
+    "cmd": "dnf install --assumeyes --allowerasing device-mapper-event\n",
+    "delta": "0:00:01.723901",
+    "end": "2022-09-20 12:46:20.137378",
+    "item": "device-mapper-event",
+    "rc": 0,
+    "start": "2022-09-20 12:46:18.413477"
+}
+
+STDOUT:
+
+Last metadata expiration check: 0:00:04 ago on Tue 20 Sep 2022 12:46:14 PM UTC.
+Dependencies resolved.
+================================================================================
+ Package             Arch   Version           Repository                   Size
+================================================================================
+Installing:
+ device-mapper-event x86_64 9:1.02.185-3.el9  testing-farm-tag-repository  33 k
+
+Transaction Summary
+================================================================================
+Install  1 Package
+
+Total download size: 33 k
+Installed size: 50 k
+Downloading Packages:
+device-mapper-event-1.02.185-3.el9.x86_64.rpm   236 kB/s |  33 kB     00:00    
+--------------------------------------------------------------------------------
+Total                                           234 kB/s |  33 kB     00:00     
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                        1/1 
+  Installing       : device-mapper-event-9:1.02.185-3.el9.x86_64            1/1 
+  Running scriptlet: device-mapper-event-9:1.02.185-3.el9.x86_64            1/1 
+Created symlink /etc/systemd/system/sockets.target.wants/dm-event.socket → /usr/lib/systemd/system/dm-event.socket.
+
+  Verifying        : device-mapper-event-9:1.02.185-3.el9.x86_64            1/1 
+
+Installed:
+  device-mapper-event-9:1.02.185-3.el9.x86_64                                   
+
+Complete!
+changed: [sut] => (item=device-mapper-event-libs) => {
+    "ansible_loop_var": "item",
+    "attempts": 1,
+    "changed": true,
+    "cmd": "dnf install --assumeyes --allowerasing device-mapper-event-libs\n",
+    "delta": "0:00:00.669856",
+    "end": "2022-09-20 12:46:21.204946",
+    "item": "device-mapper-event-libs",
+    "rc": 0,
+    "start": "2022-09-20 12:46:20.535090"
+}
+
+STDOUT:
+
+Last metadata expiration check: 0:00:06 ago on Tue 20 Sep 2022 12:46:14 PM UTC.
+Package device-mapper-event-libs-9:1.02.185-3.el9.x86_64 is already installed.
+Dependencies resolved.
+Nothing to do.
+Complete!
+changed: [sut] => (item=device-mapper-persistent-data) => {
+    "ansible_loop_var": "item",
+    "attempts": 1,
+    "changed": true,
+    "cmd": "dnf install --assumeyes --allowerasing device-mapper-persistent-data\n",
+    "delta": "0:00:01.630967",
+    "end": "2022-09-20 12:46:23.236159",
+    "item": "device-mapper-persistent-data",
+    "rc": 0,
+    "start": "2022-09-20 12:46:21.605192"
+}
+
+STDOUT:
+
+Last metadata expiration check: 0:00:07 ago on Tue 20 Sep 2022 12:46:14 PM UTC.
+Dependencies resolved.
+==========================================================================================
+ Package                         Arch    Version        Repository                    Size
+==========================================================================================
+Installing:
+ device-mapper-persistent-data   x86_64  0.9.0-13.el9   testing-farm-tag-repository  774 k
+Installing dependencies:
+ libaio                          x86_64  0.3.111-13.el9 testing-farm-tag-repository   23 k
+
+Transaction Summary
+==========================================================================================
+Install  2 Packages
+
+Total download size: 797 k
+Installed size: 2.8 M
+Downloading Packages:
+(1/2): libaio-0.3.111-13.el9.x86_64.rpm         128 kB/s |  23 kB     00:00    
+(2/2): device-mapper-persistent-data-0.9.0-13.e 2.5 MB/s | 774 kB     00:00    
+--------------------------------------------------------------------------------
+Total                                           2.5 MB/s | 797 kB     00:00     
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                        1/1 
+  Installing       : libaio-0.3.111-13.el9.x86_64                           1/2 
+  Installing       : device-mapper-persistent-data-0.9.0-13.el9.x86_64      2/2 
+  Running scriptlet: device-mapper-persistent-data-0.9.0-13.el9.x86_64      2/2 
+  Verifying        : device-mapper-persistent-data-0.9.0-13.el9.x86_64      1/2 
+  Verifying        : libaio-0.3.111-13.el9.x86_64                           2/2 
+
+Installed:
+  device-mapper-persistent-data-0.9.0-13.el9.x86_64                             
+  libaio-0.3.111-13.el9.x86_64                                                  
+
+Complete!
+changed: [sut] => (item=libaio) => {
+    "ansible_loop_var": "item",
+    "attempts": 1,
+    "changed": true,
+    "cmd": "dnf install --assumeyes --allowerasing libaio\n",
+    "delta": "0:00:00.678600",
+    "end": "2022-09-20 12:46:24.279432",
+    "item": "libaio",
+    "rc": 0,
+    "start": "2022-09-20 12:46:23.600832"
+}
+
+STDOUT:
+
+Last metadata expiration check: 0:00:09 ago on Tue 20 Sep 2022 12:46:14 PM UTC.
+Package libaio-0.3.111-13.el9.x86_64 is already installed.
+Dependencies resolved.
+Nothing to do.
+Complete!
+changed: [sut] => (item=lvm2) => {
+    "ansible_loop_var": "item",
+    "attempts": 1,
+    "changed": true,
+    "cmd": "dnf install --assumeyes --allowerasing lvm2\n",
+    "delta": "0:00:02.733596",
+    "end": "2022-09-20 12:46:27.380358",
+    "item": "lvm2",
+    "rc": 0,
+    "start": "2022-09-20 12:46:24.646762"
+}
+
+STDOUT:
+
+Last metadata expiration check: 0:00:10 ago on Tue 20 Sep 2022 12:46:14 PM UTC.
+Dependencies resolved.
+================================================================================
+ Package      Arch      Version            Repository                      Size
+================================================================================
+Installing:
+ lvm2         x86_64    9:2.03.16-3.el9    testing-farm-tag-repository    1.5 M
+Installing dependencies:
+ lvm2-libs    x86_64    9:2.03.16-3.el9    testing-farm-tag-repository    982 k
+
+Transaction Summary
+================================================================================
+Install  2 Packages
+
+Total download size: 2.4 M
+Installed size: 6.5 M
+Downloading Packages:
+(1/2): lvm2-2.03.16-3.el9.x86_64.rpm            5.0 MB/s | 1.5 MB     00:00    
+(2/2): lvm2-libs-2.03.16-3.el9.x86_64.rpm       2.1 MB/s | 982 kB     00:00    
+--------------------------------------------------------------------------------
+Total                                           5.3 MB/s | 2.4 MB     00:00     
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                        1/1 
+  Installing       : lvm2-libs-9:2.03.16-3.el9.x86_64                       1/2 
+  Installing       : lvm2-9:2.03.16-3.el9.x86_64                            2/2 
+  Running scriptlet: lvm2-9:2.03.16-3.el9.x86_64                            2/2 
+Created symlink /etc/systemd/system/sysinit.target.wants/lvm2-monitor.service → /usr/lib/systemd/system/lvm2-monitor.service.
+Created symlink /etc/systemd/system/sysinit.target.wants/lvm2-lvmpolld.socket → /usr/lib/systemd/system/lvm2-lvmpolld.socket.
+
+  Verifying        : lvm2-9:2.03.16-3.el9.x86_64                            1/2 
+  Verifying        : lvm2-libs-9:2.03.16-3.el9.x86_64                       2/2 
+
+Installed:
+  lvm2-9:2.03.16-3.el9.x86_64          lvm2-libs-9:2.03.16-3.el9.x86_64         
+
+Complete!
+changed: [sut] => (item=lvm2-libs) => {
+    "ansible_loop_var": "item",
+    "attempts": 1,
+    "changed": true,
+    "cmd": "dnf install --assumeyes --allowerasing lvm2-libs\n",
+    "delta": "0:00:00.683370",
+    "end": "2022-09-20 12:46:28.447604",
+    "item": "lvm2-libs",
+    "rc": 0,
+    "start": "2022-09-20 12:46:27.764234"
+}
+
+STDOUT:
+
+Last metadata expiration check: 0:00:14 ago on Tue 20 Sep 2022 12:46:14 PM UTC.
+Package lvm2-libs-9:2.03.16-3.el9.x86_64 is already installed.
+Dependencies resolved.
+Nothing to do.
+Complete!
+changed: [sut] => (item=beakerlib) => {
+    "ansible_loop_var": "item",
+    "attempts": 1,
+    "changed": true,
+    "cmd": "dnf install --assumeyes --allowerasing beakerlib\n",
+    "delta": "0:00:01.867451",
+    "end": "2022-09-20 12:46:30.704437",
+    "item": "beakerlib",
+    "rc": 0,
+    "start": "2022-09-20 12:46:28.836986"
+}
+
+STDOUT:
+
+Last metadata expiration check: 0:00:15 ago on Tue 20 Sep 2022 12:46:14 PM UTC.
+Package beakerlib-1.29.1-1.20220825162617035131.master.3.g1b586d6.el9.noarch is already installed.
+Dependencies resolved.
+================================================================================
+ Package            Architecture    Version                 Repository     Size
+================================================================================
+Upgrading:
+ beakerlib          noarch          1.29.2-1.el9            epel          165 k
+
+Transaction Summary
+================================================================================
+Upgrade  1 Package
+
+Total download size: 165 k
+Downloading Packages:
+beakerlib-1.29.2-1.el9.noarch.rpm               845 kB/s | 165 kB     00:00    
+--------------------------------------------------------------------------------
+Total                                           297 kB/s | 165 kB     00:00     
+Extra Packages for Enterprise Linux 9 - x86_64  1.6 MB/s | 1.6 kB     00:00    
+Key imported successfully
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                        1/1 
+  Upgrading        : beakerlib-1.29.2-1.el9.noarch                          1/2 
+  Cleanup          : beakerlib-1.29.1-1.20220825162617035131.master.3.g1b   2/2 
+  Running scriptlet: beakerlib-1.29.1-1.20220825162617035131.master.3.g1b   2/2 
+  Verifying        : beakerlib-1.29.2-1.el9.noarch                          1/2 
+  Verifying        : beakerlib-1.29.1-1.20220825162617035131.master.3.g1b   2/2 
+
+Upgraded:
+  beakerlib-1.29.2-1.el9.noarch                                                 
+
+Complete!
+
+
+STDERR:
+
+Importing GPG key 0x3228467C:
+ Userid     : "Fedora (epel9) <epel@fedoraproject.org>"
+ Fingerprint: FF8A D134 4597 106E CE81 3B91 8A38 72BF 3228 467C
+ From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-9
+changed: [sut] => (item=rsync) => {
+    "ansible_loop_var": "item",
+    "attempts": 1,
+    "changed": true,
+    "cmd": "dnf install --assumeyes --allowerasing rsync\n",
+    "delta": "0:00:00.687971",
+    "end": "2022-09-20 12:46:31.760709",
+    "item": "rsync",
+    "rc": 0,
+    "start": "2022-09-20 12:46:31.072738"
+}
+
+STDOUT:
+
+Last metadata expiration check: 0:00:17 ago on Tue 20 Sep 2022 12:46:14 PM UTC.
+Package rsync-3.2.3-18.el9.x86_64 is already installed.
+Dependencies resolved.
+Nothing to do.
+Complete!
+changed: [sut] => (item=make) => {
+    "ansible_loop_var": "item",
+    "attempts": 1,
+    "changed": true,
+    "cmd": "dnf install --assumeyes --allowerasing make\n",
+    "delta": "0:00:01.554474",
+    "end": "2022-09-20 12:46:33.669287",
+    "item": "make",
+    "rc": 0,
+    "start": "2022-09-20 12:46:32.114813"
+}
+
+STDOUT:
+
+Last metadata expiration check: 0:00:18 ago on Tue 20 Sep 2022 12:46:14 PM UTC.
+Dependencies resolved.
+================================================================================
+ Package   Arch        Version           Repository                        Size
+================================================================================
+Installing:
+ make      x86_64      1:4.3-7.el9       testing-farm-tag-repository      531 k
+
+Transaction Summary
+================================================================================
+Install  1 Package
+
+Total download size: 531 k
+Installed size: 1.6 M
+Downloading Packages:
+make-4.3-7.el9.x86_64.rpm                       1.4 MB/s | 531 kB     00:00    
+--------------------------------------------------------------------------------
+Total                                           1.4 MB/s | 531 kB     00:00     
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                        1/1 
+  Installing       : make-1:4.3-7.el9.x86_64                                1/1 
+  Running scriptlet: make-1:4.3-7.el9.x86_64                                1/1 
+  Verifying        : make-1:4.3-7.el9.x86_64                                1/1 
+
+Installed:
+  make-1:4.3-7.el9.x86_64                                                       
+
+Complete!
+FAILED - RETRYING: Install test-specific package requirements (5 retries left).
+FAILED - RETRYING: Install test-specific package requirements (4 retries left).
+FAILED - RETRYING: Install test-specific package requirements (3 retries left).
+FAILED - RETRYING: Install test-specific package requirements (2 retries left).
+FAILED - RETRYING: Install test-specific package requirements (1 retries left).
+failed: [sut] (item=beakerlib-libraries) => {
+    "ansible_loop_var": "item",
+    "attempts": 5,
+    "changed": true,
+    "cmd": "dnf install --assumeyes --allowerasing beakerlib-libraries\n",
+    "delta": "0:00:00.644159",
+    "end": "2022-09-20 12:47:30.829259",
+    "item": "beakerlib-libraries",
+    "rc": 1,
+    "start": "2022-09-20 12:47:30.185100"
+}
+
+STDOUT:
+
+Last metadata expiration check: 0:01:16 ago on Tue 20 Sep 2022 12:46:14 PM UTC.
+No match for argument: beakerlib-libraries
+
+
+STDERR:
+
+Error: Unable to find a match: beakerlib-libraries
+
+
+MSG:
+
+non-zero return code
+
+PLAY RECAP *********************************************************************
+sut                        : ok=23   changed=2    unreachable=0    failed=1    skipped=10   rescued=0    ignored=0   
+
+
+---^---^---^---^---^---
+
+# STDERR:
+---v---v---v---v---v---
+[DEPRECATION WARNING]: Distribution centos 9 on host sut should use 
+/usr/libexec/platform-python, but is using /usr/bin/python for backward 
+compatibility with prior Ansible releases. A future Ansible release will 
+default to using the discovered platform python for this host. See https://docs
+.ansible.com/ansible/2.9/reference_appendices/interpreter_discovery.html for 
+more information. This feature will be removed in version 2.12. Deprecation 
+warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+
+---^---^---^---^---^---
+

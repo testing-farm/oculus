@@ -1,0 +1,887 @@
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::   Setup
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:: [ 22:10:36 ] :: [  BEGIN   ] :: Create tmp directory :: actually running 'tmp=$(mktemp -d)'
+:: [ 22:10:36 ] :: [   PASS   ] :: Create tmp directory (Expected 0, got 0)
+:: [ 22:10:36 ] :: [  BEGIN   ] :: Running 'set -o pipefail'
+:: [ 22:10:36 ] :: [   PASS   ] :: Command 'set -o pipefail' (Expected 0, got 0)
+:: [ 22:10:36 ] :: [  BEGIN   ] :: Running 'git clone https://src.fedoraproject.org/rpms/tmt.git /tmp/tmp.zpYODjspKy/tmt'
+Cloning into '/tmp/tmp.zpYODjspKy/tmt'...
+:: [ 22:10:37 ] :: [   PASS   ] :: Command 'git clone https://src.fedoraproject.org/rpms/tmt.git /tmp/tmp.zpYODjspKy/tmt' (Expected 0, got 0)
+:: [ 22:10:37 ] :: [  BEGIN   ] :: Running 'cp data/plans.fmf /tmp/tmp.zpYODjspKy/tmt/plans'
+:: [ 22:10:37 ] :: [   PASS   ] :: Command 'cp data/plans.fmf /tmp/tmp.zpYODjspKy/tmt/plans' (Expected 0, got 0)
+:: [ 22:10:37 ] :: [  BEGIN   ] :: Running 'export TMT_PLUGINS=/var/ARTIFACTS/work-basic_WExhR/plans/features/basic/discover/default/tests/tests/discover/data'
+:: [ 22:10:37 ] :: [   PASS   ] :: Command 'export TMT_PLUGINS=/var/ARTIFACTS/work-basic_WExhR/plans/features/basic/discover/default/tests/tests/discover/data' (Expected 0, got 0)
+/tmp/tmp.zpYODjspKy /var/ARTIFACTS/work-basic_WExhR/plans/features/basic/discover/default/tests/tests/discover
+:: [ 22:10:37 ] :: [  BEGIN   ] :: Running 'pushd $tmp'
+:: [ 22:10:37 ] :: [   PASS   ] :: Command 'pushd $tmp' (Expected 0, got 0)
+:: [ 22:10:37 ] :: [  BEGIN   ] :: Running 'python3 -m http.server 9000 &> server.out &'
+:: [ 22:10:37 ] :: [   PASS   ] :: Command 'python3 -m http.server 9000 &> server.out &' (Expected 0, got 0)
+:: [ 22:10:37 ] :: [  BEGIN   ] :: Running 'rlWaitForSocket 9000 -t 5 -d 1'
+:: [ 22:10:37 ] :: [   INFO   ] :: rlWaitForSocket: Waiting max 5s for socket `9000' to start listening
+:: [ 22:10:38 ] :: [   INFO   ] :: rlWaitForSocket: Wait successful!
+:: [ 22:10:38 ] :: [   PASS   ] :: Command 'rlWaitForSocket 9000 -t 5 -d 1' (Expected 0, got 0)
+:: [ 22:10:38 ] :: [  BEGIN   ] :: Running 'mkdir /tmp/tmp.zpYODjspKy/mock_distgit'
+:: [ 22:10:38 ] :: [   PASS   ] :: Command 'mkdir /tmp/tmp.zpYODjspKy/mock_distgit' (Expected 0, got 0)
+/tmp/tmp.zpYODjspKy/mock_distgit /tmp/tmp.zpYODjspKy /var/ARTIFACTS/work-basic_WExhR/plans/features/basic/discover/default/tests/tests/discover
+:: [ 22:10:38 ] :: [  BEGIN   ] :: Running 'pushd /tmp/tmp.zpYODjspKy/mock_distgit'
+:: [ 22:10:38 ] :: [   PASS   ] :: Command 'pushd /tmp/tmp.zpYODjspKy/mock_distgit' (Expected 0, got 0)
+:: [ 22:10:38 ] :: [  BEGIN   ] :: Running 'git init'
+hint: Using 'master' as the name for the initial branch. This default branch name
+hint: is subject to change. To configure the initial branch name to use in all
+hint: of your new repositories, which will suppress this warning, call:
+hint: 
+hint: 	git config --global init.defaultBranch <name>
+hint: 
+hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+hint: 'development'. The just-created branch can be renamed via this command:
+hint: 
+hint: 	git branch -m <name>
+Initialized empty Git repository in /tmp/tmp.zpYODjspKy/mock_distgit/.git/
+:: [ 22:10:38 ] :: [   PASS   ] :: Command 'git init' (Expected 0, got 0)
+:: [ 22:10:38 ] :: [  BEGIN   ] :: Running 'tmt init'
+Tree '/tmp/tmp.zpYODjspKy/mock_distgit' initialized.
+To populate it with example content, use --template with mini, base or full.
+:: [ 22:10:39 ] :: [   PASS   ] :: Command 'tmt init' (Expected 0, got 0)
+:: [ 22:10:39 ] :: [  BEGIN   ] :: Running 'mkdir -p /tmp/tmp.zpYODjspKy/simple-1/tests'
+:: [ 22:10:39 ] :: [   PASS   ] :: Command 'mkdir -p /tmp/tmp.zpYODjspKy/simple-1/tests' (Expected 0, got 0)
+:: [ 22:10:39 ] :: [  BEGIN   ] :: Running 'cd /tmp/tmp.zpYODjspKy/simple-1'
+:: [ 22:10:39 ] :: [   PASS   ] :: Command 'cd /tmp/tmp.zpYODjspKy/simple-1' (Expected 0, got 0)
+:: [ 22:10:39 ] :: [  BEGIN   ] :: Running 'tmt init'
+Tree '/tmp/tmp.zpYODjspKy/simple-1' initialized.
+To populate it with example content, use --template with mini, base or full.
+:: [ 22:10:39 ] :: [   PASS   ] :: Command 'tmt init' (Expected 0, got 0)
+:: [ 22:10:39 ] :: [  BEGIN   ] :: Running 'tar czvf /tmp/tmp.zpYODjspKy/simple-1.tgz --directory /tmp/tmp.zpYODjspKy simple-1 outsider'
+simple-1/
+simple-1/.fmf/
+simple-1/.fmf/version
+simple-1/tests/
+simple-1/tests/magic.fmf
+outsider
+:: [ 22:10:39 ] :: [   PASS   ] :: Command 'tar czvf /tmp/tmp.zpYODjspKy/simple-1.tgz --directory /tmp/tmp.zpYODjspKy simple-1 outsider' (Expected 0, got 0)
+:: [ 22:10:39 ] :: [  BEGIN   ] :: Running 'rm -rf /tmp/tmp.zpYODjspKy/simple-1 outsider'
+:: [ 22:10:39 ] :: [   PASS   ] :: Command 'rm -rf /tmp/tmp.zpYODjspKy/simple-1 outsider' (Expected 0, got 0)
+:: [ 22:10:39 ] :: [  BEGIN   ] :: Running 'mkdir -p /tmp/tmp.zpYODjspKy/foo-123'
+:: [ 22:10:39 ] :: [   PASS   ] :: Command 'mkdir -p /tmp/tmp.zpYODjspKy/foo-123' (Expected 0, got 0)
+:: [ 22:10:39 ] :: [  BEGIN   ] :: Running 'tar czvf /tmp/tmp.zpYODjspKy/unit-no-tmt.tgz --directory /tmp/tmp.zpYODjspKy foo-123'
+foo-123/
+foo-123/all_in_one
+:: [ 22:10:39 ] :: [   PASS   ] :: Command 'tar czvf /tmp/tmp.zpYODjspKy/unit-no-tmt.tgz --directory /tmp/tmp.zpYODjspKy foo-123' (Expected 0, got 0)
+:: [ 22:10:39 ] :: [  BEGIN   ] :: Running 'rm -rf /tmp/tmp.zpYODjspKy/foo-123'
+:: [ 22:10:39 ] :: [   PASS   ] :: Command 'rm -rf /tmp/tmp.zpYODjspKy/foo-123' (Expected 0, got 0)
+:: [ 22:10:39 ] :: [  BEGIN   ] :: Running 'popd'
+/tmp/tmp.zpYODjspKy /var/ARTIFACTS/work-basic_WExhR/plans/features/basic/discover/default/tests/tests/discover
+:: [ 22:10:39 ] :: [   PASS   ] :: Command 'popd' (Expected 0, got 0)
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::   Duration: 3s
+::   Assertions: 21 good, 0 bad
+::   RESULT: PASS (Setup)
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::   extract sources to find unit tests (merge explicit)
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:: [ 22:10:39 ] :: [  BEGIN   ] :: Create tmp directory :: actually running 'tmp=$(mktemp -d)'
+:: [ 22:10:39 ] :: [   PASS   ] :: Create tmp directory (Expected 0, got 0)
+:: [ 22:10:39 ] :: [  BEGIN   ] :: Running 'pushd $tmp'
+/tmp/tmp.uXVlV6kbOX /tmp/tmp.zpYODjspKy /var/ARTIFACTS/work-basic_WExhR/plans/features/basic/discover/default/tests/tests/discover
+:: [ 22:10:39 ] :: [   PASS   ] :: Command 'pushd $tmp' (Expected 0, got 0)
+:: [ 22:10:39 ] :: [  BEGIN   ] :: Running 'git init && tmt init'
+hint: Using 'master' as the name for the initial branch. This default branch name
+hint: is subject to change. To configure the initial branch name to use in all
+hint: of your new repositories, which will suppress this warning, call:
+hint: 
+hint: 	git config --global init.defaultBranch <name>
+hint: 
+hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+hint: 'development'. The just-created branch can be renamed via this command:
+hint: 
+hint: 	git branch -m <name>
+Initialized empty Git repository in /tmp/tmp.uXVlV6kbOX/.git/
+Tree '/tmp/tmp.uXVlV6kbOX' initialized.
+To populate it with example content, use --template with mini, base or full.
+:: [ 22:10:40 ] :: [   PASS   ] :: Command 'git init && tmt init' (Expected 0, got 0)
+:: [ 22:10:40 ] :: [  BEGIN   ] :: Running 'tmt run -vv --id /var/tmp/tmt/XXX --scratch'
+/var/tmp/tmt/XXX
+warn: /plans:discover - {'how': 'fmf', 'dist-git-source': True, 'dist-git-type': 'TESTING', 'dist-git-merge': True} is not valid under any of the given schemas
+Found 1 plan.
+
+/plans
+    discover
+        how: fmf
+        directory: /tmp/tmp.uXVlV6kbOX
+        summary: 1 test selected
+            /unit
+    provision
+        how: local
+        kernel: 5.19.9-100.fc35.x86_64
+        summary: 1 guest provisioned
+    prepare
+        summary: 0 preparations applied
+    execute
+        how: tmt
+        exit-first: False
+            test: /unit
+                00:00:00 pass /unit [1/1]
+        summary: 1 test executed
+    report
+        how: display
+            pass /unit
+                output.txt: /var/tmp/tmt/XXX/plans/execute/data/unit/output.txt
+        summary: 1 test passed
+    finish
+        summary: 0 tasks completed
+
+total: 1 test passed
+:: [ 22:10:41 ] :: [   PASS   ] :: Command 'tmt run -vv --id /var/tmp/tmt/XXX --scratch' (Expected 0, got 0)
+            /unit
+            test: /unit
+                00:00:00 pass /unit [1/1]
+            pass /unit
+                output.txt: /var/tmp/tmt/XXX/plans/execute/data/unit/output.txt
+:: [ 22:10:41 ] :: [   PASS   ] :: File '/var/tmp/rlRun_LOG.YCGVKWhV' should contain '/unit' 
+        summary: 1 test selected
+:: [ 22:10:41 ] :: [   PASS   ] :: File '/var/tmp/rlRun_LOG.YCGVKWhV' should contain 'summary: 1 test selected' 
+:: [ 22:10:41 ] :: [   PASS   ] :: File /var/tmp/tmt/XXX/plans/discover/default-0/tests/foo-123/all_in_one should exist 
+:: [ 22:10:41 ] :: [  BEGIN   ] :: Running 'popd'
+/tmp/tmp.zpYODjspKy /var/ARTIFACTS/work-basic_WExhR/plans/features/basic/discover/default/tests/tests/discover
+:: [ 22:10:41 ] :: [   PASS   ] :: Command 'popd' (Expected 0, got 0)
+:: [ 22:10:41 ] :: [  BEGIN   ] :: Running 'rm /var/tmp/rlRun_LOG.YCGVKWhV'
+:: [ 22:10:41 ] :: [   PASS   ] :: Command 'rm /var/tmp/rlRun_LOG.YCGVKWhV' (Expected 0, got 0)
+:: [ 22:10:41 ] :: [  BEGIN   ] :: Running 'rm -rf /tmp/tmp.uXVlV6kbOX'
+:: [ 22:10:41 ] :: [   PASS   ] :: Command 'rm -rf /tmp/tmp.uXVlV6kbOX' (Expected 0, got 0)
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::   Duration: 2s
+::   Assertions: 10 good, 0 bad
+::   RESULT: PASS (extract sources to find unit tests (merge explicit))
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::   extract sources to find unit tests (merge auto)
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:: [ 22:10:41 ] :: [  BEGIN   ] :: Create tmp directory :: actually running 'tmp=$(mktemp -d)'
+:: [ 22:10:41 ] :: [   PASS   ] :: Create tmp directory (Expected 0, got 0)
+/tmp/tmp.MlZMvuEAA3 /tmp/tmp.zpYODjspKy /var/ARTIFACTS/work-basic_WExhR/plans/features/basic/discover/default/tests/tests/discover
+:: [ 22:10:41 ] :: [  BEGIN   ] :: Running 'pushd $tmp'
+:: [ 22:10:41 ] :: [   PASS   ] :: Command 'pushd $tmp' (Expected 0, got 0)
+:: [ 22:10:41 ] :: [  BEGIN   ] :: Running 'git init && tmt init'
+hint: Using 'master' as the name for the initial branch. This default branch name
+hint: is subject to change. To configure the initial branch name to use in all
+hint: of your new repositories, which will suppress this warning, call:
+hint: 
+hint: 	git config --global init.defaultBranch <name>
+hint: 
+hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+hint: 'development'. The just-created branch can be renamed via this command:
+hint: 
+hint: 	git branch -m <name>
+Initialized empty Git repository in /tmp/tmp.MlZMvuEAA3/.git/
+Tree '/tmp/tmp.MlZMvuEAA3' initialized.
+To populate it with example content, use --template with mini, base or full.
+:: [ 22:10:41 ] :: [   PASS   ] :: Command 'git init && tmt init' (Expected 0, got 0)
+:: [ 22:10:41 ] :: [  BEGIN   ] :: Running 'sed '/dist-git-merge:/d' -i plans.fmf'
+:: [ 22:10:41 ] :: [   PASS   ] :: Command 'sed '/dist-git-merge:/d' -i plans.fmf' (Expected 0, got 0)
+:: [ 22:10:41 ] :: [  BEGIN   ] :: Running 'tmt run -vv --id /var/tmp/tmt/XXX --scratch'
+/var/tmp/tmt/XXX
+warn: /plans:discover - {'how': 'fmf', 'dist-git-source': True, 'dist-git-type': 'TESTING'} is not valid under any of the given schemas
+Found 1 plan.
+
+/plans
+    discover
+        how: fmf
+        directory: /tmp/tmp.MlZMvuEAA3
+        warn: Extracted sources do not contain fmf root, merging with plan data. Avoid this warning by explicit use of the '--dist-git-merge' option.
+        summary: 1 test selected
+            /unit
+    provision
+        how: local
+        kernel: 5.19.9-100.fc35.x86_64
+        summary: 1 guest provisioned
+    prepare
+        summary: 0 preparations applied
+    execute
+        how: tmt
+        exit-first: False
+            test: /unit
+                00:00:00 pass /unit [1/1]
+        summary: 1 test executed
+    report
+        how: display
+            pass /unit
+                output.txt: /var/tmp/tmt/XXX/plans/execute/data/unit/output.txt
+        summary: 1 test passed
+    finish
+        summary: 0 tasks completed
+
+total: 1 test passed
+:: [ 22:10:42 ] :: [   PASS   ] :: Command 'tmt run -vv --id /var/tmp/tmt/XXX --scratch' (Expected 0, got 0)
+            /unit
+            test: /unit
+                00:00:00 pass /unit [1/1]
+            pass /unit
+                output.txt: /var/tmp/tmt/XXX/plans/execute/data/unit/output.txt
+:: [ 22:10:42 ] :: [   PASS   ] :: File '/var/tmp/rlRun_LOG.cBTCNWEr' should contain '/unit' 
+        summary: 1 test selected
+:: [ 22:10:42 ] :: [   PASS   ] :: File '/var/tmp/rlRun_LOG.cBTCNWEr' should contain 'summary: 1 test selected' 
+:: [ 22:10:42 ] :: [   PASS   ] :: File /var/tmp/tmt/XXX/plans/discover/default-0/tests/foo-123/all_in_one should exist 
+/tmp/tmp.zpYODjspKy /var/ARTIFACTS/work-basic_WExhR/plans/features/basic/discover/default/tests/tests/discover
+:: [ 22:10:42 ] :: [  BEGIN   ] :: Running 'popd'
+:: [ 22:10:42 ] :: [   PASS   ] :: Command 'popd' (Expected 0, got 0)
+:: [ 22:10:42 ] :: [  BEGIN   ] :: Running 'rm /var/tmp/rlRun_LOG.cBTCNWEr'
+:: [ 22:10:42 ] :: [   PASS   ] :: Command 'rm /var/tmp/rlRun_LOG.cBTCNWEr' (Expected 0, got 0)
+:: [ 22:10:42 ] :: [  BEGIN   ] :: Running 'rm -rf /tmp/tmp.MlZMvuEAA3'
+:: [ 22:10:42 ] :: [   PASS   ] :: Command 'rm -rf /tmp/tmp.MlZMvuEAA3' (Expected 0, got 0)
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::   Duration: 1s
+::   Assertions: 11 good, 0 bad
+::   RESULT: PASS (extract sources to find unit tests (merge auto))
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::   More source files (fmf root in one of them)
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:: [ 22:10:42 ] :: [  BEGIN   ] :: Create tmp directory :: actually running 'tmp=$(mktemp -d)'
+:: [ 22:10:42 ] :: [   PASS   ] :: Create tmp directory (Expected 0, got 0)
+:: [ 22:10:42 ] :: [  BEGIN   ] :: Running 'pushd $tmp'
+/tmp/tmp.3QQQBllHum /tmp/tmp.zpYODjspKy /var/ARTIFACTS/work-basic_WExhR/plans/features/basic/discover/default/tests/tests/discover
+:: [ 22:10:43 ] :: [   PASS   ] :: Command 'pushd $tmp' (Expected 0, got 0)
+:: [ 22:10:43 ] :: [  BEGIN   ] :: Running 'git init'
+hint: Using 'master' as the name for the initial branch. This default branch name
+hint: is subject to change. To configure the initial branch name to use in all
+hint: of your new repositories, which will suppress this warning, call:
+hint: 
+hint: 	git config --global init.defaultBranch <name>
+hint: 
+hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+hint: 'development'. The just-created branch can be renamed via this command:
+hint: 
+hint: 	git branch -m <name>
+Initialized empty Git repository in /tmp/tmp.3QQQBllHum/.git/
+:: [ 22:10:43 ] :: [   PASS   ] :: Command 'git init' (Expected 0, got 0)
+:: [ 22:10:43 ] :: [  BEGIN   ] :: Running 'tmt init'
+Tree '/tmp/tmp.3QQQBllHum' initialized.
+To populate it with example content, use --template with mini, base or full.
+:: [ 22:10:43 ] :: [   PASS   ] :: Command 'tmt init' (Expected 0, got 0)
+:: [ 22:10:43 ] :: [  BEGIN   ] :: Running 'tmt run --id /var/tmp/tmt/XXX --scratch plans --default              discover -vvv -ddd --how fmf --dist-git-source              --dist-git-type TESTING tests --name /tests/magic'
+Usage: tmt run discover [OPTIONS]
+Try 'tmt run discover --help' for help.
+
+Error: Invalid value for '--dist-git-type': 'TESTING' is not one of 'fedora', 'centos'.
+:: [ 22:10:43 ] :: [   FAIL   ] :: Command 'tmt run --id /var/tmp/tmt/XXX --scratch plans --default              discover -vvv -ddd --how fmf --dist-git-source              --dist-git-type TESTING tests --name /tests/magic' (Expected 0, got 2)
+:: [ 22:10:43 ] :: [   FAIL   ] :: File '/var/tmp/rlRun_LOG.cSt2ZoiY' should contain '\s/tests/magic' 
+:: [ 22:10:43 ] :: [   FAIL   ] :: File '/var/tmp/rlRun_LOG.cSt2ZoiY' should contain 'summary: 1 test selected' 
+:: [ 22:10:43 ] :: [   FAIL   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/source/simple-1/tests/magic.fmf should exist 
+:: [ 22:10:43 ] :: [   FAIL   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/source/simple-1.tgz should exist 
+:: [ 22:10:43 ] :: [   FAIL   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/source/foo-123/all_in_one should exist 
+:: [ 22:10:43 ] :: [   FAIL   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/source/unit-no-tmt.tgz should exist 
+:: [ 22:10:43 ] :: [   FAIL   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/source/outsider should exist 
+:: [ 22:10:43 ] :: [   FAIL   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/tests/tests/magic.fmf should exist 
+:: [ 22:10:43 ] :: [   PASS   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/tests/simple-1/tests/magic.fmf should not exist 
+:: [ 22:10:43 ] :: [   PASS   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/tests/simple-1.tgz should not exist 
+:: [ 22:10:43 ] :: [   PASS   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/tests/foo-123/all_in_one should not exist 
+:: [ 22:10:43 ] :: [   PASS   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/tests/unit-no-tmt.tgz should not exist 
+:: [ 22:10:43 ] :: [   PASS   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/tests/outsider should not exist 
+:: [ 22:10:43 ] :: [  BEGIN   ] :: Running 'popd'
+/tmp/tmp.zpYODjspKy /var/ARTIFACTS/work-basic_WExhR/plans/features/basic/discover/default/tests/tests/discover
+:: [ 22:10:43 ] :: [   PASS   ] :: Command 'popd' (Expected 0, got 0)
+:: [ 22:10:44 ] :: [  BEGIN   ] :: Running 'rm /var/tmp/rlRun_LOG.cSt2ZoiY'
+:: [ 22:10:44 ] :: [   PASS   ] :: Command 'rm /var/tmp/rlRun_LOG.cSt2ZoiY' (Expected 0, got 0)
+:: [ 22:10:44 ] :: [  BEGIN   ] :: Running 'rm -rf /tmp/tmp.3QQQBllHum'
+:: [ 22:10:44 ] :: [   PASS   ] :: Command 'rm -rf /tmp/tmp.3QQQBllHum' (Expected 0, got 0)
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::   Duration: 2s
+::   Assertions: 12 good, 9 bad
+::   RESULT: FAIL (More source files (fmf root in one of them))
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::   signature files in sources are ignored
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:: [ 22:10:44 ] :: [  BEGIN   ] :: Create tmp directory :: actually running 'tmp=$(mktemp -d)'
+:: [ 22:10:44 ] :: [   PASS   ] :: Create tmp directory (Expected 0, got 0)
+/tmp/tmp.VfDzX99r2W /tmp/tmp.zpYODjspKy /var/ARTIFACTS/work-basic_WExhR/plans/features/basic/discover/default/tests/tests/discover
+:: [ 22:10:44 ] :: [  BEGIN   ] :: Running 'pushd $tmp'
+:: [ 22:10:44 ] :: [   PASS   ] :: Command 'pushd $tmp' (Expected 0, got 0)
+:: [ 22:10:44 ] :: [  BEGIN   ] :: Running 'git init'
+hint: Using 'master' as the name for the initial branch. This default branch name
+hint: is subject to change. To configure the initial branch name to use in all
+hint: of your new repositories, which will suppress this warning, call:
+hint: 
+hint: 	git config --global init.defaultBranch <name>
+hint: 
+hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+hint: 'development'. The just-created branch can be renamed via this command:
+hint: 
+hint: 	git branch -m <name>
+Initialized empty Git repository in /tmp/tmp.VfDzX99r2W/.git/
+:: [ 22:10:44 ] :: [   PASS   ] :: Command 'git init' (Expected 0, got 0)
+:: [ 22:10:44 ] :: [  BEGIN   ] :: Running 'tmt init'
+Tree '/tmp/tmp.VfDzX99r2W' initialized.
+To populate it with example content, use --template with mini, base or full.
+:: [ 22:10:44 ] :: [   PASS   ] :: Command 'tmt init' (Expected 0, got 0)
+:: [ 22:10:44 ] :: [  BEGIN   ] :: Running 'tmt run --id /var/tmp/tmt/XXX --scratch plans --default \
+             discover -vvv -ddd --how fmf --dist-git-source \
+             --dist-git-type TESTING tests --name /magic'
+Usage: tmt run discover [OPTIONS]
+Try 'tmt run discover --help' for help.
+
+Error: Invalid value for '--dist-git-type': 'TESTING' is not one of 'fedora', 'centos'.
+:: [ 22:10:45 ] :: [   FAIL   ] :: Command 'tmt run --id /var/tmp/tmt/XXX --scratch plans --default \
+             discover -vvv -ddd --how fmf --dist-git-source \
+             --dist-git-type TESTING tests --name /magic' (Expected 0, got 2)
+:: [ 22:10:45 ] :: [   FAIL   ] :: File '/var/tmp/rlRun_LOG.nq9HAjdW' should contain '/magic' 
+:: [ 22:10:45 ] :: [   FAIL   ] :: File '/var/tmp/rlRun_LOG.nq9HAjdW' should contain 'summary: 1 test selected' 
+:: [ 22:10:45 ] :: [  BEGIN   ] :: Running 'popd'
+/tmp/tmp.zpYODjspKy /var/ARTIFACTS/work-basic_WExhR/plans/features/basic/discover/default/tests/tests/discover
+:: [ 22:10:45 ] :: [   PASS   ] :: Command 'popd' (Expected 0, got 0)
+:: [ 22:10:45 ] :: [  BEGIN   ] :: Running 'rm /var/tmp/rlRun_LOG.nq9HAjdW'
+:: [ 22:10:45 ] :: [   PASS   ] :: Command 'rm /var/tmp/rlRun_LOG.nq9HAjdW' (Expected 0, got 0)
+:: [ 22:10:45 ] :: [  BEGIN   ] :: Running 'rm -rf /tmp/tmp.VfDzX99r2W'
+:: [ 22:10:45 ] :: [   PASS   ] :: Command 'rm -rf /tmp/tmp.VfDzX99r2W' (Expected 0, got 0)
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::   Duration: 1s
+::   Assertions: 7 good, 3 bad
+::   RESULT: FAIL (signature files in sources are ignored)
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::   Detect within extracted sources (inner fmf root is used)
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:: [ 22:10:45 ] :: [  BEGIN   ] :: Running 'pushd $MOCK_DISTGIT_DIR'
+/tmp/tmp.zpYODjspKy/mock_distgit /tmp/tmp.zpYODjspKy /var/ARTIFACTS/work-basic_WExhR/plans/features/basic/discover/default/tests/tests/discover
+:: [ 22:10:45 ] :: [   PASS   ] :: Command 'pushd $MOCK_DISTGIT_DIR' (Expected 0, got 0)
+:: [ 22:10:45 ] :: [  BEGIN   ] :: Running 'tmt run --id $WORKDIR --scratch plans --default \
+             discover -vvv -ddd --how fmf --dist-git-source \
+             --dist-git-type TESTING'
+Usage: tmt run discover [OPTIONS]
+Try 'tmt run discover --help' for help.
+
+Error: Invalid value for '--dist-git-type': 'TESTING' is not one of 'fedora', 'centos'.
+:: [ 22:10:45 ] :: [   FAIL   ] :: Command 'tmt run --id $WORKDIR --scratch plans --default \
+             discover -vvv -ddd --how fmf --dist-git-source \
+             --dist-git-type TESTING' (Expected 0, got 2)
+:: [ 22:10:45 ] :: [   PASS   ] :: File '/var/tmp/rlRun_LOG.pal6DarH' should not contain '/top_test' 
+:: [ 22:10:45 ] :: [   FAIL   ] :: File '/var/tmp/rlRun_LOG.pal6DarH' should contain '/magic' 
+:: [ 22:10:45 ] :: [   FAIL   ] :: File '/var/tmp/rlRun_LOG.pal6DarH' should contain 'summary: 1 test selected' 
+:: [ 22:10:45 ] :: [   FAIL   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/source/outsider should exist 
+:: [ 22:10:45 ] :: [   FAIL   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/source/simple-1 should exist 
+:: [ 22:10:45 ] :: [   FAIL   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/source/simple-1.tgz should exist 
+:: [ 22:10:45 ] :: [   FAIL   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/tests/tests/magic.fmf should exist 
+:: [ 22:10:45 ] :: [   PASS   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/tests/outsider should not exist 
+:: [ 22:10:45 ] :: [   PASS   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/tests/simple-1 should not exist 
+:: [ 22:10:45 ] :: [   PASS   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/tests/simple-1.tgz should not exist 
+:: [ 22:10:45 ] :: [  BEGIN   ] :: Running 'popd'
+/tmp/tmp.zpYODjspKy /var/ARTIFACTS/work-basic_WExhR/plans/features/basic/discover/default/tests/tests/discover
+:: [ 22:10:45 ] :: [   PASS   ] :: Command 'popd' (Expected 0, got 0)
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::   Duration: 0s
+::   Assertions: 6 good, 7 bad
+::   RESULT: FAIL (Detect within extracted sources (inner fmf root is used))
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::   Detect within extracted sources and join with plan data (still respect fmf root)
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:: [ 22:10:45 ] :: [  BEGIN   ] :: Running 'pushd $MOCK_DISTGIT_DIR'
+/tmp/tmp.zpYODjspKy/mock_distgit /tmp/tmp.zpYODjspKy /var/ARTIFACTS/work-basic_WExhR/plans/features/basic/discover/default/tests/tests/discover
+:: [ 22:10:45 ] :: [   PASS   ] :: Command 'pushd $MOCK_DISTGIT_DIR' (Expected 0, got 0)
+:: [ 22:10:46 ] :: [  BEGIN   ] :: Running 'tmt run --id $WORKDIR --scratch plans --default \
+            discover -v --how fmf --dist-git-source \
+            --dist-git-type TESTING --dist-git-merge'
+Usage: tmt run discover [OPTIONS]
+Try 'tmt run discover --help' for help.
+
+Error: Invalid value for '--dist-git-type': 'TESTING' is not one of 'fedora', 'centos'.
+:: [ 22:10:46 ] :: [   FAIL   ] :: Command 'tmt run --id $WORKDIR --scratch plans --default \
+            discover -v --how fmf --dist-git-source \
+            --dist-git-type TESTING --dist-git-merge' (Expected 0, got 2)
+:: [ 22:10:46 ] :: [   FAIL   ] :: File '/var/tmp/rlRun_LOG.HapIQuIn' should contain '\s/top_test' 
+:: [ 22:10:46 ] :: [   FAIL   ] :: File '/var/tmp/rlRun_LOG.HapIQuIn' should contain '\s/tests/magic' 
+:: [ 22:10:46 ] :: [   FAIL   ] :: File '/var/tmp/rlRun_LOG.HapIQuIn' should contain 'summary: 2 tests selected' 
+:: [ 22:10:46 ] :: [   FAIL   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/source/outsider should exist 
+:: [ 22:10:46 ] :: [   FAIL   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/source/simple-1 should exist 
+:: [ 22:10:46 ] :: [   FAIL   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/source/simple-1.tgz should exist 
+:: [ 22:10:46 ] :: [   FAIL   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/tests/tests/magic.fmf should exist 
+:: [ 22:10:46 ] :: [   PASS   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/tests/outsider should not exist 
+:: [ 22:10:46 ] :: [   PASS   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/tests/simple-1 should not exist 
+:: [ 22:10:46 ] :: [   PASS   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/tests/simple-1.tgz should not exist 
+:: [ 22:10:46 ] :: [  BEGIN   ] :: Running 'popd'
+/tmp/tmp.zpYODjspKy /var/ARTIFACTS/work-basic_WExhR/plans/features/basic/discover/default/tests/tests/discover
+:: [ 22:10:46 ] :: [   PASS   ] :: Command 'popd' (Expected 0, got 0)
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::   Duration: 1s
+::   Assertions: 5 good, 8 bad
+::   RESULT: FAIL (Detect within extracted sources and join with plan data (still respect fmf root))
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::   Detect within extracted sources and join with plan data (override fmf root)
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:: [ 22:10:46 ] :: [  BEGIN   ] :: Running 'pushd $MOCK_DISTGIT_DIR'
+/tmp/tmp.zpYODjspKy/mock_distgit /tmp/tmp.zpYODjspKy /var/ARTIFACTS/work-basic_WExhR/plans/features/basic/discover/default/tests/tests/discover
+:: [ 22:10:46 ] :: [   PASS   ] :: Command 'pushd $MOCK_DISTGIT_DIR' (Expected 0, got 0)
+:: [ 22:10:46 ] :: [  BEGIN   ] :: Running 'tmt run --id $WORKDIR --scratch plans --default \
+            discover -v --how fmf --dist-git-source \
+            --dist-git-type TESTING --dist-git-merge --dist-git-extract /simple*/tests'
+Usage: tmt run discover [OPTIONS]
+Try 'tmt run discover --help' for help.
+
+Error: Invalid value for '--dist-git-type': 'TESTING' is not one of 'fedora', 'centos'.
+:: [ 22:10:47 ] :: [   FAIL   ] :: Command 'tmt run --id $WORKDIR --scratch plans --default \
+            discover -v --how fmf --dist-git-source \
+            --dist-git-type TESTING --dist-git-merge --dist-git-extract /simple*/tests' (Expected 0, got 2)
+:: [ 22:10:47 ] :: [   FAIL   ] :: File '/var/tmp/rlRun_LOG.lmGjDCjt' should contain '\s/top_test' 
+:: [ 22:10:47 ] :: [   FAIL   ] :: File '/var/tmp/rlRun_LOG.lmGjDCjt' should contain '\s/magic' 
+:: [ 22:10:47 ] :: [   FAIL   ] :: File '/var/tmp/rlRun_LOG.lmGjDCjt' should contain 'summary: 2 tests selected' 
+:: [ 22:10:47 ] :: [   FAIL   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/source/outsider should exist 
+:: [ 22:10:47 ] :: [   FAIL   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/source/simple-1 should exist 
+:: [ 22:10:47 ] :: [   FAIL   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/source/renamed_simple.tgz should exist 
+:: [ 22:10:47 ] :: [   FAIL   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/tests/magic.fmf should exist 
+:: [ 22:10:47 ] :: [   PASS   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/tests/outsider should not exist 
+:: [ 22:10:47 ] :: [   PASS   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/tests/simple-1 should not exist 
+:: [ 22:10:47 ] :: [   PASS   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/tests/renamed_simple.tgz should not exist 
+:: [ 22:10:47 ] :: [  BEGIN   ] :: Running 'popd'
+/tmp/tmp.zpYODjspKy /var/ARTIFACTS/work-basic_WExhR/plans/features/basic/discover/default/tests/tests/discover
+:: [ 22:10:47 ] :: [   PASS   ] :: Command 'popd' (Expected 0, got 0)
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::   Duration: 1s
+::   Assertions: 5 good, 8 bad
+::   RESULT: FAIL (Detect within extracted sources and join with plan data (override fmf root))
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::   Detect within extracted sources and join with plan data (strip fmf root)
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:: [ 22:10:47 ] :: [  BEGIN   ] :: Running 'pushd $MOCK_DISTGIT_DIR'
+/tmp/tmp.zpYODjspKy/mock_distgit /tmp/tmp.zpYODjspKy /var/ARTIFACTS/work-basic_WExhR/plans/features/basic/discover/default/tests/tests/discover
+:: [ 22:10:47 ] :: [   PASS   ] :: Command 'pushd $MOCK_DISTGIT_DIR' (Expected 0, got 0)
+:: [ 22:10:47 ] :: [  BEGIN   ] :: Running 'tmt run --id $WORKDIR --scratch plans --default \
+            discover -v --how fmf --dist-git-source \
+            --dist-git-type TESTING --dist-git-merge --dist-git-remove-fmf-root'
+Usage: tmt run discover [OPTIONS]
+Try 'tmt run discover --help' for help.
+
+Error: Invalid value for '--dist-git-type': 'TESTING' is not one of 'fedora', 'centos'.
+:: [ 22:10:47 ] :: [   FAIL   ] :: Command 'tmt run --id $WORKDIR --scratch plans --default \
+            discover -v --how fmf --dist-git-source \
+            --dist-git-type TESTING --dist-git-merge --dist-git-remove-fmf-root' (Expected 0, got 2)
+:: [ 22:10:47 ] :: [   FAIL   ] :: File '/var/tmp/rlRun_LOG.p8WyXkG4' should contain '\s/top_test' 
+:: [ 22:10:47 ] :: [   FAIL   ] :: File '/var/tmp/rlRun_LOG.p8WyXkG4' should contain '\s/simple-1/tests/magic' 
+:: [ 22:10:47 ] :: [   FAIL   ] :: File '/var/tmp/rlRun_LOG.p8WyXkG4' should contain 'summary: 2 tests selected' 
+:: [ 22:10:47 ] :: [   FAIL   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/source/outsider should exist 
+:: [ 22:10:47 ] :: [   FAIL   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/source/simple-1 should exist 
+:: [ 22:10:47 ] :: [   FAIL   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/source/simple.tgz should exist 
+:: [ 22:10:47 ] :: [   FAIL   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/tests/simple-1/tests/magic.fmf should exist 
+:: [ 22:10:47 ] :: [   FAIL   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/tests/outsider should exist 
+:: [ 22:10:47 ] :: [   FAIL   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/tests/simple-1 should exist 
+:: [ 22:10:47 ] :: [   FAIL   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/tests/simple.tgz should exist 
+:: [ 22:10:47 ] :: [  BEGIN   ] :: Running 'popd'
+/tmp/tmp.zpYODjspKy /var/ARTIFACTS/work-basic_WExhR/plans/features/basic/discover/default/tests/tests/discover
+:: [ 22:10:47 ] :: [   PASS   ] :: Command 'popd' (Expected 0, got 0)
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::   Duration: 0s
+::   Assertions: 2 good, 11 bad
+::   RESULT: FAIL (Detect within extracted sources and join with plan data (strip fmf root))
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::   Run directly from the DistGit (Fedora) [cli]
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:: [ 22:10:48 ] :: [  BEGIN   ] :: Running 'pushd tmt'
+/tmp/tmp.zpYODjspKy/tmt /tmp/tmp.zpYODjspKy /var/ARTIFACTS/work-basic_WExhR/plans/features/basic/discover/default/tests/tests/discover
+:: [ 22:10:48 ] :: [   PASS   ] :: Command 'pushd tmt' (Expected 0, got 0)
+:: [ 22:10:48 ] :: [  BEGIN   ] :: Running 'tmt run --remove plans --default \
+            discover -v --how fmf --dist-git-source \
+            tests --name tests/prepare/install$'
+/var/tmp/tmt/run-001
+
+/plans/default
+    discover
+        how: fmf
+        directory: /tmp/tmp.zpYODjspKy/tmt
+        summary: 1 test selected
+            /tests/prepare/install
+:: [ 22:10:49 ] :: [   PASS   ] :: Command 'tmt run --remove plans --default \
+            discover -v --how fmf --dist-git-source \
+            tests --name tests/prepare/install$' (Expected 0, got 0)
+        summary: 1 test selected
+:: [ 22:10:49 ] :: [   PASS   ] :: File '/var/tmp/rlRun_LOG.BaIB5uGJ' should contain 'summary: 1 test selected' 
+            /tests/prepare/install
+:: [ 22:10:49 ] :: [   PASS   ] :: File '/var/tmp/rlRun_LOG.BaIB5uGJ' should contain '/tests/prepare/install' 
+/tmp/tmp.zpYODjspKy /var/ARTIFACTS/work-basic_WExhR/plans/features/basic/discover/default/tests/tests/discover
+:: [ 22:10:49 ] :: [  BEGIN   ] :: Running 'popd'
+:: [ 22:10:49 ] :: [   PASS   ] :: Command 'popd' (Expected 0, got 0)
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::   Duration: 1s
+::   Assertions: 5 good, 0 bad
+::   RESULT: PASS (Run directly from the DistGit (Fedora) [cli])
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::   Run directly from the DistGit (Fedora) [plan]
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+/tmp/tmp.zpYODjspKy/tmt /tmp/tmp.zpYODjspKy /var/ARTIFACTS/work-basic_WExhR/plans/features/basic/discover/default/tests/tests/discover
+:: [ 22:10:50 ] :: [  BEGIN   ] :: Running 'pushd tmt'
+:: [ 22:10:50 ] :: [   PASS   ] :: Command 'pushd tmt' (Expected 0, got 0)
+:: [ 22:10:50 ] :: [  BEGIN   ] :: Running 'tmt run --remove plans --name distgit discover -v'
+/var/tmp/tmt/run-002
+
+/plans/plans/fmf/distgit
+    discover
+        how: fmf
+        directory: /tmp/tmp.zpYODjspKy/tmt
+        tests: tests/prepare/install$
+        summary: 1 test selected
+            /tests/prepare/install
+:: [ 22:10:51 ] :: [   PASS   ] :: Command 'tmt run --remove plans --name distgit discover -v' (Expected 0, got 0)
+        summary: 1 test selected
+:: [ 22:10:51 ] :: [   PASS   ] :: File '/var/tmp/rlRun_LOG.Ks4vnKYD' should contain 'summary: 1 test selected' 
+            /tests/prepare/install
+:: [ 22:10:51 ] :: [   PASS   ] :: File '/var/tmp/rlRun_LOG.Ks4vnKYD' should contain '/tests/prepare/install' 
+/tmp/tmp.zpYODjspKy /var/ARTIFACTS/work-basic_WExhR/plans/features/basic/discover/default/tests/tests/discover
+:: [ 22:10:51 ] :: [  BEGIN   ] :: Running 'popd'
+:: [ 22:10:51 ] :: [   PASS   ] :: Command 'popd' (Expected 0, got 0)
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::   Duration: 1s
+::   Assertions: 5 good, 0 bad
+::   RESULT: PASS (Run directly from the DistGit (Fedora) [plan])
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::   URL is path to a local distgit repo
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:: [ 22:10:51 ] :: [  BEGIN   ] :: Running 'tmt run --remove plans --default \
+            discover --how fmf --dist-git-source --dist-git-type fedora --url $CLONED_TMT \
+            --dist-git-merge tests --name tests/prepare/install$'
+/var/tmp/tmt/run-003
+
+/plans/default
+    discover
+        how: fmf
+        url: /tmp/tmp.zpYODjspKy/tmt
+        summary: 1 test selected
+:: [ 22:10:53 ] :: [   PASS   ] :: Command 'tmt run --remove plans --default \
+            discover --how fmf --dist-git-source --dist-git-type fedora --url $CLONED_TMT \
+            --dist-git-merge tests --name tests/prepare/install$' (Expected 0, got 0)
+        summary: 1 test selected
+:: [ 22:10:53 ] :: [   PASS   ] :: File '/var/tmp/rlRun_LOG.CywflpCD' should contain 'summary: 1 test selected' 
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::   Duration: 2s
+::   Assertions: 2 good, 0 bad
+::   RESULT: PASS (URL is path to a local distgit repo)
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::   path pointing to the fmf root in the extracted sources
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+/tmp/tmp.zpYODjspKy/tmt /tmp/tmp.zpYODjspKy /var/ARTIFACTS/work-basic_WExhR/plans/features/basic/discover/default/tests/tests/discover
+:: [ 22:10:53 ] :: [  BEGIN   ] :: Running 'pushd tmt'
+:: [ 22:10:53 ] :: [   PASS   ] :: Command 'pushd tmt' (Expected 0, got 0)
+:: [ 22:10:53 ] :: [  BEGIN   ] :: Running 'tmt run --remove plans --default discover -v --how fmf             --dist-git-source --dist-git-merge --ref e2d36db --dist-git-extract tmt-*/tests/execute/framework/data             tests --name ^/tests/beakerlib/with-framework$'
+/var/tmp/tmt/run-004
+
+/plans/default
+    discover
+        how: fmf
+        directory: /tmp/tmp.zpYODjspKy/tmt
+        ref: e2d36db
+        hash: e2d36db
+        summary: 1 test selected
+            /tests/beakerlib/with-framework
+:: [ 22:10:55 ] :: [   PASS   ] :: Command 'tmt run --remove plans --default discover -v --how fmf             --dist-git-source --dist-git-merge --ref e2d36db --dist-git-extract tmt-*/tests/execute/framework/data             tests --name ^/tests/beakerlib/with-framework$' (Expected 0, got 0)
+        summary: 1 test selected
+:: [ 22:10:55 ] :: [   PASS   ] :: File '/var/tmp/rlRun_LOG.zk1pVedp' should contain 'summary: 1 test selected' 
+:: [ 22:10:55 ] :: [  BEGIN   ] :: Running 'popd'
+/tmp/tmp.zpYODjspKy /var/ARTIFACTS/work-basic_WExhR/plans/features/basic/discover/default/tests/tests/discover
+:: [ 22:10:55 ] :: [   PASS   ] :: Command 'popd' (Expected 0, got 0)
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::   Duration: 2s
+::   Assertions: 4 good, 0 bad
+::   RESULT: PASS (path pointing to the fmf root in the extracted sources)
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::   /path pointing to the fmf root in the extracted sources
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+/tmp/tmp.zpYODjspKy/tmt /tmp/tmp.zpYODjspKy /var/ARTIFACTS/work-basic_WExhR/plans/features/basic/discover/default/tests/tests/discover
+:: [ 22:10:55 ] :: [  BEGIN   ] :: Running 'pushd tmt'
+:: [ 22:10:55 ] :: [   PASS   ] :: Command 'pushd tmt' (Expected 0, got 0)
+:: [ 22:10:55 ] :: [  BEGIN   ] :: Running 'tmt run --remove plans --default discover -v --how fmf             --dist-git-source --dist-git-merge --ref e2d36db --dist-git-extract /tmt-*/tests/execute/framework/data             tests --name ^/tests/beakerlib/with-framework$'
+/var/tmp/tmt/run-005
+
+/plans/default
+    discover
+        how: fmf
+        directory: /tmp/tmp.zpYODjspKy/tmt
+        ref: e2d36db
+        hash: e2d36db
+        summary: 1 test selected
+            /tests/beakerlib/with-framework
+:: [ 22:10:57 ] :: [   PASS   ] :: Command 'tmt run --remove plans --default discover -v --how fmf             --dist-git-source --dist-git-merge --ref e2d36db --dist-git-extract /tmt-*/tests/execute/framework/data             tests --name ^/tests/beakerlib/with-framework$' (Expected 0, got 0)
+        summary: 1 test selected
+:: [ 22:10:57 ] :: [   PASS   ] :: File '/var/tmp/rlRun_LOG.TJxOU6G7' should contain 'summary: 1 test selected' 
+/tmp/tmp.zpYODjspKy /var/ARTIFACTS/work-basic_WExhR/plans/features/basic/discover/default/tests/tests/discover
+:: [ 22:10:57 ] :: [  BEGIN   ] :: Running 'popd'
+:: [ 22:10:57 ] :: [   PASS   ] :: Command 'popd' (Expected 0, got 0)
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::   Duration: 2s
+::   Assertions: 4 good, 0 bad
+::   RESULT: PASS (/path pointing to the fmf root in the extracted sources)
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::   Specify URL and REF of DistGit repo (Fedora)
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:: [ 22:10:57 ] :: [  BEGIN   ] :: Running 'tmt run --remove plans --default discover -v --how fmf \
+        --dist-git-source --ref e2d36db --dist-git-merge  --dist-git-init \
+        --url https://src.fedoraproject.org/rpms/tmt.git \
+        tests --name tests/prepare/install$'
+/var/tmp/tmt/run-006
+
+/plans/default
+    discover
+        how: fmf
+        url: https://src.fedoraproject.org/rpms/tmt.git
+        ref: e2d36db
+        hash: e2d36db
+        summary: 1 test selected
+            /tmt-1.7.0/tests/prepare/install
+:: [ 22:10:58 ] :: [   PASS   ] :: Command 'tmt run --remove plans --default discover -v --how fmf \
+        --dist-git-source --ref e2d36db --dist-git-merge  --dist-git-init \
+        --url https://src.fedoraproject.org/rpms/tmt.git \
+        tests --name tests/prepare/install$' (Expected 0, got 0)
+        summary: 1 test selected
+:: [ 22:10:58 ] :: [   PASS   ] :: File '/var/tmp/rlRun_LOG.vlZHcs9i' should contain 'summary: 1 test selected' 
+            /tmt-1.7.0/tests/prepare/install
+:: [ 22:10:58 ] :: [   PASS   ] :: File '/var/tmp/rlRun_LOG.vlZHcs9i' should contain '/tmt-1.7.0/tests/prepare/install' 
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::   Duration: 1s
+::   Assertions: 3 good, 0 bad
+::   RESULT: PASS (Specify URL and REF of DistGit repo (Fedora))
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::   fmf and git root don't match
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:: [ 22:10:58 ] :: [  BEGIN   ] :: Create tmp directory :: actually running 'tmp=$(mktemp -d)'
+:: [ 22:10:58 ] :: [   PASS   ] :: Create tmp directory (Expected 0, got 0)
+:: [ 22:10:58 ] :: [  BEGIN   ] :: Running 'pushd $tmp'
+/tmp/tmp.xvxtCjIYgG /tmp/tmp.zpYODjspKy /var/ARTIFACTS/work-basic_WExhR/plans/features/basic/discover/default/tests/tests/discover
+:: [ 22:10:58 ] :: [   PASS   ] :: Command 'pushd $tmp' (Expected 0, got 0)
+:: [ 22:10:58 ] :: [  BEGIN   ] :: Running 'git init'
+hint: Using 'master' as the name for the initial branch. This default branch name
+hint: is subject to change. To configure the initial branch name to use in all
+hint: of your new repositories, which will suppress this warning, call:
+hint: 
+hint: 	git config --global init.defaultBranch <name>
+hint: 
+hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+hint: 'development'. The just-created branch can be renamed via this command:
+hint: 
+hint: 	git branch -m <name>
+Initialized empty Git repository in /tmp/tmp.xvxtCjIYgG/.git/
+:: [ 22:10:58 ] :: [   PASS   ] :: Command 'git init' (Expected 0, got 0)
+:: [ 22:10:58 ] :: [  BEGIN   ] :: Running 'mkdir fmf'
+:: [ 22:10:58 ] :: [   PASS   ] :: Command 'mkdir fmf' (Expected 0, got 0)
+:: [ 22:10:59 ] :: [  BEGIN   ] :: Running 'pushd fmf'
+/tmp/tmp.xvxtCjIYgG/fmf /tmp/tmp.xvxtCjIYgG /tmp/tmp.zpYODjspKy /var/ARTIFACTS/work-basic_WExhR/plans/features/basic/discover/default/tests/tests/discover
+:: [ 22:10:59 ] :: [   PASS   ] :: Command 'pushd fmf' (Expected 0, got 0)
+:: [ 22:10:59 ] :: [  BEGIN   ] :: Running 'tmt init'
+Tree '/tmp/tmp.xvxtCjIYgG/fmf' initialized.
+To populate it with example content, use --template with mini, base or full.
+:: [ 22:10:59 ] :: [   PASS   ] :: Command 'tmt init' (Expected 0, got 0)
+:: [ 22:10:59 ] :: [  BEGIN   ] :: Running 'tmt run --id /var/tmp/tmt/XXX --scratch plans --default              discover -vvv -ddd --how fmf --dist-git-source              --dist-git-type TESTING tests --name /tests/magic'
+Usage: tmt run discover [OPTIONS]
+Try 'tmt run discover --help' for help.
+
+Error: Invalid value for '--dist-git-type': 'TESTING' is not one of 'fedora', 'centos'.
+:: [ 22:10:59 ] :: [   FAIL   ] :: Command 'tmt run --id /var/tmp/tmt/XXX --scratch plans --default              discover -vvv -ddd --how fmf --dist-git-source              --dist-git-type TESTING tests --name /tests/magic' (Expected 0, got 2)
+:: [ 22:10:59 ] :: [   FAIL   ] :: File '/var/tmp/rlRun_LOG.rZjildas' should contain '\s/tests/magic' 
+:: [ 22:10:59 ] :: [   FAIL   ] :: File '/var/tmp/rlRun_LOG.rZjildas' should contain 'summary: 1 test selected' 
+:: [ 22:10:59 ] :: [   FAIL   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/source/simple-1/tests/magic.fmf should exist 
+:: [ 22:10:59 ] :: [   FAIL   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/source/simple-1.tgz should exist 
+:: [ 22:10:59 ] :: [   FAIL   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/source/foo-123/all_in_one should exist 
+:: [ 22:10:59 ] :: [   FAIL   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/source/unit-no-tmt.tgz should exist 
+:: [ 22:10:59 ] :: [   FAIL   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/source/outsider should exist 
+:: [ 22:10:59 ] :: [   FAIL   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/tests/tests/magic.fmf should exist 
+:: [ 22:10:59 ] :: [   PASS   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/tests/simple-1/tests/magic.fmf should not exist 
+:: [ 22:10:59 ] :: [   PASS   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/tests/simple-1.tgz should not exist 
+:: [ 22:10:59 ] :: [   PASS   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/tests/foo-123/all_in_one should not exist 
+:: [ 22:10:59 ] :: [   PASS   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/tests/unit-no-tmt.tgz should not exist 
+:: [ 22:10:59 ] :: [   PASS   ] :: File /var/tmp/tmt/XXX/plans/default/discover/default-0/tests/outsider should not exist 
+/tmp/tmp.xvxtCjIYgG /tmp/tmp.zpYODjspKy /var/ARTIFACTS/work-basic_WExhR/plans/features/basic/discover/default/tests/tests/discover
+:: [ 22:10:59 ] :: [  BEGIN   ] :: Running 'popd'
+:: [ 22:10:59 ] :: [   PASS   ] :: Command 'popd' (Expected 0, got 0)
+/tmp/tmp.zpYODjspKy /var/ARTIFACTS/work-basic_WExhR/plans/features/basic/discover/default/tests/tests/discover
+:: [ 22:10:59 ] :: [  BEGIN   ] :: Running 'popd'
+:: [ 22:10:59 ] :: [   PASS   ] :: Command 'popd' (Expected 0, got 0)
+:: [ 22:11:00 ] :: [  BEGIN   ] :: Running 'rm /var/tmp/rlRun_LOG.rZjildas'
+:: [ 22:11:00 ] :: [   PASS   ] :: Command 'rm /var/tmp/rlRun_LOG.rZjildas' (Expected 0, got 0)
+:: [ 22:11:00 ] :: [  BEGIN   ] :: Running 'rm -rf /tmp/tmp.xvxtCjIYgG'
+:: [ 22:11:00 ] :: [   PASS   ] :: Command 'rm -rf /tmp/tmp.xvxtCjIYgG' (Expected 0, got 0)
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::   Duration: 2s
+::   Assertions: 15 good, 9 bad
+::   RESULT: FAIL (fmf and git root don't match)
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::   shell with merge (tmt for plan only)
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:: [ 22:11:00 ] :: [  BEGIN   ] :: Create tmp directory :: actually running 'tmp=$(mktemp -d)'
+:: [ 22:11:00 ] :: [   PASS   ] :: Create tmp directory (Expected 0, got 0)
+:: [ 22:11:00 ] :: [  BEGIN   ] :: Running 'pushd $tmp'
+/tmp/tmp.MOHObsVkoX /tmp/tmp.zpYODjspKy /var/ARTIFACTS/work-basic_WExhR/plans/features/basic/discover/default/tests/tests/discover
+:: [ 22:11:00 ] :: [   PASS   ] :: Command 'pushd $tmp' (Expected 0, got 0)
+:: [ 22:11:00 ] :: [  BEGIN   ] :: Running 'git init'
+hint: Using 'master' as the name for the initial branch. This default branch name
+hint: is subject to change. To configure the initial branch name to use in all
+hint: of your new repositories, which will suppress this warning, call:
+hint: 
+hint: 	git config --global init.defaultBranch <name>
+hint: 
+hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+hint: 'development'. The just-created branch can be renamed via this command:
+hint: 
+hint: 	git branch -m <name>
+Initialized empty Git repository in /tmp/tmp.MOHObsVkoX/.git/
+:: [ 22:11:00 ] :: [   PASS   ] :: Command 'git init' (Expected 0, got 0)
+:: [ 22:11:00 ] :: [  BEGIN   ] :: Running 'tmt init'
+Tree '/tmp/tmp.MOHObsVkoX' initialized.
+To populate it with example content, use --template with mini, base or full.
+:: [ 22:11:00 ] :: [   PASS   ] :: Command 'tmt init' (Expected 0, got 0)
+:: [ 22:11:00 ] :: [  BEGIN   ] :: Running 'tmt run --id /var/tmp/tmt/XXX --scratch -vvv'
+/var/tmp/tmt/XXX
+warn: /plans:discover - {'how': 'shell', 'tests': [{'name': '/file-exists', 'test': 'ls $TMT_SOURCE_DIR/foo-123/all_in_one', 'environment': {'FOO': 'bar'}}, {'name': '/env-is-kept', 'test': 'declare -p FOO && test $FOO == bar', 'environment': {'FOO': 'bar'}}, {'name': '/run-it', 'test': 'cd $TMT_SOURCE_DIR/foo* && sh all_in_one'}], 'dist-git-source': True, 'dist-git-type': 'TESTING'} is not valid under any of the given schemas
+Found 1 plan.
+
+/plans
+    discover
+        how: shell
+        order: 50
+warn: /file-exists: - 'name' does not match any of the regexes: '^extra-'
+warn: /file-exists:description - None is not of type 'string'
+warn: /file-exists:framework - None is not of type 'string'
+warn: /file-exists:framework - None is not one of ['beakerlib', 'shell']
+warn: /file-exists:id - None is not of type 'string'
+warn: /file-exists:summary - None is not of type 'string'
+warn: /env-is-kept: - 'name' does not match any of the regexes: '^extra-'
+warn: /env-is-kept:description - None is not of type 'string'
+warn: /env-is-kept:framework - None is not of type 'string'
+warn: /env-is-kept:framework - None is not one of ['beakerlib', 'shell']
+warn: /env-is-kept:id - None is not of type 'string'
+warn: /env-is-kept:summary - None is not of type 'string'
+warn: /run-it: - 'name' does not match any of the regexes: '^extra-'
+warn: /run-it:description - None is not of type 'string'
+warn: /run-it:framework - None is not of type 'string'
+warn: /run-it:framework - None is not one of ['beakerlib', 'shell']
+warn: /run-it:id - None is not of type 'string'
+warn: /run-it:summary - None is not of type 'string'
+        summary: 3 tests selected
+            /file-exists
+            /env-is-kept
+            /run-it
+    provision
+        how: local
+        order: 50
+        kernel: 5.19.9-100.fc35.x86_64
+        summary: 1 guest provisioned
+    prepare
+        summary: 0 preparations applied
+    execute
+        how: tmt
+        order: 50
+        exit-first: False
+            test: /file-exists
+                out: /var/tmp/tmt/XXX/plans/discover/default-0/source/foo-123/all_in_one
+                00:00:00 pass /file-exists [1/3]
+            test: /env-is-kept
+                out: declare -x FOO="bar"
+                00:00:00 pass /env-is-kept [2/3]
+            test: /run-it
+                out: WORKS
+                00:00:00 pass /run-it [3/3]
+        summary: 3 tests executed
+    report
+        how: display
+        order: 50
+            pass /file-exists
+                output.txt: /var/tmp/tmt/XXX/plans/execute/data/file-exists/output.txt
+                content: /var/tmp/tmt/XXX/plans/discover/default-0/source/foo-123/all_in_one
+
+            pass /env-is-kept
+                output.txt: /var/tmp/tmt/XXX/plans/execute/data/env-is-kept/output.txt
+                content: declare -x FOO="bar"
+
+            pass /run-it
+                output.txt: /var/tmp/tmt/XXX/plans/execute/data/run-it/output.txt
+                content: WORKS
+
+        summary: 3 tests passed
+    finish
+        summary: 0 tasks completed
+
+total: 3 tests passed
+:: [ 22:11:01 ] :: [   PASS   ] :: Command 'tmt run --id /var/tmp/tmt/XXX --scratch -vvv' (Expected 0, got 0)
+:: [ 22:11:01 ] :: [   PASS   ] :: File /var/tmp/tmt/XXX/plans/discover/default-0/source/foo-123/all_in_one should exist 
+:: [ 22:11:01 ] :: [   PASS   ] :: File /var/tmp/tmt/XXX/plans/discover/default-0/source/unit-no-tmt.tgz should exist 
+/tmp/tmp.zpYODjspKy /var/ARTIFACTS/work-basic_WExhR/plans/features/basic/discover/default/tests/tests/discover
+:: [ 22:11:01 ] :: [  BEGIN   ] :: Running 'popd'
+:: [ 22:11:01 ] :: [   PASS   ] :: Command 'popd' (Expected 0, got 0)
+:: [ 22:11:01 ] :: [  BEGIN   ] :: Running 'rm /var/tmp/rlRun_LOG.c2nzsVQg'
+:: [ 22:11:01 ] :: [   PASS   ] :: Command 'rm /var/tmp/rlRun_LOG.c2nzsVQg' (Expected 0, got 0)
+:: [ 22:11:01 ] :: [  BEGIN   ] :: Running 'rm -rf /tmp/tmp.MOHObsVkoX'
+:: [ 22:11:01 ] :: [   PASS   ] :: Command 'rm -rf /tmp/tmp.MOHObsVkoX' (Expected 0, got 0)
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::   Duration: 1s
+::   Assertions: 10 good, 0 bad
+::   RESULT: PASS (shell with merge (tmt for plan only))
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::   Cleanup
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+22333
+/usr/share/beakerlib/testing.sh: line 763: 22333 Killed                  python3 -m http.server 9000 &> server.out
+/var/ARTIFACTS/work-basic_WExhR/plans/features/basic/discover/default/tests/tests/discover
+:: [ 22:11:01 ] :: [  BEGIN   ] :: Running 'popd'
+:: [ 22:11:01 ] :: [   PASS   ] :: Command 'popd' (Expected 0, got 0)
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::   Duration: 0s
+::   Assertions: 1 good, 0 bad
+::   RESULT: PASS (Cleanup)
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::   
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:: [ 22:11:02 ] :: [   LOG    ] :: Phases fingerprint:  j59j1COO
+:: [ 22:11:02 ] :: [   LOG    ] :: Asserts fingerprint: wS+N1CjT
+:: [ 22:11:02 ] :: [   LOG    ] :: JOURNAL XML: /var/ARTIFACTS/work-basic_WExhR/plans/features/basic/execute/data/tests/discover/distgit/journal.xml
+:: [ 22:11:02 ] :: [   LOG    ] :: JOURNAL TXT: /var/ARTIFACTS/work-basic_WExhR/plans/features/basic/execute/data/tests/discover/distgit/journal.txt
+:: [ 22:11:02 ] :: [   INFO   ] :: Deleting rlRun_LOG file(s)
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+::   Duration: 25s
+::   Phases: 11 good, 7 bad
+::   OVERALL RESULT: FAIL ()
+

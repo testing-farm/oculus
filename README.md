@@ -22,3 +22,21 @@ http://localhost:8000/results.html?url=https://artifacts.dev.testing-farm.io/7d6
 
 Alternatively you can put a `results.xml` (plus the files it refers to) next to
 results.html and open http://localhost:8000/results.html without any arguments.
+
+## Scenario collection
+
+The [scenarios/](./scenarios/) directory contains a few key
+scenarios, to make it easier to test them manually and (in the future)
+automatically. They were taken from real-life Testing Farm results, with some
+modifications:
+
+ - Only a few logs are downloaded: the ones which get rendered inline, and some
+   others which we want to test.
+
+ - Absolute URLs to downloaded logs were turned into relative ones.
+
+ - Actual test output got trimmed, as they are not important for the viewer.
+   The STI ones are kept as their original though, to test the maximum height
+   and scrolling behaviour.
+
+You can look at a scenario on e.g. http://localhost:8000/results.html?url=scenarios/sti-fail

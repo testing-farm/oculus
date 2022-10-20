@@ -1,0 +1,37 @@
+<testsuites overall-result="failed">
+ <properties>
+  <property name="baseosci.overall-result" value="failed"/>
+ </properties>
+ <testsuite name="dist-git-repository-None-y3hXKe/tests/tests.yml" result="failed" tests="1">
+  <logs>
+   <log guest-setup-stage="artifact_installation" href="https://artifacts.dev.testing-farm.io/e607c7ae-2fdb-4ba4-8a63-08c68931505d/guest-setup-557fb630-ca34-4b7b-a19d-23322b5cf954/artifact-installation-557fb630-ca34-4b7b-a19d-23322b5cf954" name="build installation" schedule-stage="guest-setup"/>
+   <log guest-setup-stage="pre_artifact_installation" href="https://artifacts.dev.testing-farm.io/e607c7ae-2fdb-4ba4-8a63-08c68931505d/guest-setup-557fb630-ca34-4b7b-a19d-23322b5cf954/guest-setup-output-pre-artifact-installation.txt" name="guest setup" schedule-stage="guest-setup"/>
+   <log guest-setup-stage="post_artifact_installation" href="https://artifacts.dev.testing-farm.io/e607c7ae-2fdb-4ba4-8a63-08c68931505d/guest-setup-557fb630-ca34-4b7b-a19d-23322b5cf954/guest-setup-output-post-artifact-installation.txt" name="guest setup" schedule-stage="guest-setup"/>
+  </logs>
+  <properties>
+   <property name="baseosci.result" value="failed"/>
+  </properties>
+  <testcase name="ansible" result="FAIL">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="3.16.22.203"/>
+    <property name="baseosci.distro" value="CentOS-Stream-9"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+     <log href="./scenarios/sti-fail/work-tests.ymlbkyu8e/ansible-output.txt" name="ansible-output.txt" schedule-entry="dist-git-repository-None-y3hXKe/tests/tests.yml" schedule-stage="running"/>
+   </logs>
+   <failure/>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="CentOS-Stream-9"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="CentOS-Stream-9"/>
+   </testing-environment>
+  </testcase>
+ </testsuite>
+</testsuites>

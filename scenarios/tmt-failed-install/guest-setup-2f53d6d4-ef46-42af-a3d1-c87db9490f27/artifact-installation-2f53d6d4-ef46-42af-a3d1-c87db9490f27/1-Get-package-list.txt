@@ -1,0 +1,29 @@
+Command:
+---v---v---v---v---v---
+ls *[^.src].rpm | sed -r "s/(.*)-.*-.*/\1 \0/" | awk "{print \$2}" | tee rpms-list
+---^---^---^---^---^---
+
+Stdout:
+---v---v---v---v---v---
+annobin-annocheck-10.87-2.fc38.x86_64.rpm
+annobin-annocheck-debuginfo-10.87-2.fc38.x86_64.rpm
+annobin-debuginfo-10.87-2.fc38.x86_64.rpm
+annobin-debugsource-10.87-2.fc38.x86_64.rpm
+annobin-docs-10.87-2.fc38.noarch.rpm
+annobin-libannocheck-10.87-2.fc38.x86_64.rpm
+annobin-libannocheck-debuginfo-10.87-2.fc38.x86_64.rpm
+annobin-plugin-clang-10.87-2.fc38.x86_64.rpm
+annobin-plugin-clang-debuginfo-10.87-2.fc38.x86_64.rpm
+annobin-plugin-gcc-10.87-2.fc38.x86_64.rpm
+annobin-plugin-gcc-debuginfo-10.87-2.fc38.x86_64.rpm
+annobin-plugin-llvm-10.87-2.fc38.x86_64.rpm
+annobin-plugin-llvm-debuginfo-10.87-2.fc38.x86_64.rpm
+
+---^---^---^---^---^---
+
+Stderr:
+---v---v---v---v---v---
+Warning: Permanently added '18.191.155.161' (ECDSA) to the list of known hosts.
+
+---^---^---^---^---^---
+

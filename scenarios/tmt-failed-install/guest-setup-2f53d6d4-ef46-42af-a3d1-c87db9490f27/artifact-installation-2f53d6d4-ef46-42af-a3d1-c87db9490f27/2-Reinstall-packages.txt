@@ -1,0 +1,45 @@
+Command:
+---v---v---v---v---v---
+dnf --allowerasing -y reinstall $(cat rpms-list)
+---^---^---^---^---^---
+
+Stdout:
+---v---v---v---v---v---
+Tag repository for rawhide                       37 MB/s |  62 MB     00:01    
+Last metadata expiration check: 0:00:18 ago on Wed 05 Oct 2022 10:48:25 AM UTC.
+No match for argument: annobin-annocheck-10.87-2.fc38.x86_64.rpm
+No match for argument: annobin-annocheck-debuginfo-10.87-2.fc38.x86_64.rpm
+No match for argument: annobin-debuginfo-10.87-2.fc38.x86_64.rpm
+No match for argument: annobin-debugsource-10.87-2.fc38.x86_64.rpm
+No match for argument: annobin-docs-10.87-2.fc38.noarch.rpm
+No match for argument: annobin-libannocheck-10.87-2.fc38.x86_64.rpm
+No match for argument: annobin-libannocheck-debuginfo-10.87-2.fc38.x86_64.rpm
+No match for argument: annobin-plugin-clang-10.87-2.fc38.x86_64.rpm
+No match for argument: annobin-plugin-clang-debuginfo-10.87-2.fc38.x86_64.rpm
+No match for argument: annobin-plugin-gcc-10.87-2.fc38.x86_64.rpm
+No match for argument: annobin-plugin-gcc-debuginfo-10.87-2.fc38.x86_64.rpm
+No match for argument: annobin-plugin-llvm-10.87-2.fc38.x86_64.rpm
+No match for argument: annobin-plugin-llvm-debuginfo-10.87-2.fc38.x86_64.rpm
+
+---^---^---^---^---^---
+
+Stderr:
+---v---v---v---v---v---
+Warning: Permanently added '18.191.155.161' (ECDSA) to the list of known hosts.
+Package annobin-annocheck-10.87-2.fc38.x86_64 not installed, cannot reinstall it.
+Package annobin-annocheck-debuginfo-10.87-2.fc38.x86_64 not installed, cannot reinstall it.
+Package annobin-debuginfo-10.87-2.fc38.x86_64 not installed, cannot reinstall it.
+Package annobin-debugsource-10.87-2.fc38.x86_64 not installed, cannot reinstall it.
+Package annobin-docs-10.87-2.fc38.noarch not installed, cannot reinstall it.
+Package annobin-libannocheck-10.87-2.fc38.x86_64 not installed, cannot reinstall it.
+Package annobin-libannocheck-debuginfo-10.87-2.fc38.x86_64 not installed, cannot reinstall it.
+Package annobin-plugin-clang-10.87-2.fc38.x86_64 not installed, cannot reinstall it.
+Package annobin-plugin-clang-debuginfo-10.87-2.fc38.x86_64 not installed, cannot reinstall it.
+Package annobin-plugin-gcc-10.87-2.fc38.x86_64 not installed, cannot reinstall it.
+Package annobin-plugin-gcc-debuginfo-10.87-2.fc38.x86_64 not installed, cannot reinstall it.
+Package annobin-plugin-llvm-10.87-2.fc38.x86_64 not installed, cannot reinstall it.
+Package annobin-plugin-llvm-debuginfo-10.87-2.fc38.x86_64 not installed, cannot reinstall it.
+Error: No packages marked for reinstall.
+
+---^---^---^---^---^---
+

@@ -1,0 +1,37 @@
+<testsuites overall-result="passed">
+ <properties>
+  <property name="baseosci.overall-result" value="passed"/>
+ </properties>
+ <testsuite name="dist-git-repository-None-lzb1e5/tests/tests.yml" result="passed" tests="1">
+  <logs>
+   <log guest-setup-stage="artifact_installation" href="https://artifacts.dev.testing-farm.io/d9a7a020-bd12-4c01-97ef-401315d98113/guest-setup-7af59ac5-42eb-4f2d-97c8-1a1235cc1843/artifact-installation-7af59ac5-42eb-4f2d-97c8-1a1235cc1843" name="build installation" schedule-stage="guest-setup"/>
+   <log guest-setup-stage="pre_artifact_installation" href="https://artifacts.dev.testing-farm.io/d9a7a020-bd12-4c01-97ef-401315d98113/guest-setup-7af59ac5-42eb-4f2d-97c8-1a1235cc1843/guest-setup-output-pre-artifact-installation.txt" name="guest setup" schedule-stage="guest-setup"/>
+   <log guest-setup-stage="post_artifact_installation" href="https://artifacts.dev.testing-farm.io/d9a7a020-bd12-4c01-97ef-401315d98113/guest-setup-7af59ac5-42eb-4f2d-97c8-1a1235cc1843/guest-setup-output-post-artifact-installation.txt" name="guest setup" schedule-stage="guest-setup"/>
+  </logs>
+  <properties>
+   <property name="baseosci.result" value="passed"/>
+  </properties>
+  <testcase name="pyproject_rpm_macros" result="pass">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="3.129.148.77"/>
+    <property name="baseosci.distro" value="Fedora-Rawhide"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+     <log href="./scenarios/sti-pass/work-tests.ymlDRjlV3/tests-wE0wBX/PASS-str_pyproject_rpm_macros.log" name="PASS-str_pyproject_rpm_macros.log" schedule-entry="dist-git-repository-None-lzb1e5/tests/tests.yml" schedule-stage="running"/>
+     <log href="./scenarios/sti-pass/work-tests.ymlDRjlV3/tests-wE0wBX" name="log_dir" schedule-entry="dist-git-repository-None-lzb1e5/tests/tests.yml" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-Rawhide"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-Rawhide"/>
+   </testing-environment>
+  </testcase>
+ </testsuite>
+</testsuites>

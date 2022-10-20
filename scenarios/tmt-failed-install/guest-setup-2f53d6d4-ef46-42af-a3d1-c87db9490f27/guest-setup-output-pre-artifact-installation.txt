@@ -1,0 +1,483 @@
+# STDOUT:
+---v---v---v---v---v---
+Using /etc/ansible/ansible.cfg as config file
+
+PLAY [all] *********************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [18.191.155.161]
+
+TASK [include_tasks] ***********************************************************
+included: /CONFIG/guest-setup/pre-artifact-installation/workaround-fedora-release.yml for 18.191.155.161
+
+TASK [Workaround - update Fedora release and related packages] *****************
+changed: [18.191.155.161] => {
+    "attempts": 1,
+    "changed": true,
+    "cmd": [
+        "dnf",
+        "-y",
+        "update",
+        "--nogpgcheck",
+        "fedora*"
+    ],
+    "delta": "0:00:28.354351",
+    "end": "2022-10-05 10:47:58.090733",
+    "rc": 0,
+    "start": "2022-10-05 10:47:29.736382"
+}
+
+STDOUT:
+
+Fedora rawhide openh264 (From Cisco) - x86_64   3.8 kB/s | 2.5 kB     00:00    
+Fedora - Rawhide - Developmental packages for t  20 MB/s |  64 MB     00:03    
+Fedora - Modular Rawhide - Developmental packag 2.0 MB/s | 2.2 MB     00:01    
+Dependencies resolved.
+Nothing to do.
+Complete!
+
+TASK [include_tasks] ***********************************************************
+included: /CONFIG/guest-setup/pre-artifact-installation/update-and-restart.yml for 18.191.155.161
+
+TASK [Check for rawhide] *******************************************************
+changed: [18.191.155.161] => {
+    "changed": true,
+    "cmd": [
+        "rpm",
+        "-q",
+        "fedora-repos-rawhide"
+    ],
+    "delta": "0:00:00.010802",
+    "end": "2022-10-05 10:47:58.742285",
+    "rc": 0,
+    "start": "2022-10-05 10:47:58.731483"
+}
+
+STDOUT:
+
+fedora-repos-rawhide-38-0.3.noarch
+
+TASK [Update to latest packages] ***********************************************
+changed: [18.191.155.161] => {
+    "attempts": 1,
+    "changed": true,
+    "cmd": [
+        "dnf",
+        "-y",
+        "update",
+        "*"
+    ],
+    "delta": "0:00:01.240326",
+    "end": "2022-10-05 10:48:00.529886",
+    "rc": 0,
+    "start": "2022-10-05 10:47:59.289560"
+}
+
+STDOUT:
+
+Last metadata expiration check: 0:00:05 ago on Wed 05 Oct 2022 10:47:54 AM UTC.
+Dependencies resolved.
+Nothing to do.
+Complete!
+
+TASK [Restart if kernel updated] ***********************************************
+skipping: [18.191.155.161] => {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+
+TASK [Wait for connection for 5 minutes] ***************************************
+skipping: [18.191.155.161] => {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+
+TASK [include_tasks] ***********************************************************
+included: /CONFIG/guest-setup/pre-artifact-installation/workaround-dns.yml for 18.191.155.161
+
+TASK [disable systemd-resolved] ************************************************
+changed: [18.191.155.161] => {
+    "changed": true,
+    "cmd": [
+        "systemctl",
+        "disable",
+        "systemd-resolved"
+    ],
+    "delta": "0:00:00.277438",
+    "end": "2022-10-05 10:48:01.639141",
+    "rc": 0,
+    "start": "2022-10-05 10:48:01.361703"
+}
+
+STDERR:
+
+Removed "/etc/systemd/system/dbus-org.freedesktop.resolve1.service".
+Removed "/etc/systemd/system/sysinit.target.wants/systemd-resolved.service".
+
+TASK [mask systemd-resolved] ***************************************************
+changed: [18.191.155.161] => {
+    "changed": true,
+    "cmd": [
+        "systemctl",
+        "mask",
+        "systemd-resolved"
+    ],
+    "delta": "0:00:00.295448",
+    "end": "2022-10-05 10:48:02.559779",
+    "rc": 0,
+    "start": "2022-10-05 10:48:02.264331"
+}
+
+STDERR:
+
+Created symlink /etc/systemd/system/systemd-resolved.service → /dev/null.
+
+TASK [remove /etc/resolv.conf] *************************************************
+changed: [18.191.155.161] => {
+    "changed": true,
+    "cmd": [
+        "rm",
+        "-f",
+        "/etc/resolv.conf"
+    ],
+    "delta": "0:00:00.003554",
+    "end": "2022-10-05 10:48:03.185150",
+    "rc": 0,
+    "start": "2022-10-05 10:48:03.181596"
+}
+
+TASK [replace resolve.conf] ****************************************************
+changed: [18.191.155.161] => {
+    "changed": true,
+    "checksum": "c3f9736e9af7bd0885578859a50b205c8fa5fc8e",
+    "dest": "/etc/resolv.conf",
+    "gid": 0,
+    "group": "root",
+    "md5sum": "c7ea09d26e26605227076e0514a33038",
+    "mode": "0644",
+    "owner": "root",
+    "secontext": "system_u:object_r:net_conf_t:s0",
+    "size": 38,
+    "src": "/root/.ansible/tmp/ansible-tmp-1664966883.3777506-192-155467760468888/source",
+    "state": "file",
+    "uid": 0
+}
+
+TASK [include_tasks] ***********************************************************
+included: /CONFIG/guest-setup/pre-artifact-installation/workaround-beakerlib.yml for 18.191.155.161
+
+TASK [Make sure dnf core plugins are installed] ********************************
+skipping: [18.191.155.161] => {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+
+TASK [Add beakerlib copr repository for CentOS Stream] *************************
+skipping: [18.191.155.161] => {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+
+TASK [Install beakerlib] *******************************************************
+skipping: [18.191.155.161] => {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+
+TASK [include_tasks] ***********************************************************
+included: /CONFIG/guest-setup/pre-artifact-installation/workaround-automotive.yml for 18.191.155.161
+
+TASK [Fix unexpanded $stream in yum repositories] ******************************
+skipping: [18.191.155.161] => {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+
+TASK [Check if 'rsync' package is already present] *****************************
+skipping: [18.191.155.161] => {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+
+TASK [Install rsync via rpm-ostree] ********************************************
+skipping: [18.191.155.161] => {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+
+TASK [Restart] *****************************************************************
+skipping: [18.191.155.161] => {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+
+TASK [Wait for connection for 5 minutes] ***************************************
+skipping: [18.191.155.161] => {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+
+TASK [include_tasks] ***********************************************************
+included: /CONFIG/guest-setup/pre-artifact-installation/enable-crb.yml for 18.191.155.161
+
+TASK [Enable CRB repository] ***************************************************
+skipping: [18.191.155.161] => {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+
+TASK [include_tasks] ***********************************************************
+included: /CONFIG/guest-setup/pre-artifact-installation/enable-powertools.yml for 18.191.155.161
+
+TASK [Make sure dnf core plugins are installed] ********************************
+skipping: [18.191.155.161] => {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+
+TASK [Enable Powertools repository] ********************************************
+skipping: [18.191.155.161] => {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+
+TASK [include_tasks] ***********************************************************
+included: /CONFIG/guest-setup/pre-artifact-installation/install-epel.yml for 18.191.155.161
+
+TASK [Install EPEL on CentOS (except CentOS Stream 9)] *************************
+skipping: [18.191.155.161] => {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+
+TASK [Install EPEL on CentOS (CentOS Stream 9)] ********************************
+skipping: [18.191.155.161] => {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+
+TASK [include_tasks] ***********************************************************
+included: /CONFIG/guest-setup/pre-artifact-installation/install-koji-brew.yml for 18.191.155.161
+
+TASK [Install dnf-utils, need for the next workaround task] ********************
+changed: [18.191.155.161] => {
+    "changed": true,
+    "rc": 0,
+    "results": [
+        "Installed: dnf-utils-4.3.1-1.fc38.noarch"
+    ]
+}
+
+TASK [Enable copr with koji workarounding pagure.io/koji/issue/3461] ***********
+changed: [18.191.155.161] => {
+    "changed": true,
+    "cmd": [
+        "dnf",
+        "-y",
+        "copr",
+        "enable",
+        "@osci/koji"
+    ],
+    "delta": "0:00:00.457966",
+    "end": "2022-10-05 10:48:10.829289",
+    "rc": 0,
+    "start": "2022-10-05 10:48:10.371323"
+}
+
+STDOUT:
+
+Repository successfully enabled.
+
+
+STDERR:
+
+Enabling a Copr repository. Please note that this repository is not part
+of the main distribution, and quality may vary.
+
+The Fedora Project does not exercise any power over the contents of
+this repository beyond the rules outlined in the Copr FAQ at
+<https://docs.pagure.org/copr.copr/user_documentation.html#what-i-can-build-in-copr>,
+and packages are not held to any quality or security level.
+
+Please do not file bug reports about these packages in Fedora
+Bugzilla. In case of problems, contact the owner of this repository.
+
+TASK [Install Koji] ************************************************************
+changed: [18.191.155.161] => {
+    "attempts": 1,
+    "changed": true,
+    "rc": 0,
+    "results": [
+        "Installed: python3-koji-1.28.1-1.fc38.noarch",
+        "Installed: python3-gssapi-1.7.3-3.fc37.x86_64",
+        "Installed: koji-1.28.1-1.fc38.noarch",
+        "Installed: python3-decorator-5.1.1-4.fc37.noarch",
+        "Installed: python3-requests-gssapi-1.2.3-6.fc37.noarch"
+    ]
+}
+
+TASK [Add RCM Repository for RHEL7 and earlier] ********************************
+skipping: [18.191.155.161] => {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+
+TASK [Install Brewkoji] ********************************************************
+skipping: [18.191.155.161] => {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+
+TASK [Add RCM Repository for RHEL 8] *******************************************
+skipping: [18.191.155.161] => {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+
+TASK [Install Brewkoji] ********************************************************
+skipping: [18.191.155.161] => {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+
+TASK [include_tasks] ***********************************************************
+included: /CONFIG/guest-setup/pre-artifact-installation/tag-repository.yml for 18.191.155.161
+
+TASK [Check for rawhide] *******************************************************
+changed: [18.191.155.161] => {
+    "changed": true,
+    "cmd": [
+        "rpm",
+        "-q",
+        "fedora-repos-rawhide"
+    ],
+    "delta": "0:00:00.010667",
+    "end": "2022-10-05 10:48:16.680286",
+    "rc": 0,
+    "start": "2022-10-05 10:48:16.669619"
+}
+
+STDOUT:
+
+fedora-repos-rawhide-38-0.3.noarch
+
+TASK [Transform build target to a tag repository name (Rawhide)] ***************
+ok: [18.191.155.161] => {
+    "ansible_facts": {
+        "tag_repository_name": "rawhide"
+    },
+    "changed": false
+}
+
+TASK [Transform build target to a tag repository name (Fedora non-Rawhide)] ****
+skipping: [18.191.155.161] => {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+
+TASK [Create tag repository base url (Fedora)] *********************************
+ok: [18.191.155.161] => {
+    "ansible_facts": {
+        "tag_repository_url": "https://kojipkgs.fedoraproject.org/repos/rawhide/latest/x86_64/"
+    },
+    "changed": false
+}
+
+TASK [Create tag repository base url (CentOS Stream 8)] ************************
+skipping: [18.191.155.161] => {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+
+TASK [Create tag repository base url (CentOS Stream 9)] ************************
+skipping: [18.191.155.161] => {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+
+TASK [Check if tag repository https://kojipkgs.fedoraproject.org/repos/rawhide/latest/x86_64/ exists] ***
+ok: [18.191.155.161] => {
+    "accept_ranges": "bytes",
+    "age": "15",
+    "apptime": "D=1427",
+    "changed": false,
+    "connection": "close",
+    "content_length": "1010",
+    "content_type": "text/html;charset=ISO-8859-1",
+    "cookies": {},
+    "cookies_string": "",
+    "date": "Wed, 05 Oct 2022 10:48:02 GMT",
+    "elapsed": 0,
+    "redirected": false,
+    "referrer_policy": "same-origin",
+    "server": "Apache",
+    "status": 200,
+    "strict_transport_security": "max-age=31536000; includeSubDomains; preload, max-age=31536000; includeSubDomains; preload",
+    "url": "https://kojipkgs.fedoraproject.org/repos/rawhide/latest/x86_64/",
+    "via": "1.1 varnish (Varnish/7.0)",
+    "x_content_type_options": "nosniff",
+    "x_fedora_appserver": "kojipkgs01.iad2.fedoraproject.org",
+    "x_fedora_proxyserver": "proxy10.iad2.fedoraproject.org",
+    "x_fedora_requestid": "Yz1g8sbjFe25nxv_uEx-MQAAChc",
+    "x_frame_options": "SAMEORIGIN",
+    "x_varnish": "53201741 53808016",
+    "x_xss_protection": "1; mode=block"
+}
+
+MSG:
+
+OK (1010 bytes)
+
+TASK [Add tag repository] ******************************************************
+changed: [18.191.155.161] => {
+    "changed": true,
+    "checksum": "db04460fe2046496c1379b492cd8d0e3923b85f5",
+    "dest": "/etc/yum.repos.d/tag-repository.repo",
+    "gid": 0,
+    "group": "root",
+    "md5sum": "40b2649221d7d3a709e9d24cbfea6453",
+    "mode": "0644",
+    "owner": "root",
+    "secontext": "system_u:object_r:system_conf_t:s0",
+    "size": 270,
+    "src": "/root/.ansible/tmp/ansible-tmp-1664966898.6293383-311-73949046840767/source",
+    "state": "file",
+    "uid": 0
+}
+
+TASK [debug] *******************************************************************
+skipping: [18.191.155.161] => {}
+
+TASK [debug] *******************************************************************
+skipping: [18.191.155.161] => {}
+
+PLAY RECAP *********************************************************************
+18.191.155.161             : ok=26   changed=12   unreachable=0    failed=0    skipped=24   rescued=0    ignored=0   
+
+
+---^---^---^---^---^---
+
+# STDERR:
+---v---v---v---v---v---
+[DEPRECATION WARNING]: Distribution fedora 38 on host 18.191.155.161 should use
+ /usr/bin/python3, but is using /usr/bin/python for backward compatibility with
+ prior Ansible releases. A future Ansible release will default to using the 
+discovered platform python for this host. See https://docs.ansible.com/ansible/
+2.9/reference_appendices/interpreter_discovery.html for more information. This 
+feature will be removed in version 2.12. Deprecation warnings can be disabled 
+by setting deprecation_warnings=False in ansible.cfg.
+[WARNING]: Consider using the dnf module rather than running 'dnf'.  If you
+need to use command because dnf is insufficient you can add 'warn: false' to
+this command task or set 'command_warnings=False' in ansible.cfg to get rid of
+this message.
+[WARNING]: Consider using the yum, dnf or zypper module rather than running
+'rpm'.  If you need to use command because yum, dnf or zypper is insufficient
+you can add 'warn: false' to this command task or set 'command_warnings=False'
+in ansible.cfg to get rid of this message.
+[WARNING]: Consider using the file module with state=absent rather than running
+'rm'.  If you need to use command because file is insufficient you can add
+'warn: false' to this command task or set 'command_warnings=False' in
+ansible.cfg to get rid of this message.
+
+---^---^---^---^---^---
+

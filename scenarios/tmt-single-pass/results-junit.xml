@@ -1,0 +1,34 @@
+<testsuites>
+  <testsuite name="/plans/all" tests="1" failures="0" errors="0" skipped="0">
+    <testcase name="/tests" classname="tests">
+      <system-out>+ MOCK=4696
++ python3 -m dbusmock com.example.Foo / com.example.Foo.Manager
++ trap 'kill 4696; wait 4696 || true' EXIT INT QUIT PIPE
++ grep -q com.example.Foo
++ busctl list --user
++ sleep 0.1
++ busctl list --user
++ grep -q com.example.Foo
++ sleep 0.1
++ busctl list --user
++ grep -q com.example.Foo
++ busctl call --user com.example.Foo / org.freedesktop.DBus.Mock AddMethod sssss '' Ping '' '' ''
++ busctl introspect --user com.example.Foo / com.example.Foo.Manager
++ grep Ping
+.Ping                   method    -         -            -
++ python3 -m dbusmock --help
++ grep PWNED
+mock PWNED D-Bus object
++ kill 4696
++ wait 4696
++ true
+</system-out>
+    </testcase>
+    <system-out>https://artifacts.dev.testing-farm.io/7d6a6cbf-3cd5-49fb-aca1-f76ffa0734aa/work-allw5U7yu</system-out>
+    <system-out># tmt reproducer
+git clone https://github.com/martinpitt/python-dbusmock testcode
+git -C testcode checkout -b testbranch 33cc0bbbb411b31a4177e33b9f16c341e49fe803
+cd testcode
+tmt run --all --verbose provision --how virtual --image Fedora-37 plan --name ^\/plans\/all$</system-out>
+  </testsuite>
+</testsuites>

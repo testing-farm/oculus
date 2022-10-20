@@ -1,0 +1,44 @@
+Command:
+---v---v---v---v---v---
+koji download-build --debuginfo --task-id --arch noarch --arch x86_64 --arch src 92657858 || koji download-task --arch noarch --arch x86_64 --arch src 92657858
+---^---^---^---^---^---
+
+Stdout:
+---v---v---v---v---v---
+Downloading: annobin-10.87-2.fc38.src.rpm
+[====================================] 100% 949.86 KiB / 949.86 KiB
+Downloading: annobin-docs-10.87-2.fc38.noarch.rpm
+[====================================] 100% 92.09 KiB / 92.09 KiB
+Downloading: annobin-plugin-gcc-debuginfo-10.87-2.fc38.x86_64.rpm
+[====================================] 100% 326.78 KiB / 326.78 KiB
+Downloading: annobin-plugin-llvm-debuginfo-10.87-2.fc38.x86_64.rpm
+[====================================] 100% 89.07 KiB / 89.07 KiB
+Downloading: annobin-annocheck-debuginfo-10.87-2.fc38.x86_64.rpm
+[====================================] 100% 270.85 KiB / 270.85 KiB
+Downloading: annobin-annocheck-10.87-2.fc38.x86_64.rpm
+[====================================] 100% 139.87 KiB / 139.87 KiB
+Downloading: annobin-plugin-llvm-10.87-2.fc38.x86_64.rpm
+[====================================] 100% 44.17 KiB / 44.17 KiB
+Downloading: annobin-libannocheck-debuginfo-10.87-2.fc38.x86_64.rpm
+[====================================] 100% 113.17 KiB / 113.17 KiB
+Downloading: annobin-plugin-clang-10.87-2.fc38.x86_64.rpm
+[====================================] 100% 44.08 KiB / 44.08 KiB
+Downloading: annobin-debuginfo-10.87-2.fc38.x86_64.rpm
+[====================================] 100% 66.26 KiB / 66.26 KiB
+Downloading: annobin-plugin-clang-debuginfo-10.87-2.fc38.x86_64.rpm
+[====================================] 100% 100.87 KiB / 100.87 KiB
+Downloading: annobin-libannocheck-10.87-2.fc38.x86_64.rpm
+[====================================] 100% 82.28 KiB / 82.28 KiB
+Downloading: annobin-plugin-gcc-10.87-2.fc38.x86_64.rpm
+[====================================] 100% 887.57 KiB / 887.57 KiB
+Downloading: annobin-debugsource-10.87-2.fc38.x86_64.rpm
+[====================================] 100% 122.34 KiB / 122.34 KiB
+
+---^---^---^---^---^---
+
+Stderr:
+---v---v---v---v---v---
+Warning: Permanently added '18.191.155.161' (ECDSA) to the list of known hosts.
+
+---^---^---^---^---^---
+

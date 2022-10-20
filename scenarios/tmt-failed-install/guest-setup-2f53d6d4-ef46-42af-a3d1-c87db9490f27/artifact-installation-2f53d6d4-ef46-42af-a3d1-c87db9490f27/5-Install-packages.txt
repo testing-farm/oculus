@@ -1,0 +1,21 @@
+Command:
+---v---v---v---v---v---
+dnf --allowerasing -y install $(cat rpms-list)
+---^---^---^---^---^---
+
+Stdout:
+---v---v---v---v---v---
+Last metadata expiration check: 0:00:25 ago on Wed 05 Oct 2022 10:48:25 AM UTC.
+(try to add '--skip-broken' to skip uninstallable packages)
+
+---^---^---^---^---^---
+
+Stderr:
+---v---v---v---v---v---
+Warning: Permanently added '18.191.155.161' (ECDSA) to the list of known hosts.
+Error: 
+ Problem: conflicting requests
+  - nothing provides pkgconfig(binutils-devel) needed by annobin-libannocheck-10.87-2.fc38.x86_64
+
+---^---^---^---^---^---
+
