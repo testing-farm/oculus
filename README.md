@@ -25,10 +25,9 @@ results.html and open http://localhost:8000/results.html without any arguments.
 
 ## Scenario collection
 
-The [scenarios/](./scenarios/) directory contains a few key
-scenarios, to make it easier to test them manually and (in the future)
-automatically. They were taken from real-life Testing Farm results, with some
-modifications:
+The [scenarios/](./scenarios/) directory contains a few key scenarios, to make
+it easier to test them manually. They were taken from real-life Testing Farm
+results, with some modifications:
 
  - Only a few logs are downloaded: the ones which get rendered inline, and some
    others which we want to test.
@@ -40,3 +39,21 @@ modifications:
    and scrolling behaviour.
 
 You can look at a scenario on e.g. http://localhost:8000/results.html?url=scenarios/sti-fail
+
+# Browser integration tests
+
+Tests are run with [cypress.io](https://www.cypress.io/). They can be run
+locally in a convenient and safe way in a container (podman or docker):
+
+    cypress/run-container.sh
+
+In case of a test failure, have a look in the `cypress/screenshots/` directory.
+
+You can also start cypress' interactive UI, to step through the tests, select
+elements and show their selectors, check with different browsers, etc.:
+
+    cypress/run-container.sh ui
+
+This is especially useful for rapid test iteration: You can edit the test
+outside of the container, cypress will detect changes to the file, and
+automatically re-run it.

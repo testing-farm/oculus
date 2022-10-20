@@ -1,0 +1,4 @@
+cypress/fixtures
+cypress/videos
+cypress/screenshots
+cypress/support

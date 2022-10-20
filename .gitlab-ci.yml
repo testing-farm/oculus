@@ -1,0 +1,13 @@
+---
+stages:
+  - test
+
+test:
+  # cypress does not do rolling tags, so this needs to be updated every now and then
+  image:
+    name: docker.io/cypress/included:10.10.0
+    entrypoint: [""]
+  stage: test
+  script:
+    - python3 -m http.server 8000 &
+    - cypress run
