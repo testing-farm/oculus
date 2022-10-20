@@ -48,6 +48,8 @@
         <label for="show_passed">Show passed tests</label>
     </div>
     <div class="stretch"></div>
+    <a id="api-request" hidden>API request</a>
+    <span id="api-request-separator" hidden>|</span>
     <a href="https://gitlab.com/testing-farm/oculus/-/issues">Issues for this page</a>
     <span>|</span>
     <a href="./old.html">Old version</a>
@@ -248,6 +250,13 @@ function renderTests(showPassed) {
 // allow user to point to a different result URL, mostly for testing
 const baseUrl = new URLSearchParams(window.location.search).get('url') ?? '.';
 
+// HACK: the request API url should be read from some metadata file instead
+const apiRequestUrl = 'https://api.dev.testing-farm.io/v0.1/requests'
+
+// extract request UUID from URL
+const uuidRegex = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
+const requestId = baseUrl.match(uuidRegex)?.[0]
+
 // first try to fetch results.xml; if we have it, test is done
 const resultsXml = await fetchXML(baseUrl + '/results.xml');
 if (resultsXml) {
@@ -273,6 +282,13 @@ if (await fetchHeader(baseUrl + '/results-junit.xml')) {
     document.getElementById('download-junit-separator').removeAttribute('hidden');
     document.getElementById('download-junit').removeAttribute('hidden');
     document.getElementById('download-junit').setAttribute('href', baseUrl + '/results-junit.xml');
+}
+
+// show API request if detected in URL
+if (requestId) {
+    document.getElementById('api-request-separator').removeAttribute('hidden');
+    document.getElementById('api-request').removeAttribute('hidden');
+    document.getElementById('api-request').setAttribute('href', apiRequestUrl + `/${requestId}`);
 }
 </script>
 
