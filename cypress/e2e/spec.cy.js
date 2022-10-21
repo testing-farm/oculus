@@ -44,3 +44,15 @@ describe('tmt-single-pass', () => it('run', () => {
             .should('have.text', 'all good!\n')
     })
 }))
+
+describe('inprogress', () => it('run', () => {
+    cy.visit('/results.html?url=scenarios/inprogress')
+    cy.get('#overall-result').should('to.have.text', 'in progress')
+    // no config box
+    cy.get('#config').should('not.be.visible')
+    // no results-junit.xml yet
+    cy.get('#download-junit').should('not.be.visible')
+    // show pipeline.log
+    cy.get('main pre').should('have.text', 'tests\nare\n...\nrunning\n')
+    cy.get('details').should('not.exist')
+}))
