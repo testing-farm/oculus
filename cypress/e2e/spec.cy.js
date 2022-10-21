@@ -45,6 +45,35 @@ describe('tmt-single-pass', () => it('run', () => {
     })
 }))
 
+describe('tmt-single-fail', () => it('run', () => {
+    cy.visit('/results.html?url=scenarios/tmt-single-fail')
+    cy.get('#overall-result').should('have.text', 'failed')
+    // no config box, as only failed tests
+    cy.get('#config').should('not.be.visible')
+    // this scenario has no results-junit.xml
+    cy.get('#download-junit').should('not.be.visible')
+
+    // single top-level plan, opened by default
+    cy.get('main > details')
+        .should('contain', '/plans/all')
+        .and('have.attr', 'open')
+    cy.get('main > details summary').should('have.class', 'result-fail')
+
+    cy.get('main > details').within(() => {
+        // renders tmt reproducer inline
+        cy.get('> log-viewer[url*="/tmt-reproducer.sh"]').should('exist')
+
+        // log output for successful test is expanded
+        cy.get('details')
+            .should('contain', '/tests')
+            .and('have.attr', 'open')
+        cy.get('details summary').should('have.class', 'result-fail')
+        // testout.log visible
+        cy.get('details > log-viewer').shadow().find('pre')
+            .should('have.text', 'something went wrong\n')
+    })
+}))
+
 describe('inprogress', () => it('run', () => {
     cy.visit('/results.html?url=scenarios/inprogress')
     cy.get('#overall-result').should('to.have.text', 'in progress')
