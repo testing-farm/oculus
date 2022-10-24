@@ -1,0 +1,17 @@
+---
+repos:
+- repo: https://github.com/pre-commit/mirrors-eslint
+  rev: v8.26.0
+  hooks:
+    - id: eslint
+      additional_dependencies:
+        - eslint
+        - eslint-config-standard
+        - eslint-plugin-html
+        - eslint-plugin-import
+        - eslint-plugin-n
+        - eslint-plugin-promise
+      args:
+        - --fix
+      files: \.(js|html)$
+      types: [file]

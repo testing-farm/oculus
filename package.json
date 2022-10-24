@@ -1,0 +1,11 @@
+{
+  "devDependencies": {
+    "eslint": "^8.26.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-html": "^7.1.0"
+  },
+  "scripts": {
+    "eslint": "eslint --ext .html .",
+    "eslint:fix": "eslint --fix --ext .html ."
+  }
+}

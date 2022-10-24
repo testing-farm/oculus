@@ -61,7 +61,7 @@
 </body>
 
 <script type="module">
-import {LitElement, html, css, render } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js';
+import { LitElement, html, css, render } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js';
 
 const SHOW_ATTR = '_show'; /* marks logs which are shown inline */
 
@@ -69,57 +69,53 @@ const isPassed = result => result.includes('pass');
 
 // HACK: Until TFT-1687 is implemented.
 // unify the variations of "pass", "passed", "failed", "failure", etc. to the defined .result-.. classes
-function normalizeResult(result) {
+function normalizeResult (result) {
     const lower = result.toLowerCase();
-    if (lower.includes('pass'))
-        return 'pass';
-    if (lower.includes('fail') || lower.includes('inspection'))
-        return 'fail';
-    if (lower.includes('skip'))
-        return 'skip';
+    if (lower.includes('pass')) { return 'pass' }
+    if (lower.includes('fail') || lower.includes('inspection')) { return 'fail' }
+    if (lower.includes('skip')) { return 'skip' }
     // treat other values like "error", "undefined", unknown as generic error
     return 'error';
 }
 
-async function fetchFile(url) {
+async function fetchFile (url) {
     try {
         const response = await fetch(url);
-        if (response.ok)
+        if (response.ok) {
             return await response.text();
-        else
+        } else {
             console.warn('Failed to fetch', url, ':', response.status, response.statusText);
+        }
     } catch (error) {
         console.warn('Failed to fetch', url, ':', error);
     }
 }
 
-async function fetchHeader(url) {
+async function fetchHeader (url) {
     try {
         const response = await fetch(url, { method: 'HEAD' });
-        if (response.ok)
-            return true;
+        if (response.ok) { return true }
     } catch (error) {
-        console.warn('Failed to fetch header', url, ':', error)
+        console.warn('Failed to fetch header', url, ':', error);
     }
     return false;
 }
 
-async function fetchXML(url) {
+async function fetchXML (url) {
     const raw = await fetchFile(url);
-    if (raw)
-        return new DOMParser().parseFromString(raw, 'text/xml');
+    if (raw) { return new DOMParser().parseFromString(raw, 'text/xml') }
 }
 
 // custom component: dynamically load a log file/directory and show it inline
 class LogViewer extends LitElement {
     static properties = {
-        url: {type: String},
-        _contents: {type: String, state: true},
+        url: { type: String },
+        _contents: { type: String, state: true }
     };
 
     // load the URL on first render
-    firstUpdated(changedProperties) {
-        if(changedProperties.has('url'))
+    firstUpdated (changedProperties) {
+        if (changedProperties.has('url')) {
             fetchFile(this.url).then(text => {
                 // is this a directory index? if so, load all of its *.txt files and concatenate
                 if (text?.includes('<head><title>Index of ')) {
@@ -127,15 +123,16 @@ class LogViewer extends LitElement {
                     const fetches = [];
                     indexDoc.querySelectorAll('a[href*=".txt"]').forEach(link =>
                         fetches.push(fetchFile(this.url + '/' + link.getAttribute('href'))));
-                    Promise.all(fetches).then(texts => {this._contents = texts.join('\n\n')});
+                    Promise.all(fetches).then(texts => { this._contents = texts.join('\n\n') });
                 } else {
-                    // plain file
+                // plain file
                     this._contents = text;
                 }
             });
+        }
     }
 
-    render() {
+    render () {
         return html`<pre class="log-viewer">${this._contents ?? 'Loading...'}</pre>`;
     }
 
@@ -150,29 +147,34 @@ class LogViewer extends LitElement {
 
 customElements.define('log-viewer', LogViewer);
 
-function renderLogs(logElements) {
+function renderLogs (logElements) {
     const logLinks = [];
     const inlineLogs = [];
     logElements.forEach(log => {
         let name = log.getAttribute('name');
         const href = log.getAttribute('href');
         // HACK: results.xml should have unique names; fix that, and then clean this up
-        const setup_stage = log.getAttribute('guest-setup-stage');
-        if (setup_stage && name == 'guest setup')
-            name = setup_stage;
-        if (log.hasAttribute(SHOW_ATTR))
+        const setupStage = log.getAttribute('guest-setup-stage');
+        if (setupStage && name === 'guest setup') { name = setupStage }
+        if (log.hasAttribute(SHOW_ATTR)) {
             inlineLogs.push(html`<h3><a href=${href}>${name}</a></h3>
                                  <log-viewer url=${href} />`);
-        else
-            logLinks.push(html`<li><a href=${href}>${name}</a></li>`);
+        } else { logLinks.push(html`<li><a href=${href}>${name}</a></li>`) }
     });
 
     // no logs means an infrastructure problem, provide some hints how to handle the situation
-    if (logElements.length == 0) {
+    if (logElements.length === 0) {
         return [
             html`<p>Tests failed to run. See <a href=${baseUrl}/pipeline.log>pipeline.log</a> for details.</p>`,
-            html`<p>This can be an infrastructure problem, check <a href=https://status.testing-farm.io>status page</a> for known outages.</p>`,
-            html`<p><a href="https://gitlab.com/testing-farm/general/-/issues">File an issue</a> if you think you hit a bug.</p>`
+            html`
+                <p>This can be an infrastructure problem, check
+                <a href=https://status.testing-farm.io>status page</a>
+                for known outages.</p>
+            `,
+            html`
+                <p><a href="https://gitlab.com/testing-farm/general/-/issues">File an issue</a>
+                if you think you hit a bug.</p>
+            `
         ];
     }
 
@@ -184,15 +186,14 @@ function renderLogs(logElements) {
 
 // testsuites contain a list of testsuite, which contain a list of testcase; these have
 // exactly the same structure, so we can render them with just one function
-function renderTestList(doc, elementType, subElementType, showPassed) {
+function renderTestList (doc, elementType, subElementType, showPassed) {
     const res = [];
     doc.querySelectorAll(elementType).forEach(item => {
         const result = normalizeResult(item.getAttribute('result'));
-        if (!showPassed && isPassed(result))
-            return;
+        if (!showPassed && isPassed(result)) { return }
 
         res.push(html`
-          <details ?open=${result != 'pass'}>
+          <details ?open=${result !== 'pass'}>
             <summary class="result-${result}">${item.getAttribute('name')}</summary>
             ${renderLogs(item.querySelectorAll(':scope > logs > log'))}
             ${subElementType ? renderTestList(item, subElementType, null, showPassed) : null}
@@ -203,7 +204,7 @@ function renderTestList(doc, elementType, subElementType, showPassed) {
 
 // policy functions which logs get rendered inline; this should be the most relevant ones to investigate failures
 
-function selectInlineTestcaseLogs(testcase) {
+function selectInlineTestcaseLogs (testcase) {
     /* don't show successful test logs by default; matter of taste/overzealous fetching
     if (isPassed(testcase.getAttribute('result'))
         return;
@@ -211,22 +212,20 @@ function selectInlineTestcaseLogs(testcase) {
 
     testcase.querySelectorAll(':scope > logs > log').forEach(log => {
         const name = log.getAttribute('name');
-        if (name == 'testout.log' /* TMT test log */ ||
+        if (name === 'testout.log' /* TMT test log */ ||
             name.includes('-str_') /* STI test log */ ||
-            name == 'ansible-output.txt' /* STI failed artifact install */)
-            log.setAttribute(SHOW_ATTR, '');
+            name === 'ansible-output.txt' /* STI failed artifact install */) { log.setAttribute(SHOW_ATTR, '') }
     });
 }
 
 // always show TMT reproducer; if the setup failed, also show these logs
-function selectInlineTestsuiteLogs(testsuite, failedSetup) {
+function selectInlineTestsuiteLogs (testsuite, failedSetup) {
     testsuite.querySelectorAll(':scope > logs > log[name="tmt-reproducer"]')
         .forEach(log => log.setAttribute(SHOW_ATTR, ''));
-    if (!failedSetup)
-        return;
+    if (!failedSetup) { return }
 
     // check for guest setup stages in reverse order, i.e. only show the most recent one
-    for (let priority of ['post_artifact_installation', 'artifact_installation', 'pre_artifact_installation']) {
+    for (const priority of ['post_artifact_installation', 'artifact_installation', 'pre_artifact_installation']) {
         const logs = testsuite.querySelectorAll(`:scope > logs > log[guest-setup-stage="${priority}"]`);
         if (logs.length > 0) {
             logs.forEach(log => log.setAttribute(SHOW_ATTR, ''));
@@ -235,15 +234,15 @@ function selectInlineTestsuiteLogs(testsuite, failedSetup) {
     }
 }
 
-function selectInlineLogs(results) {
+function selectInlineLogs (results) {
     results.querySelectorAll('testsuite').forEach(testsuite => {
         const testcases = testsuite.querySelectorAll('testcase');
         testcases.forEach(selectInlineTestcaseLogs);
-        selectInlineTestsuiteLogs(testsuite, testcases.length == 0);
+        selectInlineTestsuiteLogs(testsuite, testcases.length === 0);
     });
 }
 
-function renderTests(showPassed) {
+function renderTests (showPassed) {
     render(renderTestList(resultsXml, 'testsuite', 'testcase', showPassed), document.getElementById('main'));
 }
 
@@ -251,25 +250,25 @@ function renderTests(showPassed) {
 const baseUrl = new URLSearchParams(window.location.search).get('url') ?? '.';
 
 // HACK: the request API url should be read from some metadata file instead
-const apiRequestUrl = 'https://api.dev.testing-farm.io/v0.1/requests'
+const apiRequestUrl = 'https://api.dev.testing-farm.io/v0.1/requests';
 
 // extract request UUID from URL
 const uuidRegex = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
-const requestId = baseUrl.match(uuidRegex)?.[0]
+const requestId = baseUrl.match(uuidRegex)?.[0];
 
 // first try to fetch results.xml; if we have it, test is done
 const resultsXml = await fetchXML(baseUrl + '/results.xml');
 if (resultsXml) {
     selectInlineLogs(resultsXml);
-    const overall_result = resultsXml.firstChild.getAttribute('overall-result');
-    document.getElementById('overall-result').innerHTML = overall_result;
+    const overallResult = resultsXml.firstChild.getAttribute('overall-result');
+    document.getElementById('overall-result').innerHTML = overallResult;
 
     /* keep config hidden if there are only passed or only failed tests */
-    if (!isPassed(overall_result) && resultsXml.querySelectorAll('testcase[result^="pass"]').length > 0) {
+    if (!isPassed(overallResult) && resultsXml.querySelectorAll('testcase[result^="pass"]').length > 0) {
         document.getElementById('config').removeAttribute('hidden');
         document.getElementById('show_passed').addEventListener('change', ev => renderTests(ev.target.checked));
     }
-    renderTests(isPassed(overall_result));
+    renderTests(isPassed(overallResult));
 } else {
     // no results.xml yet, fall back to "in progress" and showing pipeline.log
     document.getElementById('overall-result').innerHTML = 'in progress';

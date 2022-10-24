@@ -10,7 +10,7 @@ Otherwise, it considers the test to be in progress still, and loads/presents
 ## Development and testing
 
 results.html accepts an `url` argument to point it at a base directory other
-than `.`. For development, start a HTTP server in the repository checkout, for
+than `.`. For development, start an HTTP server in the repository checkout, for
 example:
 
     python3 -m http.server
@@ -22,6 +22,35 @@ http://localhost:8000/results.html?url=https://artifacts.dev.testing-farm.io/7d6
 
 Alternatively you can put a `results.xml` (plus the files it refers to) next to
 results.html and open http://localhost:8000/results.html without any arguments.
+
+## Static analysis
+
+The static analysis tests are managed by [pre-commit](https://pre-commit.com/).
+It is advised to install `pre-commit` hooks when developing Oculus.
+
+To install:
+
+    dnf -y install pre-commit
+    pre-commit install
+
+To force execution of all the checks use:
+
+    pre-commit run --all-files
+
+### ESLint
+
+For linting and code style enforcement `ESLint` is used.
+See [.eslintrc.js](./.eslintrc.js) for configuration details.
+Currently, the code adheres to the [JavaScript Standard Style](https://www.npmjs.com/package/standard).
+
+The check runs via `pre-commit`, but if you want to run it manually:
+
+    npm install
+    npm run eslint
+
+If you want to instruct `eslint` to try to fix the encountered problems:
+
+    npm run eslint:fix
 
 ## Scenario collection
 

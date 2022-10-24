@@ -1,13 +1,27 @@
 ---
 stages:
-  - test
+  - 🔎 test
 
-test:
+image: quay.io/testing-farm/python-ci-image:latest
+
+workflow:
+  rules:
+    - if: $CI_MERGE_REQUEST_IID
+
+#
+# 🔎 test
+#
+pre-commit:
+  stage: 🔎 test
+  script:
+    - pre-commit run --all-files
+
+cypress:
   # cypress does not do rolling tags, so this needs to be updated every now and then
   image:
     name: docker.io/cypress/included:10.10.0
     entrypoint: [""]
-  stage: test
+  stage: 🔎 test
   script:
     - python3 -m http.server 8000 &
     - cypress run
