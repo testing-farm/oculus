@@ -31,10 +31,10 @@
     details details { background-color: white; }
     details details > summary { padding: 0.5em; }
 
-    .result-pass, .result-passed { background-color: lightgreen; }
-    .result-failed, .result-failure, .result-needs_inspection { background-color: #ff4d4d; }
-    .result-error, .result-undefined { background-color: darkorange; }
-    .result-skipped { background-color: lightgrey; }
+    .result-pass { background-color: lightgreen; }
+    .result-fail { background-color: #ff4d4d; }
+    .result-skip { background-color: lightgrey; }
+    .result-error { background-color: darkorange; }
   </style>
 </head>
 
@@ -63,7 +63,21 @@ import {LitElement, html, css, render } from 'https://cdn.jsdelivr.net/gh/lit/di
 
 const SHOW_ATTR = '_show'; /* marks logs which are shown inline */
 
-const isPassed = result => result.indexOf('pass') >= 0;
+const isPassed = result => result.includes('pass');
+
+// HACK: Until TFT-1687 is implemented.
+// unify the variations of "pass", "passed", "failed", "failure", etc. to the defined .result-.. classes
+function normalizeResult(result) {
+    const lower = result.toLowerCase();
+    if (lower.includes('pass'))
+        return 'pass';
+    if (lower.includes('fail') || lower.includes('inspection'))
+        return 'fail';
+    if (lower.includes('skip'))
+        return 'skip';
+    // treat other values like "error", "undefined", unknown as generic error
+    return 'error';
+}
 
 async function fetchFile(url) {
     try {
@@ -106,7 +120,7 @@ class LogViewer extends LitElement {
         if(changedProperties.has('url'))
             fetchFile(this.url).then(text => {
                 // is this a directory index? if so, load all of its *.txt files and concatenate
-                if (text.indexOf('<head><title>Index of ') >= 0) {
+                if (text.includes('<head><title>Index of ')) {
                     const indexDoc = new DOMParser().parseFromString(text, 'text/html');
                     const fetches = [];
                     indexDoc.querySelectorAll('a[href*=".txt"]').forEach(link =>
@@ -171,12 +185,12 @@ function renderLogs(logElements) {
 function renderTestList(doc, elementType, subElementType, showPassed) {
     const res = [];
     doc.querySelectorAll(elementType).forEach(item => {
-        const result = item.getAttribute('result');
+        const result = normalizeResult(item.getAttribute('result'));
         if (!showPassed && isPassed(result))
             return;
 
         res.push(html`
-          <details ?open=${result != 'passed'}>
+          <details ?open=${result != 'pass'}>
             <summary class="result-${result}">${item.getAttribute('name')}</summary>
             ${renderLogs(item.querySelectorAll(':scope > logs > log'))}
             ${subElementType ? renderTestList(item, subElementType, null, showPassed) : null}
@@ -196,7 +210,7 @@ function selectInlineTestcaseLogs(testcase) {
     testcase.querySelectorAll(':scope > logs > log').forEach(log => {
         const name = log.getAttribute('name');
         if (name == 'testout.log' /* TMT test log */ ||
-            name.indexOf('-str_') > 0 /* STI test log */ ||
+            name.includes('-str_') /* STI test log */ ||
             name == 'ansible-output.txt' /* STI failed artifact install */)
             log.setAttribute(SHOW_ATTR, '');
     });
