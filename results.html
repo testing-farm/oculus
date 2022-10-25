@@ -122,7 +122,7 @@ class LogViewer extends LitElement {
         if(changedProperties.has('url'))
             fetchFile(this.url).then(text => {
                 // is this a directory index? if so, load all of its *.txt files and concatenate
-                if (text.includes('<head><title>Index of ')) {
+                if (text?.includes('<head><title>Index of ')) {
                     const indexDoc = new DOMParser().parseFromString(text, 'text/html');
                     const fetches = [];
                     indexDoc.querySelectorAll('a[href*=".txt"]').forEach(link =>
