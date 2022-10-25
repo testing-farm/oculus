@@ -74,6 +74,27 @@ describe('tmt-single-fail', () => it('run', () => {
     })
 }))
 
+describe('tmt-mixed', () => it('run', () => {
+    cy.visit('/results.html?url=scenarios/tmt-mixed')
+    cy.get('#overall-result').should('have.text', 'failed')
+    // failed tests are shown by default
+    cy.get('main > details').should('contain', '/plans/features/basic')
+    cy.get('main > details').should('contain', '/tests/discover/distgit')
+    cy.get('main > details summary').should('have.class', 'result-fail')
+    // passed tests are hidden by default
+    cy.get('main > details').should('not.contain', '/tests/clean/chain')
+    cy.get('details[class="result-pass"').should('not.exist')
+    // config box, as there are passed and failed tests
+    cy.get('#config')
+        .should('be.visible')
+        .should('not.be.selected')
+    // show passed tests
+    cy.get('#config input').click()
+    cy.get('main > details:first-of-type summary')
+        .should('have.class', 'result-pass')
+        .should('contain', '/plans/features/advanced')
+}))
+
 describe('inprogress', () => it('run', () => {
     cy.visit('/results.html?url=scenarios/inprogress')
     cy.get('#overall-result').should('to.have.text', 'in progress')
