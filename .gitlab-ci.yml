@@ -16,7 +16,7 @@ pre-commit:
   script:
     - pre-commit run --all-files
 
-cypress:
+e2e:
   # cypress does not do rolling tags, so this needs to be updated every now and then
   image:
     name: docker.io/cypress/included:10.10.0

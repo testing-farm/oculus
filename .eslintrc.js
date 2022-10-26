@@ -4,7 +4,14 @@ module.exports = {
         es2021: true
     },
     extends: 'standard',
+    ignorePatterns: '*.cy.js',
     overrides: [
+        {
+            files: '*.cy.js',
+            plugins: [
+                'cypress'
+            ]
+        }
     ],
     parserOptions: {
         ecmaVersion: 'latest',
