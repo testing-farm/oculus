@@ -7,8 +7,8 @@
    <log guest-setup-stage="artifact_installation" href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/guest-setup-cdc2a760-0890-479c-86b9-d940a767e85c/artifact-installation-cdc2a760-0890-479c-86b9-d940a767e85c" name="Copr build(s) installation" schedule-stage="guest-setup"/>
    <log guest-setup-stage="pre_artifact_installation" href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/guest-setup-cdc2a760-0890-479c-86b9-d940a767e85c/guest-setup-output-pre-artifact-installation.txt" name="guest setup" schedule-stage="guest-setup"/>
    <log guest-setup-stage="post_artifact_installation" href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/guest-setup-cdc2a760-0890-479c-86b9-d940a767e85c/guest-setup-output-post-artifact-installation.txt" name="guest setup" schedule-stage="guest-setup"/>
-   <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-advancedw2ccwZ/tmt-reproducer.sh" name="tmt-reproducer"/>
-   <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-advancedw2ccwZ" name="workdir"/>
+   <log href="./scenarios/tmt-mixed/work-advancedw2ccwZ/tmt-reproducer.sh" name="tmt-reproducer"/>
+   <log href="./scenarios/tmt-mixed/work-advancedw2ccwZ" name="workdir"/>
   </logs>
   <properties>
    <property name="baseosci.result" value="passed"/>

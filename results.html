@@ -113,8 +113,7 @@ class LogViewer extends LitElement {
         _contents: { type: String, state: true }
     };
 
-    // load the URL on first render
-    firstUpdated (changedProperties) {
+    updated (changedProperties) {
         if (changedProperties.has('url')) {
             fetchFile(this.url).then(text => {
                 // is this a directory index? if so, load all of its *.txt files and concatenate

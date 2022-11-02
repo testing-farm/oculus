@@ -29,7 +29,8 @@ describe('tmt-single-pass', () => it('run', () => {
             .and('contain', '/tmt-reproducer.sh');
         // log-viewer is custom element with a shadow-root
         cy.get('log-viewer').shadow().find('pre')
-            .should('contain', 'tmt run --all');
+            .should('contain', 'tmt run --all')
+            .should('contain', 'plan --name ^\\/plans\\/all');
 
         // log output for successful test is collapsed
         cy.get('details')
@@ -81,6 +82,12 @@ describe('tmt-mixed', () => it('run', () => {
     cy.get('main > details').should('contain', '/plans/features/basic');
     cy.get('main > details').should('contain', '/tests/discover/distgit');
     cy.get('main > details summary').should('have.class', 'result-fail');
+    // links and shows correct reproducer
+    cy.get('log-viewer')
+        .should('have.attr', 'url')
+        .and('contain', '/work-basic_WExhR/tmt-reproducer.sh');
+    cy.get('log-viewer').shadow().find('pre')
+        .should('contain', 'plan --name ^\\/plans\\/features\\/basic');
     // passed tests are hidden by default
     cy.get('main > details').should('not.contain', '/tests/clean/chain');
     cy.get('details[class="result-pass"').should('not.exist');
@@ -93,6 +100,15 @@ describe('tmt-mixed', () => it('run', () => {
     cy.get('main > details:first-of-type summary')
         .should('have.class', 'result-pass')
         .should('contain', '/plans/features/advanced');
+    // open advanced plan
+    cy.get('main > details:first-of-type ').click()
+        .should('have.attr', 'open');
+    // links and shows correct reproducer for advanced plan
+    cy.get('main > details:first-of-type log-viewer')
+        .should('have.attr', 'url')
+        .and('contain', '/work-advancedw2ccwZ/tmt-reproducer.sh');
+    cy.get('main > details:first-of-type log-viewer').shadow().find('pre')
+        .should('contain', 'plan --name ^\\/plans\\/features\\/advanced');
 }));
 
 describe('inprogress', () => it('run', () => {
