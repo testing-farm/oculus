@@ -65,6 +65,14 @@ const SHOW_ATTR = '_show'; /* marks logs which are shown inline */
 
 const isPassed = result => result.includes('pass');
 
+// HACK: the request API url should be read from some metadata file instead
+const apiRequestUrl = 'https://api.dev.testing-farm.io/v0.1/requests';
+
+const uuidRegex = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
+
+// allow user to point to a different result URL, mostly for testing
+const baseUrl = new URLSearchParams(window.location.search).get('url') ?? '.';
+
 // HACK: Until TFT-1687 is implemented.
 // unify the variations of "pass", "passed", "failed", "failure", etc. to the defined .result-.. classes
 function normalizeResult (result) {
@@ -239,53 +247,49 @@ function selectInlineLogs (results) {
     });
 }
 
-function renderTests (showPassed) {
+function renderTests (resultsXml, showPassed) {
     render(renderTestList(resultsXml, 'testsuite', 'testcase', showPassed), document.getElementById('main'));
 }
 
-// allow user to point to a different result URL, mostly for testing
-const baseUrl = new URLSearchParams(window.location.search).get('url') ?? '.';
+async function main () {
+    // first try to fetch results.xml; if we have it, test is done
+    const resultsXml = await fetchXML(baseUrl + '/results.xml');
+    if (resultsXml) {
+        selectInlineLogs(resultsXml);
+        const overallResult = resultsXml.firstChild.getAttribute('overall-result');
+        document.getElementById('overall-result').innerHTML = overallResult;
 
-// HACK: the request API url should be read from some metadata file instead
-const apiRequestUrl = 'https://api.dev.testing-farm.io/v0.1/requests';
-
-// extract request UUID from URL
-const uuidRegex = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
-const requestId = baseUrl.match(uuidRegex)?.[0];
-
-// first try to fetch results.xml; if we have it, test is done
-const resultsXml = await fetchXML(baseUrl + '/results.xml');
-if (resultsXml) {
-    selectInlineLogs(resultsXml);
-    const overallResult = resultsXml.firstChild.getAttribute('overall-result');
-    document.getElementById('overall-result').innerHTML = overallResult;
-
-    /* keep config hidden if there are only passed or only failed tests */
-    if (!isPassed(overallResult) && resultsXml.querySelectorAll('testcase[result^="pass"]').length > 0) {
-        document.getElementById('config').removeAttribute('hidden');
-        document.getElementById('show_passed').addEventListener('change', ev => renderTests(ev.target.checked));
+        /* keep config hidden if there are only passed or only failed tests */
+        if (!isPassed(overallResult) && resultsXml.querySelectorAll('testcase[result^="pass"]').length > 0) {
+            document.getElementById('config').removeAttribute('hidden');
+            document.getElementById('show_passed').addEventListener(
+                'change', ev => renderTests(resultsXml, ev.target.checked));
+        }
+        renderTests(resultsXml, isPassed(overallResult));
+    } else {
+        // no results.xml yet, fall back to "in progress" and showing pipeline.log
+        document.getElementById('overall-result').innerHTML = 'in progress';
+        const pipelineLog = await fetchFile(baseUrl + '/pipeline.log');
+        render(html`<pre>${pipelineLog}</pre>`, document.getElementById('main'));
     }
-    renderTests(isPassed(overallResult));
-} else {
-    // no results.xml yet, fall back to "in progress" and showing pipeline.log
-    document.getElementById('overall-result').innerHTML = 'in progress';
-    const pipelineLog = await fetchFile(baseUrl + '/pipeline.log');
-    render(html`<pre>${pipelineLog}</pre>`, document.getElementById('main'));
+
+    // show results-junit.xml in header if it exists
+    if (await fetchHeader(baseUrl + '/results-junit.xml')) {
+        document.getElementById('download-junit-separator').removeAttribute('hidden');
+        document.getElementById('download-junit').removeAttribute('hidden');
+        document.getElementById('download-junit').setAttribute('href', baseUrl + '/results-junit.xml');
+    }
+
+    // extract request UUID from URL; show API request when present
+    const requestId = baseUrl.match(uuidRegex)?.[0];
+    if (requestId) {
+        document.getElementById('api-request-separator').removeAttribute('hidden');
+        document.getElementById('api-request').removeAttribute('hidden');
+        document.getElementById('api-request').setAttribute('href', apiRequestUrl + `/${requestId}`);
+    }
 }
 
-// show results-junit.xml in header if it exists
-if (await fetchHeader(baseUrl + '/results-junit.xml')) {
-    document.getElementById('download-junit-separator').removeAttribute('hidden');
-    document.getElementById('download-junit').removeAttribute('hidden');
-    document.getElementById('download-junit').setAttribute('href', baseUrl + '/results-junit.xml');
-}
-
-// show API request if detected in URL
-if (requestId) {
-    document.getElementById('api-request-separator').removeAttribute('hidden');
-    document.getElementById('api-request').removeAttribute('hidden');
-    document.getElementById('api-request').setAttribute('href', apiRequestUrl + `/${requestId}`);
-}
+main();
 </script>
 
 </html>
