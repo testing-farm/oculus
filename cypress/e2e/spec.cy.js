@@ -111,6 +111,35 @@ describe('tmt-mixed', () => it('run', () => {
         .should('contain', 'plan --name ^\\/plans\\/features\\/advanced');
 }));
 
+describe('tmt-failed-install', () => it('run', () => {
+    cy.visit('/results.html?url=scenarios/tmt-failed-install');
+    cy.get('#overall-result').should('have.text', 'error');
+    // no config box, as only failed tests
+    cy.get('#config').should('not.be.visible');
+
+    // single top-level plan, opened by default
+    cy.get('main > details')
+        .should('contain', '/plans/ci')
+        .and('have.attr', 'open');
+    cy.get('main > details summary').should('have.class', 'result-error');
+
+    cy.get('main > details').within(() => {
+        // pre_artifact_installation succeeded, log link present
+        cy.get('ul')
+            .should('contain', 'pre_artifact_installation')
+            .and('not.contain', 'build installation')
+            .and('not.contain', 'post_artifact_installation');
+
+        // renders artifact installation logs inline, with concatenating all log files
+        cy.get('> log-viewer[url*="/artifact-installation-2f53d6d4-ef46-42af-a3d1-c87db9490f27"]').should('exist');
+        cy.get('> log-viewer').shadow().find('pre')
+            .should('contain', 'koji download-build')
+            .and('contain', 'dnf --allowerasing -y install')
+            .and('contain', 'nothing provides pkgconfig(binutils-devel)')
+            .and('not.contain', 'Index of');
+    });
+}));
+
 describe('inprogress', () => it('run', () => {
     cy.visit('/results.html?url=scenarios/inprogress');
     cy.get('#overall-result').should('to.have.text', 'in progress');
