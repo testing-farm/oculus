@@ -140,6 +140,26 @@ describe('tmt-failed-install', () => it('run', () => {
     });
 }));
 
+describe.only('tmt-failed-install-rhel', () => it('run', () => {
+    cy.visit('/results.html?url=scenarios/tmt-failed-install-rhel');
+    cy.get('#overall-result').should('have.text', 'error');
+
+    cy.get('main > details').within(() => {
+        // pre_artifact_installation succeeded, log link present
+        cy.get('ul')
+            .should('contain', 'pre_artifact_installation')
+            .and('not.contain', 'build installation')
+            .and('not.contain', 'post_artifact_installation');
+
+        // renders artifact installation logs inline, with concatenating all log files
+        cy.get('> log-viewer[url*="/artifact-installation-f5fd255d-f104-4ecb-ac7e-47333c4895b0"]').should('exist');
+        cy.get('> log-viewer').shadow().find('pre')
+            .should('contain', 'TheDownloadLog')
+            .and('contain', 'TheInstallLog')
+            .and('not.contain', 'Index of');
+    });
+}));
+
 describe('inprogress', () => it('run', () => {
     cy.visit('/results.html?url=scenarios/inprogress');
     cy.get('#overall-result').should('to.have.text', 'in progress');

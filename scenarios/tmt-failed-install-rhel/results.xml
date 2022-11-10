@@ -1,0 +1,14 @@
+<testsuites overall-result="error">
+ <properties>
+  <property name="baseosci.overall-result" value="error"/>
+ </properties>
+ <testsuite name="dist-git-repository-None-LqrQMH/tests/tests.yml" result="undefined" tests="0">
+  <logs>
+    <log guest-setup-stage="artifact_installation" href="./scenarios/tmt-failed-install-rhel/guest-setup-f5fd255d-f104-4ecb-ac7e-47333c4895b0/artifact-installation-f5fd255d-f104-4ecb-ac7e-47333c4895b0" name="build installation" schedule-stage="guest-setup"/>
+   <log guest-setup-stage="pre_artifact_installation" href="./scenarios/tmt-failed-install-rhel//guest-setup-f5fd255d-f104-4ecb-ac7e-47333c4895b0/guest-setup-output-pre-artifact-installation.txt" name="guest setup" schedule-stage="guest-setup"/>
+  </logs>
+  <properties>
+   <property name="baseosci.result" value="undefined"/>
+  </properties>
+ </testsuite>
+</testsuites>
