@@ -161,7 +161,13 @@ describe('tmt-failed-install-rhel', () => it('run', () => {
 }));
 
 describe('inprogress', () => it('run', () => {
-    cy.visit('/results.html?url=scenarios/inprogress');
+    // initialize 🕗, we want to move forward time
+    cy.clock();
+    // copy scenrios/inprogress into cypress/downloads, so we can play with it
+    // NOTE: cypress/downloads location is trashed on each start of cypress
+    //       https://docs.cypress.io/guides/references/configuration#Downloads
+    cy.exec('cp -r scenarios/inprogress cypress/downloads')
+    cy.visit('/results.html?url=cypress/downloads/inprogress');
     cy.get('#overall-result').should('to.have.text', 'in progress');
     // no config box
     cy.get('#config').should('not.be.visible');
@@ -170,4 +176,10 @@ describe('inprogress', () => it('run', () => {
     // show pipeline.log
     cy.get('main pre').should('have.text', 'tests\nare\n...\nrunning\n');
     cy.get('details').should('not.exist');
+    // add more stuff into progress.log
+    cy.writeFile('cypress/downloads/inprogress/pipeline.log', 'added to log later\naligator\n', { flag: 'a+' })
+    // go forward 6s
+    cy.tick(6000);
+    // make sure the log is updated
+    cy.get('main pre').should('have.text', 'tests\nare\n...\nrunning\nadded to log later\naligator\n');
 }));

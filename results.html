@@ -84,9 +84,9 @@ function normalizeResult (result) {
     return 'error';
 }
 
-async function fetchFile (url) {
+async function fetchFile (url, options) {
     try {
-        const response = await fetch(url);
+        const response = await fetch(url, options);
         if (response.ok) {
             return await response.text();
         } else {
@@ -269,8 +269,13 @@ async function main () {
     } else {
         // no results.xml yet, fall back to "in progress" and showing pipeline.log
         document.getElementById('overall-result').innerHTML = 'in progress';
-        const pipelineLog = await fetchFile(baseUrl + '/pipeline.log');
+        // prevent caching the response of pipeline.log
+        const pipelineLog = await fetchFile(baseUrl + '/pipeline.log', { cache: 'no-store' });
         render(html`<pre>${pipelineLog}</pre>`, document.getElementById('main'));
+        // reload in 5 seconds, what matches the pipeline.log refresh tick (5s)
+        window.setTimeout(() => main(), 5000);
+        // scroll to bottom of the page, if scrolled to the bottom
+        window.scrollTo(0, document.body.scrollHeight);
     }
 
     // show results-junit.xml in header if it exists
