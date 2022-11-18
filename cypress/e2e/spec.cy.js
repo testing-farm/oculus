@@ -140,7 +140,7 @@ describe('tmt-failed-install', () => it('run', () => {
     });
 }));
 
-describe.only('tmt-failed-install-rhel', () => it('run', () => {
+describe('tmt-failed-install-rhel', () => it('run', () => {
     cy.visit('/results.html?url=scenarios/tmt-failed-install-rhel');
     cy.get('#overall-result').should('have.text', 'error');
 
