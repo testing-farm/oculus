@@ -57,7 +57,7 @@ describe('tmt-single-fail', () => it('run', () => {
         // renders tmt reproducer inline
         cy.get('log-viewer[url*="/tmt-reproducer.sh"]').should('exist');
 
-        // log output for successful test is expanded
+        // log output for failed test is expanded
         cy.get('details')
             .should('contain', '/tests')
             .and('have.attr', 'open');
@@ -65,6 +65,36 @@ describe('tmt-single-fail', () => it('run', () => {
         // testout.log visible
         cy.get('details log-viewer').shadow().find('pre')
             .should('have.text', 'something went wrong\n');
+    });
+}));
+
+describe('tmt-html-artifact', () => it('run', () => {
+    cy.visit('/results.html?url=scenarios/tmt-html-artifact');
+    cy.get('#overall-result').should('have.text', 'failed');
+
+    // single top-level plan, opened by default
+    cy.get('main > details')
+        .should('contain', '/plans/all')
+        .and('have.attr', 'open');
+    cy.get('main > details summary').should('have.class', 'result-fail');
+
+    cy.get('main > details').within(() => {
+        // failed test is expanded
+        cy.get('details')
+            .should('contain', '/tests')
+            .and('have.attr', 'open');
+        cy.get('details summary').should('have.class', 'result-fail');
+        // no log viewer, as we have a HTML artifact
+        cy.get('details > log-viewer').should('not.exist');
+        // custom viewer is shown inline as an iframe
+        cy.get('h3').should('contain', 'viewer.html');
+        cy.get('iframe')
+            .should('have.attr', 'src')
+            .and('contain', '/plans/all/execute/data/tests/viewer.html');
+        cy.get('iframe')
+            // retries until body is loaded
+            .its('0.contentDocument.body').should('not.be.empty')
+            .should('contain', 'Custom results viewer');
     });
 }));
 

@@ -35,6 +35,8 @@
     .result-fail { background-color: #ff4d4d; }
     .result-skip { background-color: lightgrey; }
     .result-error { background-color: darkorange; }
+
+    iframe.html-artifact { height: 80vh; }
   </style>
 </head>
 
@@ -62,6 +64,7 @@
 import { LitElement, html, css, render, nothing } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js';
 
 const SHOW_ATTR = '_show'; /* marks logs which are shown inline */
+const HTML_ATTR = '_html'; /* marks HTML artifacts which are shown inline */
 
 const isPassed = result => result.includes('pass');
 
@@ -164,7 +167,12 @@ function renderLogs (logElements, artifactsAnchor) {
         if (log.hasAttribute(SHOW_ATTR)) {
             inlineLogs.push(html`<h3><a href=${href}>${name}</a></h3>
                                  <log-viewer url=${href} />`);
-        } else { logLinks.push(html`<li><a href=${href}>${name}</a></li>`) }
+        } else if (log.hasAttribute(HTML_ATTR)) {
+            inlineLogs.push(html`<h3><a href=${href}>${name}</a></h3>
+                                 <iframe class="html-artifact" title=${name} src=${href} width="100%" />`);
+        } else {
+            logLinks.push(html`<li><a href=${href}>${name}</a></li>`);
+        }
     });
 
     // no logs means an infrastructure problem, provide some hints how to handle the situation
@@ -220,6 +228,20 @@ function selectInlineTestcaseLogs (testcase) {
     if (isPassed(testcase.getAttribute('result'))
         return;
     */
+
+    let haveHtml = false;
+
+    testcase.querySelectorAll(':scope > logs > log').forEach(log => {
+        if (log.getAttribute('name').endsWith('.html')) {
+            log.setAttribute(HTML_ATTR, '');
+            haveHtml = true;
+        }
+    });
+
+    // if there is a custom HTML viewer, don't show anything else inline
+    if (haveHtml) {
+        return;
+    }
 
     testcase.querySelectorAll(':scope > logs > log').forEach(log => {
         const name = log.getAttribute('name');

@@ -1,0 +1,37 @@
+<testsuites overall-result="failed">
+ <properties>
+  <property name="baseosci.overall-result" value="failed"/>
+ </properties>
+ <testsuite name="/plans/all" result="failed" tests="1">
+  <logs>
+  </logs>
+  <properties>
+   <property name="baseosci.result" value="failed"/>
+  </properties>
+  <testcase name="/tests" result="failed">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="13.58.236.184"/>
+    <property name="baseosci.distro" value="Fedora-37"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="./scenarios/tmt-html-artifact/work-allw5U7yu/plans/all/execute/data/tests" name="log_dir" schedule-entry="/plans/all" schedule-stage="running"/>
+    <log href="./scenarios/tmt-html-artifact/work-allw5U7yu/plans/all/execute/data/tests/output.txt" name="testout.log" schedule-entry="/plans/all" schedule-stage="running"/>
+    <log href="./scenarios/tmt-html-artifact/work-allw5U7yu/plans/all/execute/data/tests/viewer.html" name="viewer.html" schedule-entry="/plans/all" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-37"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-37"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+ </testsuite>
+</testsuites>
