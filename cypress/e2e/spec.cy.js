@@ -166,7 +166,7 @@ describe('inprogress', () => it('run', () => {
     // copy scenrios/inprogress into cypress/downloads, so we can play with it
     // NOTE: cypress/downloads location is trashed on each start of cypress
     //       https://docs.cypress.io/guides/references/configuration#Downloads
-    cy.exec('cp -r scenarios/inprogress cypress/downloads')
+    cy.exec('mkdir -p cypress/downloads/; cp -r scenarios/inprogress cypress/downloads/');
     cy.visit('/results.html?url=cypress/downloads/inprogress');
     cy.get('#overall-result').should('to.have.text', 'in progress');
     // no config box
