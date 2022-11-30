@@ -21,11 +21,9 @@ describe('tmt-single-pass', () => it('run', () => {
             .and('contain', 'workdir');
 
         // renders tmt reproducer inline
-        cy.get('log-viewer')
-            .should('have.attr', 'url')
-            .and('contain', '/tmt-reproducer.sh');
+        cy.get('log-viewer[url*="/tmt-reproducer.sh"]')
         // log-viewer is custom element with a shadow-root
-        cy.get('log-viewer').shadow().find('pre')
+            .shadow().find('pre')
             .should('contain', 'tmt run --all')
             .should('contain', 'plan --name ^\\/plans\\/all');
 
@@ -36,7 +34,7 @@ describe('tmt-single-pass', () => it('run', () => {
         cy.get('details summary').should('have.class', 'result-pass');
 
         // testout.log visible
-        cy.get('details > log-viewer').shadow().find('pre')
+        cy.get('details log-viewer').shadow().find('pre')
             .should('have.text', 'all good!\n');
     });
 }));
@@ -57,7 +55,7 @@ describe('tmt-single-fail', () => it('run', () => {
 
     cy.get('main > details').within(() => {
         // renders tmt reproducer inline
-        cy.get('> log-viewer[url*="/tmt-reproducer.sh"]').should('exist');
+        cy.get('log-viewer[url*="/tmt-reproducer.sh"]').should('exist');
 
         // log output for successful test is expanded
         cy.get('details')
@@ -65,7 +63,7 @@ describe('tmt-single-fail', () => it('run', () => {
             .and('have.attr', 'open');
         cy.get('details summary').should('have.class', 'result-fail');
         // testout.log visible
-        cy.get('details > log-viewer').shadow().find('pre')
+        cy.get('details log-viewer').shadow().find('pre')
             .should('have.text', 'something went wrong\n');
     });
 }));
@@ -78,10 +76,8 @@ describe('tmt-mixed', () => it('run', () => {
     cy.get('main > details').should('contain', '/tests/discover/distgit');
     cy.get('main > details summary').should('have.class', 'result-fail');
     // links and shows correct reproducer
-    cy.get('log-viewer')
-        .should('have.attr', 'url')
-        .and('contain', '/work-basic_WExhR/tmt-reproducer.sh');
-    cy.get('log-viewer').shadow().find('pre')
+    cy.get('log-viewer[url*="/work-basic_WExhR/tmt-reproducer.sh"]')
+        .shadow().find('pre')
         .should('contain', 'plan --name ^\\/plans\\/features\\/basic');
     // passed tests are hidden by default
     cy.get('main > details').should('not.contain', '/tests/clean/chain');
@@ -99,10 +95,8 @@ describe('tmt-mixed', () => it('run', () => {
     cy.get('main > details:first-of-type ').click()
         .should('have.attr', 'open');
     // links and shows correct reproducer for advanced plan
-    cy.get('main > details:first-of-type log-viewer')
-        .should('have.attr', 'url')
-        .and('contain', '/work-advancedw2ccwZ/tmt-reproducer.sh');
-    cy.get('main > details:first-of-type log-viewer').shadow().find('pre')
+    cy.get('log-viewer[url*="/work-advancedw2ccwZ/tmt-reproducer.sh"')
+        .shadow().find('pre')
         .should('contain', 'plan --name ^\\/plans\\/features\\/advanced');
 }));
 
@@ -126,8 +120,8 @@ describe('tmt-failed-install', () => it('run', () => {
             .and('not.contain', 'post_artifact_installation');
 
         // renders artifact installation logs inline, with concatenating all log files
-        cy.get('> log-viewer[url*="/artifact-installation-2f53d6d4-ef46-42af-a3d1-c87db9490f27"]').should('exist');
-        cy.get('> log-viewer').shadow().find('pre')
+        cy.get('log-viewer[url*="/artifact-installation-2f53d6d4-ef46-42af-a3d1-c87db9490f27"]')
+            .shadow().find('pre')
             .should('contain', 'koji download-build')
             .and('contain', 'dnf --allowerasing -y install')
             .and('contain', 'nothing provides pkgconfig(binutils-devel)')
@@ -147,8 +141,8 @@ describe('tmt-failed-install-rhel', () => it('run', () => {
             .and('not.contain', 'post_artifact_installation');
 
         // renders artifact installation logs inline, with concatenating all log files
-        cy.get('> log-viewer[url*="/artifact-installation-f5fd255d-f104-4ecb-ac7e-47333c4895b0"]').should('exist');
-        cy.get('> log-viewer').shadow().find('pre')
+        cy.get('log-viewer[url*="/artifact-installation-f5fd255d-f104-4ecb-ac7e-47333c4895b0"]')
+            .shadow().find('pre')
             .should('contain', 'TheDownloadLog')
             .and('contain', 'TheInstallLog')
             .and('not.contain', 'Index of');
