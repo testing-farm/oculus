@@ -19,7 +19,7 @@ pre-commit:
 e2e:
   # cypress does not do rolling tags, so this needs to be updated every now and then
   image:
-    name: docker.io/cypress/included:10.10.0
+    name: docker.io/cypress/included:11.2.0
     entrypoint: [""]
   stage: 🔎 test
   script:
