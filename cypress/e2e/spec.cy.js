@@ -94,6 +94,20 @@ describe('tmt-mixed', () => it('run', () => {
     // open advanced plan
     cy.get('main > details:first-of-type ').click()
         .should('have.attr', 'open');
+    // scroll bar is almost at the top initially
+    cy.window().its('scrollY').should('lessThan', 150);
+
+    // jump to plan artifacts
+    cy.get('main > details:nth-of-type(1) > p > a')
+        .should('have.text', 'Go to Logs and Artifacts')
+        .click();
+    // this moves tmt-reproducer to the top
+    cy.window().its('scrollY')
+        .should('greaterThan', 1000);
+    cy.get('log-viewer[url*="/work-advancedw2ccwZ/tmt-reproducer.sh"')
+        .then(element => element[0].offsetTop)
+        .then(offset => cy.window().its('scrollY').should('closeTo', offset, 50));
+
     // links and shows correct reproducer for advanced plan
     cy.get('log-viewer[url*="/work-advancedw2ccwZ/tmt-reproducer.sh"')
         .shadow().find('pre')
