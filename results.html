@@ -193,12 +193,13 @@ function renderLogs (logElements) {
 // exactly the same structure, so we can render them with just one function
 function renderTestList (doc, elementType, subElementType, showPassed) {
     const res = [];
-    doc.querySelectorAll(elementType).forEach(item => {
+    const items = doc.querySelectorAll(elementType);
+    items.forEach(item => {
         const result = normalizeResult(item.getAttribute('result'));
         if (!showPassed && isPassed(result)) { return }
 
         res.push(html`
-          <details ?open=${result !== 'pass'}>
+          <details ?open=${result !== 'pass' || items.length === 1}>
             <summary class="result-${result}">${item.getAttribute('name')}</summary>
             ${renderLogs(item.querySelectorAll(':scope > logs > log'))}
             ${subElementType ? renderTestList(item, subElementType, null, showPassed) : null}

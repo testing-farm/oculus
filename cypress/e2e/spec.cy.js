@@ -6,14 +6,11 @@ describe('tmt-single-pass', () => it('run', () => {
     // this scenario has results-junit.xml
     cy.get('#download-junit').should('be.visible');
 
-    // single top-level plan, not opened by default
+    // single top-level plan, opened by default
     cy.get('main > details')
         .should('contain', '/plans/all')
-        .and('not.have.attr', 'open');
+        .and('have.attr', 'open');
     cy.get('main > details summary').should('have.class', 'result-pass');
-
-    // clicking on details opens expander and shows logs
-    cy.get('main > details').click().should('have.attr', 'open');
 
     cy.get('main > details').within(() => {
         // Expected log links
@@ -32,14 +29,12 @@ describe('tmt-single-pass', () => it('run', () => {
             .should('contain', 'tmt run --all')
             .should('contain', 'plan --name ^\\/plans\\/all');
 
-        // log output for successful test is collapsed
+        // log output for single test is expanded
         cy.get('details')
             .should('contain', '/tests')
-            .and('not.have.attr', 'open');
+            .and('have.attr', 'open');
         cy.get('details summary').should('have.class', 'result-pass');
 
-        cy.get('details').click()
-            .should('have.attr', 'open');
         // testout.log visible
         cy.get('details > log-viewer').shadow().find('pre')
             .should('have.text', 'all good!\n');
