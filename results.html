@@ -251,6 +251,15 @@ function renderTests (resultsXml, showPassed) {
     render(renderTestList(resultsXml, 'testsuite', 'testcase', showPassed), document.getElementById('main'));
 }
 
+function reloadPage () {
+    // reload page only if a user scrolled to the bottom
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+        main();
+    } else {
+        window.setTimeout(() => reloadPage(), 5000);
+    }
+}
+
 async function main () {
     // first try to fetch results.xml; if we have it, test is done
     const resultsXml = await fetchXML(baseUrl + '/results.xml');
@@ -273,7 +282,7 @@ async function main () {
         const pipelineLog = await fetchFile(baseUrl + '/pipeline.log', { cache: 'no-store' });
         render(html`<pre>${pipelineLog}</pre>`, document.getElementById('main'));
         // reload in 5 seconds, what matches the pipeline.log refresh tick (5s)
-        window.setTimeout(() => main(), 5000);
+        window.setTimeout(() => reloadPage(), 5000);
         // scroll to bottom of the page, if scrolled to the bottom
         window.scrollTo(0, document.body.scrollHeight);
     }

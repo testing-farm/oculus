@@ -183,3 +183,35 @@ describe('inprogress', () => it('run', () => {
     // make sure the log is updated
     cy.get('main pre').should('have.text', 'tests\nare\n...\nrunning\nadded to log later\naligator\n');
 }));
+
+describe('inprogress-no-reload', () => it('run', () => {
+    // initialize 🕗, we want to move forward time
+    cy.clock();
+    // copy scenrios/inprogress into cypress/downloads, so we can play with it
+    // NOTE: cypress/downloads location is trashed on each start of cypress
+    //       https://docs.cypress.io/guides/references/configuration#Downloads
+    cy.exec('cp -r scenarios/inprogress cypress/downloads')
+    cy.writeFile('cypress/downloads/inprogress/pipeline.log', 'old line\n'.repeat(100)+'last old line\n', { flag: 'a+' })
+    cy.visit('/results.html?url=cypress/downloads/inprogress');
+    cy.get('#overall-result').should('to.have.text', 'in progress');
+    // no config box
+    cy.get('#config').should('not.be.visible');
+    // no results-junit.xml yet
+    cy.get('#download-junit').should('not.be.visible');
+    // show pipeline.log
+    cy.get('main pre').should('include.text', 'last old line\n');
+    cy.get('details').should('not.exist');
+    // scroll page up so the log won't be reloaded
+    cy.scrollTo('top');
+    // add more stuff into progress.log
+    cy.writeFile('cypress/downloads/inprogress/pipeline.log', 'new line\n', { flag: 'a+' })
+    // go forward 6s
+    cy.tick(6000);
+    // confirm the log was not updated
+    cy.get('main pre').should('not.include.text', 'new line\n');
+    // now scroll to the bottom and wait 6s for log reload
+    cy.scrollTo('bottom');
+    cy.tick(6000);
+    // confirm the log was updated this time
+    cy.get('main pre').should('include.text', 'new line\n');
+}));
