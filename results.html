@@ -279,7 +279,18 @@ function selectInlineLogs (results) {
 }
 
 function renderTests (resultsXml, showPassed) {
-    render(renderTestList(resultsXml, 'testsuite', 'testcase', showPassed), document.getElementById('main'));
+    const items = renderTestList(resultsXml, 'testsuite', 'testcase', showPassed);
+
+    // show pipeline log if overall state is "error"
+    const overallResult = resultsXml.firstChild.getAttribute('overall-result');
+    if (overallResult === 'error') {
+        items.push(html`<details class="pipeline-log" open>
+            <summary class="result-error"><a href="${baseUrl}/pipeline.log"}>pipeline.log</a></summary>
+            <log-viewer url="${baseUrl}/pipeline.log" />
+          </details>`);
+    }
+
+    render(items, document.getElementById('main'));
 }
 
 function reloadPage () {

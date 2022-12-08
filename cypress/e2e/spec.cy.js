@@ -37,6 +37,9 @@ describe('tmt-single-pass', () => it('run', () => {
         cy.get('details log-viewer').shadow().find('pre')
             .should('have.text', 'all good!\n');
     });
+
+    // no pipeline.log, as successful
+    cy.get('details[class="pipeline-log"]').should('not.exist');
 }));
 
 describe('tmt-single-fail', () => it('run', () => {
@@ -66,6 +69,9 @@ describe('tmt-single-fail', () => it('run', () => {
         cy.get('details log-viewer').shadow().find('pre')
             .should('have.text', 'something went wrong\n');
     });
+
+    // no pipeline.log, as not an error state
+    cy.get('details[class="pipeline-log"]').should('not.exist');
 }));
 
 describe('tmt-html-artifact', () => it('run', () => {
@@ -171,6 +177,12 @@ describe('tmt-failed-install', () => it('run', () => {
             .and('contain', 'nothing provides pkgconfig(binutils-devel)')
             .and('not.contain', 'Index of');
     });
+
+    // error state shows pipeline.log
+    cy.get('details[class="pipeline-log"] log-viewer')
+        .shadow().find('pre')
+        .should('contain', 'pipeline details')
+        .should('contain', '[E]rror messages');
 }));
 
 describe('tmt-failed-install-rhel', () => it('run', () => {
@@ -211,6 +223,12 @@ describe('tmt-error-no-logs', () => it('run', () => {
     cy.get('main > details')
         .should('contain', 'Tests failed to run')
         .should('contain', 'pipeline.log');
+
+    // error state shows pipeline.log
+    cy.get('details[class="pipeline-log"] log-viewer')
+        .shadow().find('pre')
+        .should('contain', 'pipeline details')
+        .should('contain', 'error messages');
 }));
 
 describe('inprogress', () => it('run', () => {
