@@ -1,0 +1,9 @@
+<testsuites overall-result="error">
+ <testsuite name="pipeline">
+  <testcase name="failure" result="error">
+   <logs>
+       <log name="pipeline.log" href="./scenarios/tf-synthetic-error/pipeline.log"/>
+   </logs>
+  </testcase>
+ </testsuite>
+</testsuites>

@@ -248,3 +248,13 @@ describe('inprogress-no-reload', () => it('run', () => {
     // confirm the log was updated this time
     cy.get('main pre').should('include.text', 'new line\n');
 }));
+
+// produced by https://gitlab.com/testing-farm/infrastructure/-/blob/testing-farm/ranch/public/jobs/tf-tmt
+describe('tf-synthetic-error', () => it('run', () => {
+    cy.visit('/results.html?url=scenarios/tf-synthetic-error');
+    cy.get('#overall-result').should('have.text', 'error');
+
+    cy.get('main > details')
+        .should('contain', 'pipeline')
+        .and('have.attr', 'open');
+}));

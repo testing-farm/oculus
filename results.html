@@ -79,6 +79,9 @@ const baseUrl = new URLSearchParams(window.location.search).get('url') ?? '.';
 // HACK: Until TFT-1687 is implemented.
 // unify the variations of "pass", "passed", "failed", "failure", etc. to the defined .result-.. classes
 function normalizeResult (result) {
+    if (!result) {
+        return 'error';
+    }
     const lower = result.toLowerCase();
     if (lower.includes('pass')) { return 'pass' }
     if (lower.includes('fail') || lower.includes('inspection')) { return 'fail' }
