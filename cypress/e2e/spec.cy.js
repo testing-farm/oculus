@@ -193,6 +193,26 @@ describe('tmt-failed-install-rhel', () => it('run', () => {
     });
 }));
 
+describe('tmt-error-no-logs', () => it('run', () => {
+    cy.exec('mkdir -p cypress/downloads/nologs');
+    cy.writeFile('cypress/downloads/nologs/pipeline.log', 'pipeline details\nwith more\nerror messages\n');
+    cy.writeFile('cypress/downloads/nologs/results.xml',
+                 '<testsuites overall-result="error">\n' +
+                 '  <testsuite name="/plans/ci" result="undefined" tests="0"></testsuite>\n' +
+                 '</testsuites>\n');
+
+    cy.visit('/results.html?url=cypress/downloads/nologs');
+    cy.get('#overall-result').should('have.text', 'error');
+
+    cy.get('main > details')
+        .should('contain', '/plans/ci')
+        .and('have.attr', 'open');
+    cy.get('main > details summary').should('have.class', 'result-error');
+    cy.get('main > details')
+        .should('contain', 'Tests failed to run')
+        .should('contain', 'pipeline.log');
+}));
+
 describe('inprogress', () => it('run', () => {
     // initialize 🕗, we want to move forward time
     cy.clock();
