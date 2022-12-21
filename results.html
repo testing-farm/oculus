@@ -336,8 +336,8 @@ async function main () {
         document.getElementById('download-junit').setAttribute('href', baseUrl + '/results-junit.xml');
     }
 
-    // extract request UUID from URL; show API request when present
-    const requestId = baseUrl.match(uuidRegex)?.[0];
+    // extract request UUID from current URL; show API request when present
+    const requestId = window.location.href.match(uuidRegex)?.[0];
     if (requestId) {
         document.getElementById('api-request-separator').removeAttribute('hidden');
         document.getElementById('api-request').removeAttribute('hidden');
