@@ -296,3 +296,13 @@ describe('tf-synthetic-error', () => it('run', () => {
         .should('contain', 'pipeline')
         .and('have.attr', 'open');
 }));
+
+// check if api link shown
+describe('api-link', () => it('run', () => {
+    // NOTE: this url is malformed on purpose, to simulate a more real URL, not passed via `url` param
+    cy.visit('/results.html?7614510d-5a51-4cb8-a81b-40b7d78ff111', { failOnStatusCode: false } );
+
+    cy.get('header > #api-request')
+        .should('be.visible')
+        .and('have.attr', 'href', 'https://api.dev.testing-farm.io/v0.1/requests/7614510d-5a51-4cb8-a81b-40b7d78ff111')
+}));
