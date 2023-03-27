@@ -52,6 +52,8 @@
     <div class="stretch"></div>
     <a id="api-request" hidden>API request</a>
     <span id="api-request-separator" hidden>|</span>
+    <a id="pipeline-log">Pipeline log</a>
+    <span id="pipeline-log-separator">|</span>
     <a href="https://gitlab.com/testing-farm/oculus/-/issues">Issues for this page</a>
     <span id="download-junit-separator" hidden>|</span>
     <a id="download-junit" download hidden>Download JUnit</a>
@@ -75,6 +77,9 @@ const uuidRegex = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/
 
 // allow user to point to a different result URL, mostly for testing
 const baseUrl = new URLSearchParams(window.location.search).get('url') ?? '.';
+
+// pipeline log, the main log of the worker
+const pipelineLogUrl = `${baseUrl}/pipeline.log`;
 
 // HACK: Until TFT-1687 is implemented.
 // unify the variations of "pass", "passed", "failed", "failure", etc. to the defined .result-.. classes
@@ -181,7 +186,7 @@ function renderLogs (logElements, artifactsAnchor) {
     // no logs means an infrastructure problem, provide some hints how to handle the situation
     if (logElements.length === 0) {
         return [
-            html`<p>Tests failed to run. See <a href=${baseUrl}/pipeline.log>pipeline.log</a> for details.</p>`,
+            html`<p>Tests failed to run. See <a href=${pipelineLogUrl}></a> for details.</p>`,
             html`
                 <p>This can be an infrastructure problem, check
                 <a href=https://status.testing-farm.io>status page</a>
@@ -285,8 +290,8 @@ function renderTests (resultsXml, showPassed) {
     const overallResult = resultsXml.firstChild.getAttribute('overall-result');
     if (overallResult === 'error') {
         items.push(html`<details class="pipeline-log" open>
-            <summary class="result-error"><a href="${baseUrl}/pipeline.log"}>pipeline.log</a></summary>
-            <log-viewer url="${baseUrl}/pipeline.log" />
+            <summary class="result-error"><a href="${pipelineLogUrl}"}>pipeline.log</a></summary>
+            <log-viewer url="${pipelineLogUrl}" />
           </details>`);
     }
 
@@ -321,7 +326,7 @@ async function main () {
         // no results.xml yet, fall back to "in progress" and showing pipeline.log
         document.getElementById('overall-result').innerHTML = 'in progress';
         // prevent caching the response of pipeline.log
-        const pipelineLog = await fetchFile(baseUrl + '/pipeline.log', { cache: 'no-store' });
+        const pipelineLog = await fetchFile(pipelineLogUrl, { cache: 'no-store' });
         render(html`<pre>${pipelineLog}</pre>`, document.getElementById('main'));
         // reload in 5 seconds, what matches the pipeline.log refresh tick (5s)
         window.setTimeout(() => reloadPage(), 5000);
@@ -343,6 +348,10 @@ async function main () {
         document.getElementById('api-request').removeAttribute('hidden');
         document.getElementById('api-request').setAttribute('href', apiRequestUrl + `/${requestId}`);
     }
+
+    document.getElementById('pipeline-log-separator').removeAttribute('hidden');
+    document.getElementById('pipeline-log').removeAttribute('hidden');
+    document.getElementById('pipeline-log').setAttribute('href', pipelineLogUrl);
 }
 
 main();

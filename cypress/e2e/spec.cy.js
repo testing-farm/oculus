@@ -40,6 +40,12 @@ describe('tmt-single-pass', () => it('run', () => {
 
     // no pipeline.log, as successful
     cy.get('details[class="pipeline-log"]').should('not.exist');
+
+    // check if link to pipeline.log
+    cy.get('header > #pipeline-log')
+        .should('be.visible')
+        .should('contain', 'Pipeline log')
+        .and('have.attr', 'href', 'scenarios/tmt-single-pass/pipeline.log')
 }));
 
 describe('tmt-single-fail', () => it('run', () => {
@@ -304,5 +310,6 @@ describe('api-link', () => it('run', () => {
 
     cy.get('header > #api-request')
         .should('be.visible')
+        .should('contain', 'API request')
         .and('have.attr', 'href', 'https://api.dev.testing-farm.io/v0.1/requests/7614510d-5a51-4cb8-a81b-40b7d78ff111')
 }));
