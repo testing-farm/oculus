@@ -26,6 +26,10 @@
       box-shadow: 2px 2px 2px lightgrey;
     }
     details > summary { padding: 1.5em; }
+    details > summary > p {
+        margin-bottom: 0;
+        font-weight: bold;
+    }
 
     /* nested details are testcases in a testsuite */
     details details { background-color: white; }
@@ -71,7 +75,7 @@ const HTML_ATTR = '_html'; /* marks HTML artifacts which are shown inline */
 const isPassed = result => result.includes('pass');
 
 // HACK: the request API url should be read from some metadata file instead
-const apiRequestUrl = 'https://api.dev.testing-farm.io/v0.1/requests';
+const apiUrl = 'https://api.dev.testing-farm.io/v0.1/requests';
 
 const uuidRegex = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
 
@@ -116,6 +120,19 @@ async function fetchHeader (url) {
         console.warn('Failed to fetch header', url, ':', error);
     }
     return false;
+}
+
+async function fetchJSON (url) {
+    try {
+        const response = await fetch(url);
+        if (response.ok) {
+            return await response.json();
+        } else {
+            console.warn('Failed to fetch', url, ':', response.status, response.statusText);
+        }
+    } catch (error) {
+        console.warn('Failed to fetch', url, ':', error);
+    }
 }
 
 async function fetchXML (url) {
@@ -207,7 +224,7 @@ function renderLogs (logElements, artifactsAnchor) {
 
 // testsuites contain a list of testsuite, which contain a list of testcase; these have
 // exactly the same structure, so we can render them with just one function
-function renderTestList (doc, elementType, subElementType, showPassed) {
+function renderTestList (doc, elementType, subElementType, showPassed, errorReason) {
     const res = [];
     const items = doc.querySelectorAll(elementType);
     items.forEach(item => {
@@ -220,9 +237,12 @@ function renderTestList (doc, elementType, subElementType, showPassed) {
 
         res.push(html`
           <details ?open=${result !== 'pass' || items.length === 1}>
-            <summary class="result-${result}">${name}</summary>
+            <summary class="result-${result}">
+                ${name}
+                ${result === 'error' && errorReason ? html`<p>⚠ ${errorReason}</p>` : null}
+            </summary>
             ${artifactsAnchor ? html`<p><a href="#${artifactsAnchor}">Go to Logs and Artifacts</a></p>` : null}
-            ${subElementType ? renderTestList(item, subElementType, null, showPassed) : null}
+            ${subElementType ? renderTestList(item, subElementType, null, showPassed, null) : null}
             ${renderLogs(item.querySelectorAll(':scope > logs > log'), artifactsAnchor)}
           </details>`);
     });
@@ -283,8 +303,8 @@ function selectInlineLogs (results) {
     });
 }
 
-function renderTests (resultsXml, showPassed) {
-    const items = renderTestList(resultsXml, 'testsuite', 'testcase', showPassed);
+function renderTests (resultsXml, showPassed, errorReason) {
+    const items = renderTestList(resultsXml, 'testsuite', 'testcase', showPassed, errorReason);
 
     // show pipeline log if overall state is "error"
     const overallResult = resultsXml.firstChild.getAttribute('overall-result');
@@ -308,9 +328,18 @@ function reloadPage () {
 }
 
 async function main () {
+    // get request ID
+    const requestId = window.location.href.match(uuidRegex)?.[0];
+    const apiRequestUrl = apiUrl + `/${requestId}`;
+
     // first try to fetch results.xml; if we have it, test is done
     const resultsXml = await fetchXML(baseUrl + '/results.xml');
+
     if (resultsXml) {
+        // fetch the possible error reason
+        const apiRequest = await fetchJSON(apiRequestUrl);
+        const errorReason = apiRequest?.result?.summary;
+
         selectInlineLogs(resultsXml);
         const overallResult = resultsXml.firstChild.getAttribute('overall-result');
         document.getElementById('overall-result').innerHTML = overallResult;
@@ -319,9 +348,9 @@ async function main () {
         if (!isPassed(overallResult) && resultsXml.querySelectorAll('testcase[result^="pass"]').length > 0) {
             document.getElementById('config').removeAttribute('hidden');
             document.getElementById('show_passed').addEventListener(
-                'change', ev => renderTests(resultsXml, ev.target.checked));
+                'change', ev => renderTests(resultsXml, ev.target.checked, errorReason));
         }
-        renderTests(resultsXml, isPassed(overallResult));
+        renderTests(resultsXml, isPassed(overallResult), errorReason);
     } else {
         // no results.xml yet, fall back to "in progress" and showing pipeline.log
         document.getElementById('overall-result').innerHTML = 'in progress';
@@ -342,11 +371,10 @@ async function main () {
     }
 
     // extract request UUID from current URL; show API request when present
-    const requestId = window.location.href.match(uuidRegex)?.[0];
     if (requestId) {
         document.getElementById('api-request-separator').removeAttribute('hidden');
         document.getElementById('api-request').removeAttribute('hidden');
-        document.getElementById('api-request').setAttribute('href', apiRequestUrl + `/${requestId}`);
+        document.getElementById('api-request').setAttribute('href', apiRequestUrl);
     }
 
     document.getElementById('pipeline-log-separator').removeAttribute('hidden');

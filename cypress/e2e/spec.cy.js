@@ -46,6 +46,10 @@ describe('tmt-single-pass', () => it('run', () => {
         .should('be.visible')
         .should('contain', 'Pipeline log')
         .and('have.attr', 'href', 'scenarios/tmt-single-pass/pipeline.log')
+
+    // error reason shown not be shown
+    cy.get('main > details summary p').should('not.exist')
+
 }));
 
 describe('tmt-single-fail', () => it('run', () => {
@@ -78,6 +82,9 @@ describe('tmt-single-fail', () => it('run', () => {
 
     // no pipeline.log, as not an error state
     cy.get('details[class="pipeline-log"]').should('not.exist');
+
+    // error reason shown not be shown
+    cy.get('main > details summary p').should('not.exist')
 }));
 
 describe('tmt-html-artifact', () => it('run', () => {
@@ -108,6 +115,9 @@ describe('tmt-html-artifact', () => it('run', () => {
             .its('0.contentDocument.body').should('not.be.empty')
             .should('contain', 'Custom results viewer');
     });
+
+    // error reason shown not be shown
+    cy.get('main > details summary p').should('not.exist')
 }));
 
 describe('tmt-mixed', () => it('run', () => {
@@ -154,6 +164,9 @@ describe('tmt-mixed', () => it('run', () => {
     cy.get('log-viewer[url*="/work-advancedw2ccwZ/tmt-reproducer.sh"')
         .shadow().find('pre')
         .should('contain', 'plan --name ^\\/plans\\/features\\/advanced');
+
+    // error reason shown not be shown
+    cy.get('main > details summary p').should('not.exist')
 }));
 
 describe('tmt-failed-install', () => it('run', () => {
@@ -189,6 +202,9 @@ describe('tmt-failed-install', () => it('run', () => {
         .shadow().find('pre')
         .should('contain', 'pipeline details')
         .should('contain', '[E]rror messages');
+
+    // error reason shown not be shown (no mocked request)
+    cy.get('main > details summary p').should('not.exist')
 }));
 
 describe('tmt-failed-install-rhel', () => it('run', () => {
@@ -209,6 +225,9 @@ describe('tmt-failed-install-rhel', () => it('run', () => {
             .and('contain', 'TheInstallLog')
             .and('not.contain', 'Index of');
     });
+
+    // error reason shown not be shown (no mocked request)
+    cy.get('main > details summary p').should('not.exist')
 }));
 
 describe('tmt-error-no-logs', () => it('run', () => {
@@ -219,7 +238,13 @@ describe('tmt-error-no-logs', () => it('run', () => {
                  '  <testsuite name="/plans/ci" result="undefined" tests="0"></testsuite>\n' +
                  '</testsuites>\n');
 
-    cy.visit('/results.html?url=cypress/downloads/nologs');
+    cy.intercept(
+        'GET',
+        'https://api.dev.testing-farm.io/v0.1/requests/1a941b5c-24c3-4746-b3e3-0888a06abeb4',
+        { fixture: 'request-error-reason.json' }
+    )
+
+    cy.visit('/results.html?url=cypress/downloads/nologs&requestId=1a941b5c-24c3-4746-b3e3-0888a06abeb4');
     cy.get('#overall-result').should('have.text', 'error');
 
     cy.get('main > details')
@@ -235,6 +260,10 @@ describe('tmt-error-no-logs', () => it('run', () => {
         .shadow().find('pre')
         .should('contain', 'pipeline details')
         .should('contain', 'error messages');
+
+    // error reason shown
+    cy.get('main > details summary p')
+        .should('contain', '⚠ Test environment installation failed: Install packages')
 }));
 
 describe('inprogress', () => it('run', () => {

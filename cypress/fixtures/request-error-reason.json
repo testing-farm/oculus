@@ -1,0 +1,62 @@
+{
+  "id": "12359b1f-bb0f-4d76-9993-e731e2748245",
+  "user_id": "c4af7afe-b95e-4cf1-b989-9c458f0eecf0",
+  "test": {
+    "fmf": {
+      "name": "/plans/public",
+      "path": ".",
+      "ref": "4e69c81101f4c18d4933c5820d13fc12d27251a8",
+      "url": "https://src.fedoraproject.org/forks/zdohnal/rpms/cups"
+    },
+    "script": null,
+    "sti": null
+  },
+  "state": "error",
+  "environments_requested": [
+    {
+      "arch": "x86_64",
+      "artifacts": [
+        {
+          "id": "99245604",
+          "packages": null,
+          "type": "fedora-koji-build"
+        }
+      ],
+      "hardware": null,
+      "os": {
+        "compose": "Fedora-Rawhide"
+      },
+      "pool": null,
+      "settings": null,
+      "tmt": {
+        "context": {
+          "arch": "x86_64",
+          "distro": "fedora-rawhide",
+          "trigger": "commit"
+        }
+      },
+      "variables": {
+        "KOJI_TASK_ID": "99245604"
+      }
+    }
+  ],
+  "notes": [
+    {
+      "level": "info",
+      "message": "tf-tmt/dispatch-1680023064-a8e4df79"
+    }
+  ],
+  "result": {
+    "overall": "unknown",
+    "summary": "Test environment installation failed: Install packages",
+    "xunit": null
+  },
+  "run": {
+    "artifacts": "https://artifacts.dev.testing-farm.io/12359b1f-bb0f-4d76-9993-e731e2748245",
+    "console": null,
+    "stages": null
+  },
+  "settings": null,
+  "created": "2023-03-28 17:04:24.148103",
+  "updated": "2023-03-28 17:04:24.148145"
+}
