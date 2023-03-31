@@ -54,6 +54,8 @@
         <label for="show_passed">Show passed tests</label>
     </div>
     <div class="stretch"></div>
+    <a id="docs" hidden>Docs</a>
+    <span id="docs-separator" hidden>|</span>
     <a id="api-request" hidden>API request</a>
     <span id="api-request-separator" hidden>|</span>
     <a id="pipeline-log">Pipeline log</a>
@@ -84,6 +86,9 @@ const baseUrl = new URLSearchParams(window.location.search).get('url') ?? '.';
 
 // pipeline log, the main log of the worker
 const pipelineLogUrl = `${baseUrl}/pipeline.log`;
+
+// link to the user docs
+const docsUrl = 'https://docs.testing-farm.io/general/0.1/index.html';
 
 // HACK: Until TFT-1687 is implemented.
 // unify the variations of "pass", "passed", "failed", "failure", etc. to the defined .result-.. classes
@@ -380,6 +385,10 @@ async function main () {
     document.getElementById('pipeline-log-separator').removeAttribute('hidden');
     document.getElementById('pipeline-log').removeAttribute('hidden');
     document.getElementById('pipeline-log').setAttribute('href', pipelineLogUrl);
+
+    document.getElementById('docs-separator').removeAttribute('hidden');
+    document.getElementById('docs').removeAttribute('hidden');
+    document.getElementById('docs').setAttribute('href', docsUrl);
 }
 
 main();

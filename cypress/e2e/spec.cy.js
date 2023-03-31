@@ -5,6 +5,8 @@ describe('tmt-single-pass', () => it('run', () => {
     cy.get('#config').should('not.be.visible');
     // this scenario has results-junit.xml
     cy.get('#download-junit').should('be.visible');
+    // docs are always visible
+    cy.get('#docs').should('be.visible');
 
     // single top-level plan, opened by default
     cy.get('main > details')
@@ -59,6 +61,8 @@ describe('tmt-single-fail', () => it('run', () => {
     cy.get('#config').should('not.be.visible');
     // this scenario has no results-junit.xml
     cy.get('#download-junit').should('not.be.visible');
+    // docs are always visible
+    cy.get('#docs').should('be.visible');
 
     // single top-level plan, opened by default
     cy.get('main > details')
@@ -90,6 +94,9 @@ describe('tmt-single-fail', () => it('run', () => {
 describe('tmt-html-artifact', () => it('run', () => {
     cy.visit('/results.html?url=scenarios/tmt-html-artifact');
     cy.get('#overall-result').should('have.text', 'failed');
+
+    // docs are always visible
+    cy.get('#docs').should('be.visible');
 
     // single top-level plan, opened by default
     cy.get('main > details')
@@ -123,6 +130,8 @@ describe('tmt-html-artifact', () => it('run', () => {
 describe('tmt-mixed', () => it('run', () => {
     cy.visit('/results.html?url=scenarios/tmt-mixed');
     cy.get('#overall-result').should('have.text', 'failed');
+    // docs are always visible
+    cy.get('#docs').should('be.visible');
     // failed tests are shown by default
     cy.get('main > details').should('contain', '/plans/features/basic');
     cy.get('main > details').should('contain', '/tests/discover/distgit');
@@ -174,6 +183,8 @@ describe('tmt-failed-install', () => it('run', () => {
     cy.get('#overall-result').should('have.text', 'error');
     // no config box, as only failed tests
     cy.get('#config').should('not.be.visible');
+    // docs are always visible
+    cy.get('#docs').should('be.visible');
 
     // single top-level plan, opened by default
     cy.get('main > details')
@@ -210,6 +221,8 @@ describe('tmt-failed-install', () => it('run', () => {
 describe('tmt-failed-install-rhel', () => it('run', () => {
     cy.visit('/results.html?url=scenarios/tmt-failed-install-rhel');
     cy.get('#overall-result').should('have.text', 'error');
+    // docs are always visible
+    cy.get('#docs').should('be.visible');
 
     cy.get('main > details').within(() => {
         // pre_artifact_installation succeeded, log link present
@@ -275,6 +288,8 @@ describe('inprogress', () => it('run', () => {
     cy.exec('mkdir -p cypress/downloads/; cp -r scenarios/inprogress cypress/downloads/');
     cy.visit('/results.html?url=cypress/downloads/inprogress');
     cy.get('#overall-result').should('to.have.text', 'in progress');
+    // docs are always visible
+    cy.get('#docs').should('be.visible');
     // no config box
     cy.get('#config').should('not.be.visible');
     // no results-junit.xml yet
@@ -302,6 +317,8 @@ describe('inprogress-no-reload', () => it('run', () => {
     cy.get('#overall-result').should('to.have.text', 'in progress');
     // no config box
     cy.get('#config').should('not.be.visible');
+    // docs are always visible
+    cy.get('#docs').should('be.visible');
     // no results-junit.xml yet
     cy.get('#download-junit').should('not.be.visible');
     // show pipeline.log
@@ -326,6 +343,8 @@ describe('inprogress-no-reload', () => it('run', () => {
 describe('tf-synthetic-error', () => it('run', () => {
     cy.visit('/results.html?url=scenarios/tf-synthetic-error');
     cy.get('#overall-result').should('have.text', 'error');
+    // docs are always visible
+    cy.get('#docs').should('be.visible');
 
     cy.get('main > details')
         .should('contain', 'pipeline')
@@ -336,6 +355,8 @@ describe('tf-synthetic-error', () => it('run', () => {
 describe('api-link', () => it('run', () => {
     // NOTE: this url is malformed on purpose, to simulate a more real URL, not passed via `url` param
     cy.visit('/results.html?7614510d-5a51-4cb8-a81b-40b7d78ff111', { failOnStatusCode: false } );
+    // docs are always visible
+    cy.get('#docs').should('be.visible');
 
     cy.get('header > #api-request')
         .should('be.visible')
