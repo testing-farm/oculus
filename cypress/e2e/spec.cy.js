@@ -54,6 +54,48 @@ describe('tmt-single-pass', () => it('run', () => {
 
 }));
 
+describe('tmt-single-info', () => it('run', () => {
+    cy.visit('/results.html?url=scenarios/tmt-single-info');
+    cy.get('#overall-result').should('have.text', 'info');
+    // no config box, as only passed tests
+    cy.get('#config').should('not.be.visible');
+    // this scenario has no results-junit.xml
+    cy.get('#download-junit').should('not.be.visible');
+    // docs are always visible
+    cy.get('#docs').should('be.visible');
+
+    // single top-level plan, opened by default
+    cy.get('main > details')
+        .should('contain', '/plans/all')
+        .and('have.attr', 'open');
+    cy.get('main > details summary').should('have.class', 'result-info');
+
+    cy.get('main > details').within(() => {
+        // log output for single test is expanded
+        cy.get('details')
+            .should('contain', '/tests')
+            .and('have.attr', 'open');
+        cy.get('details summary').should('have.class', 'result-info');
+
+        // testout.log visible
+        cy.get('details log-viewer').shadow().find('pre')
+            .should('have.text', 'some info only\n');
+    });
+
+    // no pipeline.log, as successful
+    cy.get('details[class="pipeline-log"]').should('not.exist');
+
+    // check if link to pipeline.log
+    cy.get('header > #pipeline-log')
+        .should('be.visible')
+        .should('contain', 'Pipeline log')
+        .and('have.attr', 'href', 'scenarios/tmt-single-info/pipeline.log')
+
+    // error reason shown not be shown
+    cy.get('main > details summary p').should('not.exist')
+}));
+
+
 describe('tmt-single-fail', () => it('run', () => {
     cy.visit('/results.html?url=scenarios/tmt-single-fail');
     cy.get('#overall-result').should('have.text', 'failed');

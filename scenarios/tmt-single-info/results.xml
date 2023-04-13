@@ -1,0 +1,41 @@
+<testsuites overall-result="info">
+ <properties>
+  <property name="baseosci.overall-result" value="info"/>
+ </properties>
+ <testsuite name="/plans/all" result="info" tests="1">
+  <logs>
+   <log guest-setup-stage="artifact_installation" href="https://artifacts.dev.testing-farm.io/7d6a6cbf-3cd5-49fb-aca1-f76ffa0734aa/guest-setup-28abf718-5b64-44a2-8908-0aa8db87b616/artifact-installation-28abf718-5b64-44a2-8908-0aa8db87b616" name="Copr build(s) installation" schedule-stage="guest-setup"/>
+   <log guest-setup-stage="pre_artifact_installation" href="https://artifacts.dev.testing-farm.io/7d6a6cbf-3cd5-49fb-aca1-f76ffa0734aa/guest-setup-28abf718-5b64-44a2-8908-0aa8db87b616/guest-setup-output-pre-artifact-installation.txt" name="guest setup" schedule-stage="guest-setup"/>
+   <log guest-setup-stage="post_artifact_installation" href="https://artifacts.dev.testing-farm.io/7d6a6cbf-3cd5-49fb-aca1-f76ffa0734aa/guest-setup-28abf718-5b64-44a2-8908-0aa8db87b616/guest-setup-output-post-artifact-installation.txt" name="guest setup" schedule-stage="guest-setup"/>
+   <log href="./scenarios/tmt-single-pass/work-allw5U7yu/tmt-reproducer.sh" name="tmt-reproducer"/>
+   <log href="./scenarios/tmt-single-pass/work-allw5U7yu" name="workdir"/>
+  </logs>
+  <properties>
+   <property name="baseosci.result" value="info"/>
+  </properties>
+  <testcase name="/tests" result="info">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="13.58.236.184"/>
+    <property name="baseosci.distro" value="Fedora-37"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="./scenarios/tmt-single-info/work-allw5U7yu/plans/all/execute/data/tests" name="log_dir" schedule-entry="/plans/all" schedule-stage="running"/>
+    <log href="./scenarios/tmt-single-info/work-allw5U7yu/plans/all/execute/data/tests/output.txt" name="testout.log" schedule-entry="/plans/all" schedule-stage="running"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-37"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-37"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+ </testsuite>
+</testsuites>

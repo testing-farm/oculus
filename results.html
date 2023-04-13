@@ -37,6 +37,7 @@
 
     .result-pass { background-color: lightgreen; }
     .result-fail { background-color: #ff4d4d; }
+    .result-info { background-color: lightblue; }
     .result-skip { background-color: lightgrey; }
     .result-error { background-color: darkorange; }
 
@@ -100,6 +101,7 @@ function normalizeResult (result) {
     if (lower.includes('pass')) { return 'pass' }
     if (lower.includes('fail') || lower.includes('inspection')) { return 'fail' }
     if (lower.includes('skip')) { return 'skip' }
+    if (lower.includes('info')) { return 'info' }
     // treat other values like "error", "undefined", unknown as generic error
     return 'error';
 }
