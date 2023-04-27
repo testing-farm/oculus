@@ -292,6 +292,10 @@ function selectInlineTestsuiteLogs (testsuite, failedSetup) {
         .forEach(log => log.setAttribute(SHOW_ATTR, ''));
     if (!failedSetup) { return }
 
+    const tmtLogs = testsuite.querySelectorAll(':scope > logs > log[name="tmt-log"]');
+    tmtLogs.forEach(log => log.setAttribute(SHOW_ATTR, ''));
+    if (tmtLogs.length > 0) { return }
+
     // check for guest setup stages in reverse order, i.e. only show the most recent one
     for (const priority of ['post_artifact_installation', 'artifact_installation', 'pre_artifact_installation']) {
         const logs = testsuite.querySelectorAll(`:scope > logs > log[guest-setup-stage="${priority}"]`);

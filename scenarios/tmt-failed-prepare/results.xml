@@ -1,0 +1,18 @@
+<testsuites overall-result="error">
+    <properties>
+        <property name="baseosci.overall-result" value="error"/>
+    </properties>
+    <testsuite name="CentOS-Stream-8:x86_64:/plans/features/advanced" result="error" tests="0">
+        <logs>
+            <log guest-setup-stage="pre_artifact_installation" href="https://artifacts.dev.testing-farm.io/49461c76-bf72-4d80-ab69-516e7536452e/guest-setup-0e4018be-2966-45c1-b4ca-44c6747a02e1/guest-setup-output-pre-artifact-installation.txt" name="guest setup" schedule-stage="guest-setup"/>
+            <log guest-setup-stage="artifact_installation" href="https://artifacts.dev.testing-farm.io/49461c76-bf72-4d80-ab69-516e7536452e/guest-setup-0e4018be-2966-45c1-b4ca-44c6747a02e1/artifact-installation-0e4018be-2966-45c1-b4ca-44c6747a02e1" name="Copr build(s) installation" schedule-stage="guest-setup"/>
+            <log guest-setup-stage="post_artifact_installation" href="https://artifacts.dev.testing-farm.io/49461c76-bf72-4d80-ab69-516e7536452e/guest-setup-0e4018be-2966-45c1-b4ca-44c6747a02e1/guest-setup-output-post-artifact-installation.txt" name="guest setup" schedule-stage="guest-setup"/>
+            <log href="./scenarios/tmt-failed-prepare/work-advancedlnc1jou2/tmt-run.log" name="tmt-log"/>
+            <log href="./scenarios/tmt-failed-prepare/work-advancedlnc1jou2/tmt-reproducer.sh" name="tmt-reproducer"/>
+            <log href="https://artifacts.dev.testing-farm.io/49461c76-bf72-4d80-ab69-516e7536452e/work-advancedlnc1jou2" name="workdir"/>
+        </logs>
+        <properties>
+            <property name="baseosci.result" value="error"/>
+        </properties>
+    </testsuite>
+</testsuites>

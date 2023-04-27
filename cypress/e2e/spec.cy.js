@@ -285,6 +285,37 @@ describe('tmt-failed-install-rhel', () => it('run', () => {
     cy.get('main > details summary p').should('not.exist')
 }));
 
+describe('tmt-failed-prepare', () => it('run', () => {
+    cy.visit('/results.html?url=scenarios/tmt-failed-prepare');
+    cy.get('#overall-result').should('have.text', 'error');
+    // docs are always visible
+    cy.get('#docs').should('be.visible');
+
+    cy.get('main > details').within(() => {
+        // renders artifact installation logs inline, with concatenating all log files
+        cy.get('log-viewer[url*="/tmt-run.log"]')
+            .shadow().find('pre')
+            .should('contain', 'tmt log with an error');
+
+        // guest setup succeeded, log link present
+        cy.get('ul')
+            .should('contain', 'pre_artifact_installation')
+            .and('contain', 'Copr build(s) installation')
+            .and('contain', 'post_artifact_installation')
+            .and('contain', 'workdir');
+
+    });
+
+    // error state shows pipeline.log
+    cy.get('details[class="pipeline-log"] log-viewer')
+        .shadow().find('pre')
+        .should('contain', 'pipeline details')
+        .should('contain', '[E]rror messages');
+
+    // error reason shown not be shown (no mocked request)
+    cy.get('main > details summary p').should('not.exist')
+}));
+
 describe('tmt-error-no-logs', () => it('run', () => {
     cy.exec('mkdir -p cypress/downloads/nologs');
     cy.writeFile('cypress/downloads/nologs/pipeline.log', 'pipeline details\nwith more\nerror messages\n');
