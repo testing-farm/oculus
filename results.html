@@ -35,11 +35,11 @@
     details details { background-color: white; }
     details details > summary { padding: 0.5em; }
 
-    .result-pass { background-color: lightgreen; }
-    .result-fail { background-color: #ff4d4d; }
-    .result-info { background-color: lightblue; }
-    .result-skip { background-color: lightgrey; }
-    .result-error { background-color: darkorange; }
+    .result-pass { background-color: lightgreen; font-size: 14px; }
+    .result-fail { background-color: #ff4d4d; font-size: 14px; }
+    .result-info { background-color: lightblue; font-size: 14px; }
+    .result-skip { background-color: lightgrey; font-size: 14px; }
+    .result-error { background-color: darkorange; font-size: 14px; }
 
     iframe.html-artifact { height: 80vh; }
   </style>
@@ -236,16 +236,28 @@ function renderTestList (doc, elementType, subElementType, showPassed, errorReas
     const items = doc.querySelectorAll(elementType);
     items.forEach(item => {
         const name = item.getAttribute('name');
+        let arch = null;
+        let compose = null;
         const result = normalizeResult(item.getAttribute('result'));
         if (!showPassed && isPassed(result)) { return }
 
         // render artifacts anchors for top-level plans, as they can be quite far away
         const artifactsAnchor = subElementType ? 'artifacts-' + name : undefined;
 
+        if (elementType === 'testsuite') {
+            const testingEnvironment = item.querySelector('testing-environment[name=requested]');
+            if (testingEnvironment != null) {
+                arch = testingEnvironment.querySelector('property[name=arch]')?.getAttribute('value') ?? arch;
+                compose = testingEnvironment.querySelector('property[name=compose]')?.getAttribute('value') ?? compose;
+            }
+        }
+
         res.push(html`
           <details ?open=${result !== 'pass' || items.length === 1}>
             <summary class="result-${result}">
-                ${name}
+                ${name}<br>
+                ${arch ? ` 💻 ${arch}` : ''}
+                ${compose ? ` 💿 ${compose}` : ''}
                 ${result === 'error' && errorReason ? html`<p>⚠ ${errorReason}</p>` : null}
             </summary>
             ${artifactsAnchor ? html`<p><a href="#${artifactsAnchor}">Go to Logs and Artifacts</a></p>` : null}

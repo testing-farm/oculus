@@ -133,6 +133,17 @@ describe('tmt-single-fail', () => it('run', () => {
     cy.get('main > details summary p').should('not.exist')
 }));
 
+describe('tmt-double-pass', () => it('run', () => {
+    cy.visit('/results.html?url=scenarios/tmt-double-pass');
+
+    // container test - does not have compose visible
+    cy.get('#main > details:nth-child(2) > summary:nth-child(1)').should('contain',
+    '/testing-farm/sanity\n                 💻 x86_64')
+    // guest test - does have compose visible
+    cy.get('#main > details:nth-child(3) > summary:nth-child(1)').should('contain',
+    '/testing-farm/sanity1\n                 💻 x86_64\n                 💿 Fedora-Rawhide')
+}));
+
 describe('tmt-html-artifact', () => it('run', () => {
     cy.visit('/results.html?url=scenarios/tmt-html-artifact');
     cy.get('#overall-result').should('have.text', 'failed');
