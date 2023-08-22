@@ -77,6 +77,10 @@ const HTML_ATTR = '_html'; /* marks HTML artifacts which are shown inline */
 
 const isPassed = result => result.includes('pass');
 
+// If number of testcases is bigger then the value, both testsuites and
+// testcases will be collapsed.
+const tooManyTestcases = 20;
+
 // HACK: the request API url should be read from some metadata file instead
 const apiUrl = 'https://api.dev.testing-farm.io/v0.1/requests';
 
@@ -238,6 +242,7 @@ function renderTestList (doc, elementType, subElementType, showPassed, errorReas
         const name = item.getAttribute('name');
         let arch = null;
         let compose = null;
+        let isOpen = true;
         const result = normalizeResult(item.getAttribute('result'));
         if (!showPassed && isPassed(result)) { return }
 
@@ -250,10 +255,15 @@ function renderTestList (doc, elementType, subElementType, showPassed, errorReas
                 arch = testingEnvironment.querySelector('property[name=arch]')?.getAttribute('value') ?? arch;
                 compose = testingEnvironment.querySelector('property[name=compose]')?.getAttribute('value') ?? compose;
             }
+            isOpen = (result !== 'pass' || items.length === 1);
+        } else {
+            // As we show only show not passed tests by default, we need to count them and ignore passed
+            const failedTestsCount = Array.from(items).filter(i => !isPassed(i.getAttribute('result'))).length;
+            isOpen = (result !== 'pass' || items.length === 1) && failedTestsCount < tooManyTestcases;
         }
 
         res.push(html`
-          <details ?open=${result !== 'pass' || items.length === 1}>
+          <details ?open=${isOpen}>
             <summary class="result-${result}">
                 ${name}<br>
                 ${arch ? ` 💻 ${arch}` : ''}

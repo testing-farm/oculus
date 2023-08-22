@@ -96,6 +96,41 @@ describe('tmt-single-info', () => it('run', () => {
 }));
 
 
+describe('tmt-21-fails', () => it('run', () => {
+    cy.visit('/results.html?url=scenarios/tmt-21-fails');
+    cy.get('#overall-result').should('have.text', 'failed');
+    // no config box, as only failed tests
+    cy.get('#config').should('not.be.visible');
+    // this scenario has no results-junit.xml
+    cy.get('#download-junit').should('not.be.visible');
+    // docs are always visible
+    cy.get('#docs').should('be.visible');
+
+    // single top-level plan, collapsed by default
+    cy.get('main > details')
+        .should('contain', '/plans/all')
+        .and('have.attr', 'open');
+    cy.get('main > details summary').should('have.class', 'result-fail');
+
+    cy.get('main > details').within(() => {
+        // renders tmt reproducer inline
+        cy.get('log-viewer[url*="/tmt-reproducer.sh"]').should('exist');
+
+        // log output for failed test is collapsed
+        cy.get('details')
+            .should('contain', '/tests1')
+            .and('not.have.attr', 'open');
+        cy.get('details summary').should('have.class', 'result-fail');
+    });
+
+    // no pipeline.log, as not an error state
+    cy.get('details[class="pipeline-log"]').should('not.exist');
+
+    // error reason shown not be shown
+    cy.get('main > details summary p').should('not.exist')
+}));
+
+
 describe('tmt-single-fail', () => it('run', () => {
     cy.visit('/results.html?url=scenarios/tmt-single-fail');
     cy.get('#overall-result').should('have.text', 'failed');
