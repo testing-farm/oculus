@@ -244,6 +244,7 @@ function renderTestList (doc, elementType, subElementType, showPassed, errorReas
         let compose = null;
         let isOpen = true;
         const result = normalizeResult(item.getAttribute('result'));
+        const note = item.getAttribute('note');
         if (!showPassed && isPassed(result)) { return }
 
         // render artifacts anchors for top-level plans, as they can be quite far away
@@ -265,7 +266,7 @@ function renderTestList (doc, elementType, subElementType, showPassed, errorReas
         res.push(html`
           <details ?open=${isOpen}>
             <summary class="result-${result}">
-                ${name}<br>
+                ${name}${note ? ` (${note})` : ''}<br>
                 ${arch ? ` 💻 ${arch}` : ''}
                 ${compose ? ` 💿 ${compose}` : ''}
                 ${result === 'error' && errorReason ? html`<p>⚠ ${errorReason}</p>` : null}

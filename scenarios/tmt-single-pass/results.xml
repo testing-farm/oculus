@@ -13,7 +13,7 @@
   <properties>
    <property name="baseosci.result" value="passed"/>
   </properties>
-  <testcase name="/tests" result="passed">
+  <testcase name="/tests" result="passed" note="original result: fail">
    <properties>
     <property name="baseosci.arch" value="x86_64"/>
     <property name="baseosci.connectable_host" value="13.58.236.184"/>

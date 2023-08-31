@@ -32,6 +32,7 @@ describe('tmt-single-pass', () => it('run', () => {
         // log output for single test is expanded
         cy.get('details')
             .should('contain', '/tests')
+            .should('contain', ' (original result: fail)')
             .and('have.attr', 'open');
         cy.get('details summary').should('have.class', 'result-pass');
 
