@@ -242,33 +242,60 @@ function renderTestList (doc, elementType, subElementType, showPassed, errorReas
         const name = item.getAttribute('name');
         let arch = null;
         let compose = null;
+        let guestName = null;
+        let guestRole = null;
         let isOpen = true;
         const result = normalizeResult(item.getAttribute('result'));
         const note = item.getAttribute('note');
+        const guestsStr = [];
+        let guestInfo = null; // displayed for testcases run in multihost pipelines
         if (!showPassed && isPassed(result)) { return }
 
         // render artifacts anchors for top-level plans, as they can be quite far away
         const artifactsAnchor = subElementType ? 'artifacts-' + name : undefined;
 
         if (elementType === 'testsuite') {
-            const testingEnvironment = item.querySelector('testing-environment[name=requested]');
-            if (testingEnvironment != null) {
-                arch = testingEnvironment.querySelector('property[name=arch]')?.getAttribute('value') ?? arch;
-                compose = testingEnvironment.querySelector('property[name=compose]')?.getAttribute('value') ?? compose;
+            const guests = item.querySelectorAll('testsuite > guest');
+
+            if (guests.length > 0) { // Multihost pipeline, testing environment is under <guest> elements
+                guests.forEach(guest => {
+                    const environment = item.querySelector('testing-environment[name=provisioned]');
+                    if (environment != null) {
+                        arch = environment.querySelector('property[name=arch]')?.getAttribute('value') ?? arch;
+                        compose = environment.querySelector('property[name=compose]')?.getAttribute('value') ?? compose;
+                        guestName = guest?.getAttribute('name');
+                        guestRole = guest?.getAttribute('role');
+                    }
+                    guestsStr.push(`${guestName}${guestRole ? ` (${guestRole})` : ''}: ${arch ? `💻 ${arch}` : ''}` +
+                                   `${compose ? ` 💿 ${compose}` : ''}`);
+                });
+            } else { // Normal pipeline
+                const environment = item.querySelector('testing-environment[name=requested]');
+                if (environment != null) {
+                    arch = environment.querySelector('property[name=arch]')?.getAttribute('value') ?? arch;
+                    compose = environment.querySelector('property[name=compose]')?.getAttribute('value') ?? compose;
+                    guestsStr.push(`${arch ? ` 💻 ${arch}` : ''}${compose ? ` 💿 ${compose}` : ''}`);
+                }
             }
             isOpen = (result !== 'pass' || items.length === 1);
         } else {
             // As we show only show not passed tests by default, we need to count them and ignore passed
             const failedTestsCount = Array.from(items).filter(i => !isPassed(i.getAttribute('result'))).length;
             isOpen = (result !== 'pass' || items.length === 1) && failedTestsCount < tooManyTestcases;
+            guestName = item.querySelector('guest')?.getAttribute('name');
+            guestRole = item.querySelector('guest')?.getAttribute('role');
+            const serialNumber = item?.getAttribute('serial-number');
+            if (guestName) {
+                guestInfo = `test #${serialNumber} on ${guestName}${guestRole ? ` (${guestRole})` : ''}`;
+            }
         }
 
         res.push(html`
           <details ?open=${isOpen}>
             <summary class="result-${result}">
-                ${name}${note ? ` (${note})` : ''}<br>
-                ${arch ? ` 💻 ${arch}` : ''}
-                ${compose ? ` 💿 ${compose}` : ''}
+                ${name}${note ? ` (${note})` : ''}
+                ${guestInfo ? html`<span style="float:right;">${guestInfo}</span>` : ''}<br>
+                ${guestsStr.map((guest) => html`${guest}<br>`)}
                 ${result === 'error' && errorReason ? html`<p>⚠ ${errorReason}</p>` : null}
             </summary>
             ${artifactsAnchor ? html`<p><a href="#${artifactsAnchor}">Go to Logs and Artifacts</a></p>` : null}

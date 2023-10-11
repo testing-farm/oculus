@@ -174,10 +174,10 @@ describe('tmt-double-pass', () => it('run', () => {
 
     // container test - does not have compose visible
     cy.get('#main > details:nth-child(2) > summary:nth-child(1)').should('contain',
-    '/testing-farm/sanity\n                 💻 x86_64')
+    '/testing-farm/sanity\n                \n                 💻 x86_64\n')
     // guest test - does have compose visible
     cy.get('#main > details:nth-child(3) > summary:nth-child(1)').should('contain',
-    '/testing-farm/sanity1\n                 💻 x86_64\n                 💿 Fedora-Rawhide')
+    '/testing-farm/sanity1\n                \n                 💻 x86_64 💿 Fedora-Rawhide\n')
 }));
 
 describe('tmt-html-artifact', () => it('run', () => {
@@ -265,6 +265,47 @@ describe('tmt-mixed', () => it('run', () => {
 
     // error reason shown not be shown
     cy.get('main > details summary p').should('not.exist')
+}));
+
+describe('tmt-multihost-pass', () => it('run', () => {
+    cy.visit('/results.html?url=scenarios/tmt-multihost-pass');
+
+    // plan contains the correct plan name, names, arches and composes of all guests
+    const plan = cy.get('#main > details:nth-child(2) > summary:nth-child(1)')
+    plan.should('contain', '/testing-farm/multihost')
+    plan.should('contain', 'server: 💻 x86_64 💿 Fedora-Rawhide')
+    plan.should('contain', 'client: 💻 x86_64 💿 Fedora-Rawhide')
+
+    // each test contains the correct name of the test and name of the guest it was executed on 
+    const test_1 = cy.get('#main > details:nth-child(2) > details:nth-child(3) > summary:nth-child(1)')
+    test_1.should('contain', '/server-setup/testing-farm/tests/multihost/A')
+    test_1.should('contain', 'test #1 on server')
+    const test_2 = cy.get('#main > details:nth-child(2) > details:nth-child(4) > summary:nth-child(1)')
+    test_2.should('contain', '/tests/testing-farm/tests/multihost/B')
+    test_2.should('contain', 'test #2 on server')
+    const test_3 = cy.get('#main > details:nth-child(2) > details:nth-child(5) > summary:nth-child(1)')
+    test_3.should('contain', '/tests/testing-farm/tests/multihost/B')
+    test_3.should('contain', 'test #2 on client')
+    const test_4 = cy.get('#main > details:nth-child(2) > details:nth-child(6) > summary:nth-child(1)')
+    test_4.should('contain', '/tests/testing-farm/tests/multihost/C')
+    test_4.should('contain', 'test #3 on server')
+    const test_5 = cy.get('#main > details:nth-child(2) > details:nth-child(7) > summary:nth-child(1)')
+    test_5.should('contain', '/tests/testing-farm/tests/multihost/C')
+    test_5.should('contain', 'test #3 on client')
+
+    cy.get('#overall-result').should('have.text', 'passed');
+    // docs are always visible
+    cy.get('#docs').should('be.visible');
+    // open advanced plan
+    cy.get('main > details:first-of-type ').click()
+        .should('have.attr', 'open');
+    // scroll bar is almost at the top initially
+    cy.window().its('scrollY').should('lessThan', 150);
+
+    // jump to plan artifacts
+    cy.get('main > details:nth-of-type(1) > p > a')
+        .should('have.text', 'Go to Logs and Artifacts')
+        .click();
 }));
 
 describe('tmt-failed-install', () => it('run', () => {
