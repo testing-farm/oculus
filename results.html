@@ -25,7 +25,13 @@
       background-color: #F2F2F2;
       box-shadow: 2px 2px 2px lightgrey;
     }
-    details > summary { padding: 1.5em; }
+    details > summary {
+        padding: 1.5em;
+    }
+    monospace {
+        font-family: monospace;
+        font-size: 11px;
+    }
     details > summary > p {
         margin-bottom: 0;
         font-weight: bold;
@@ -294,9 +300,11 @@ function renderTestList (doc, elementType, subElementType, showPassed, errorReas
           <details ?open=${isOpen}>
             <summary class="result-${result}">
                 ${name}${note ? ` (${note})` : ''}
-                ${guestInfo ? html`<span style="float:right;">${guestInfo}</span>` : ''}<br>
-                ${guestsStr.map((guest) => html`${guest}<br>`)}
-                ${result === 'error' && errorReason ? html`<p>⚠ ${errorReason}</p>` : null}
+                <monospace>
+                    ${guestInfo ? html`<span style="float:right;">${guestInfo}</span>` : ''}<br>
+                    ${guestsStr.map((guest) => html`${guest}<br>`)}
+                    ${result === 'error' && errorReason ? html`<p>⚠ ${errorReason}</p>` : null}
+                </monospace>
             </summary>
             ${artifactsAnchor ? html`<p><a href="#${artifactsAnchor}">Go to Logs and Artifacts</a></p>` : null}
             ${subElementType ? renderTestList(item, subElementType, null, showPassed, null) : null}

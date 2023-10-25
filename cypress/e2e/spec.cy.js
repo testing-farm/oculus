@@ -173,11 +173,11 @@ describe('tmt-double-pass', () => it('run', () => {
     cy.visit('/results.html?url=scenarios/tmt-double-pass');
 
     // container test - does not have compose visible
-    cy.get('#main > details:nth-child(2) > summary:nth-child(1)').should('contain',
-    '/testing-farm/sanity\n                \n                 💻 x86_64\n')
+    cy.get('#main > details:nth-child(2) > summary:nth-child(1)').should('contain', '/testing-farm/sanity')
+    cy.get('#main > details:nth-child(2) > summary:nth-child(1) > monospace').should('contain', '💻 x86_64')
     // guest test - does have compose visible
-    cy.get('#main > details:nth-child(3) > summary:nth-child(1)').should('contain',
-    '/testing-farm/sanity1\n                \n                 💻 x86_64 💿 Fedora-Rawhide\n')
+    cy.get('#main > details:nth-child(3) > summary:nth-child(1)').should('contain', '/testing-farm/sanity1')
+    cy.get('#main > details:nth-child(3) > summary:nth-child(1) > monospace').should('contain', '💻 x86_64 💿 Fedora-Rawhide\n')
 }));
 
 describe('tmt-html-artifact', () => it('run', () => {
@@ -273,8 +273,12 @@ describe('tmt-multihost-pass', () => it('run', () => {
     // plan contains the correct plan name, names, arches and composes of all guests
     const plan = cy.get('#main > details:nth-child(2) > summary:nth-child(1)')
     plan.should('contain', '/testing-farm/multihost')
-    plan.should('contain', 'server: 💻 x86_64 💿 Fedora-Rawhide')
-    plan.should('contain', 'client: 💻 x86_64 💿 Fedora-Rawhide')
+    const plan_info = cy.get('#main > details:nth-child(2) > summary:nth-child(1) > monospace')
+    plan_info.should('contain', 'server: 💻 x86_64 💿 Fedora-Rawhide')
+    plan_info.should('contain', 'client: 💻 x86_64 💿 Fedora-Rawhide')
+    // check if css is set to a small monospace font
+    plan_info.should('have.css', 'font-family', 'monospace')
+    plan_info.should('have.css', 'font-size', '11px')
 
     // each test contains the correct name of the test and name of the guest it was executed on 
     const test_1 = cy.get('#main > details:nth-child(2) > details:nth-child(3) > summary:nth-child(1)')
