@@ -40,6 +40,10 @@
     /* nested details are testcases in a testsuite */
     details details { background-color: white; }
     details details > summary { padding: 0.5em; }
+    /* nested details in testcases are checks */
+    details details details { background-color: #F2F2F2; }
+    details details details > summary { padding: 0.1em; }
+    details details details details { background-color: white; }
 
     .result-pass { background-color: lightgreen; font-size: 14px; }
     .result-fail { background-color: #ff4d4d; font-size: 14px; }
@@ -203,6 +207,7 @@ function renderLogs (logElements, artifactsAnchor) {
     logElements.forEach(log => {
         let name = log.getAttribute('name');
         const href = log.getAttribute('href');
+        if (!name) { name = href }
         // HACK: results.xml should have unique names; fix that, and then clean this up
         const setupStage = log.getAttribute('guest-setup-stage');
         if (setupStage && name === 'guest setup') { name = setupStage }
@@ -239,6 +244,45 @@ function renderLogs (logElements, artifactsAnchor) {
     </div>`;
 }
 
+function renderCheckSummary (checks) {
+    const checkCount = checks.getAttribute('checks');
+    const failCount = checks.getAttribute('failures');
+    const errorCount = checks.getAttribute('errors');
+    const passCount = checkCount - failCount - errorCount;
+    return `${checkCount} checks (${passCount} passed, ${failCount} failed, ${errorCount} error)`;
+}
+
+function renderCheckList (checks, artifactsAnchor) {
+    if (!checks) { return [] }
+    const checksStr = [];
+    const failCount = parseInt(checks.getAttribute('failures'));
+    const errorCount = parseInt(checks.getAttribute('errors'));
+    const result = failCount + errorCount === 0 ? 'pass' : (errorCount > 0 ? 'error' : 'fail');
+    const checkObjects = checks.querySelectorAll('check');
+
+    checkObjects.forEach(check => {
+        const checkName = check.getAttribute('name');
+        const checkResult = check.getAttribute('result');
+        const checkEvent = check.getAttribute('event');
+
+        checksStr.push(
+            html`<details><summary class="result-${checkResult}">${checkName} (${checkEvent})</summary>
+                ${renderLogs(check.querySelectorAll('logs > log'), artifactsAnchor)}
+                </details>`
+        );
+    });
+    if (checksStr.length > 0) {
+        return html`<h3>Checks</h3>
+        <details ?open=${result !== 'pass'}>
+            <summary class="result-${result}">
+                ${renderCheckSummary(checks)}
+            </summary>
+            ${checksStr}
+        </details>`;
+    }
+    return html``;
+}
+
 // testsuites contain a list of testsuite, which contain a list of testcase; these have
 // exactly the same structure, so we can render them with just one function
 function renderTestList (doc, elementType, subElementType, showPassed, errorReason) {
@@ -255,6 +299,7 @@ function renderTestList (doc, elementType, subElementType, showPassed, errorReas
         const note = item.getAttribute('note');
         const guestsStr = [];
         let guestInfo = null; // displayed for testcases run in multihost pipelines
+        let checks = null;
         if (!showPassed && isPassed(result)) { return }
 
         // render artifacts anchors for top-level plans, as they can be quite far away
@@ -294,14 +339,19 @@ function renderTestList (doc, elementType, subElementType, showPassed, errorReas
             if (guestName) {
                 guestInfo = `test #${serialNumber} on ${guestName}${guestRole ? ` (${guestRole})` : ''}`;
             }
+            checks = item.querySelector('checks');
         }
+
+        const rightSideTexts = [];
+        if (guestInfo) { rightSideTexts.push(guestInfo) }
+        if (checks && checks.getAttribute('checks') > 0) { rightSideTexts.push(`with ${renderCheckSummary(checks)}`) }
 
         res.push(html`
           <details ?open=${isOpen}>
             <summary class="result-${result}">
                 ${name}${note ? ` (${note})` : ''}
                 <monospace>
-                    ${guestInfo ? html`<span style="float:right;">${guestInfo}</span>` : ''}<br>
+                    <span style="float:right;">${rightSideTexts.join(' ')}</span><br>
                     ${guestsStr.map((guest) => html`${guest}<br>`)}
                     ${result === 'error' && errorReason ? html`<p>⚠ ${errorReason}</p>` : null}
                 </monospace>
@@ -309,6 +359,7 @@ function renderTestList (doc, elementType, subElementType, showPassed, errorReas
             ${artifactsAnchor ? html`<p><a href="#${artifactsAnchor}">Go to Logs and Artifacts</a></p>` : null}
             ${subElementType ? renderTestList(item, subElementType, null, showPassed, null) : null}
             ${renderLogs(item.querySelectorAll(':scope > logs > log'), artifactsAnchor)}
+            ${renderCheckList(checks, artifactsAnchor)}
           </details>`);
     });
     return res;
