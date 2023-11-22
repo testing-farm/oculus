@@ -60,6 +60,8 @@
         <input id="show_passed" type="checkbox" />
         <label for="show_passed">Show passed tests</label>
     </div>
+    <span id="backlink-separator" hidden>|</span>
+    <a id="backlink" hidden>Backlink</a>
     <div class="stretch"></div>
     <a id="docs" hidden>Docs</a>
     <span id="docs-separator" hidden>|</span>
@@ -404,10 +406,18 @@ async function main () {
     // first try to fetch results.xml; if we have it, test is done
     const resultsXml = await fetchXML(baseUrl + '/results.xml');
 
+    const apiRequest = await fetchJSON(apiRequestUrl);
+    const errorReason = apiRequest?.result?.summary;
+    const backlink = apiRequest?.user?.backlink;
+
+    if (backlink) {
+        document.getElementById('backlink-separator').removeAttribute('hidden');
+        document.getElementById('backlink').removeAttribute('hidden');
+        document.getElementById('backlink').setAttribute('href', backlink);
+    }
+
     if (resultsXml) {
         // fetch the possible error reason
-        const apiRequest = await fetchJSON(apiRequestUrl);
-        const errorReason = apiRequest?.result?.summary;
 
         selectInlineLogs(resultsXml);
         const overallResult = resultsXml.firstChild.getAttribute('overall-result');
