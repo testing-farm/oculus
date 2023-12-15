@@ -1,0 +1,68 @@
+{
+  "id": "7d6a6cbf-3cd5-49fb-aca1-f76ffa0734aa",
+  "user_id": "0785db9d-0f16-4afe-9cce-36469f9cc83a",
+  "test": {
+    "fmf": {
+      "url": "https://github.com/martinpitt/python-dbusmock",
+      "ref": "fmftest",
+      "merge_sha": null,
+      "path": ".",
+      "name": null,
+      "settings": null,
+      "plan_filter": null,
+      "test_filter": null
+    },
+    "script": null,
+    "sti": null
+  },
+  "state": "complete",
+  "environments_requested": [
+    {
+      "arch": "x86_64",
+      "os": {
+        "compose": "Fedora-37"
+      },
+      "pool": null,
+      "variables": null,
+      "secrets": null,
+      "artifacts": [
+        {
+          "id": "04886159:fedora-37-x86_64",
+          "type": "fedora-copr-build",
+          "packages": null,
+          "install": true,
+          "order": 30
+        }
+      ],
+      "settings": null,
+      "tmt": null,
+      "hardware": null,
+      "kickstart": null
+    }
+  ],
+  "notes": [
+    {
+      "level": "info",
+      "message": "tf-tmt/dispatch-1664882786-8c45d6a9"
+    }
+  ],
+  "result": {
+    "summary": null,
+    "overall": "passed",
+    "xunit": null,
+    "xunit_url": null
+  },
+  "run": {
+    "console": null,
+    "stages": null,
+    "artifacts": "https://artifacts.dev.testing-farm.io/7d6a6cbf-3cd5-49fb-aca1-f76ffa0734aa"
+  },
+  "settings": null,
+  "user": {
+    "webpage": null
+  },
+  "queued_time": 15.555667,
+  "run_time": 188.026959,
+  "created": "2022-10-04T11:26:25.239829",
+  "updated": "2022-10-04T11:26:25.239840"
+}

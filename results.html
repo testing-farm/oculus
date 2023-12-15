@@ -423,17 +423,20 @@ function selectInlineLogs (results) {
     });
 }
 
-function renderTests (resultsXml, showPassed, errorReason) {
-    const items = renderTestList(resultsXml, 'testsuite', 'testcase', showPassed, errorReason);
+function renderTests (resultsXml, showPassed) {
+    const items = renderTestList(resultsXml, 'testsuite', 'testcase', showPassed, null);
 
-    // show pipeline log if overall state is "error"
-    const overallResult = resultsXml.firstChild.getAttribute('overall-result');
-    if (overallResult === 'error') {
-        items.push(html`<details class="pipeline-log" open>
-            <summary class="result-error"><a href="${pipelineLogUrl}"}>pipeline.log</a></summary>
-            <log-viewer url="${pipelineLogUrl}" />
-          </details>`);
-    }
+    render(items, document.getElementById('main'));
+}
+
+function renderError (resultsXml, errorReason) {
+    const items = resultsXml ? renderTestList(resultsXml, 'testsuite', 'testcase', null, errorReason) : [];
+
+    // show pipeline log in case of errors
+    items.push(html`<details class="pipeline-log" open>
+        <summary class="result-error"><a href="${pipelineLogUrl}"}>pipeline.log</a></summary>
+        <log-viewer url="${pipelineLogUrl}" />
+      </details>`);
 
     render(items, document.getElementById('main'));
 }
@@ -452,13 +455,13 @@ async function main () {
     const requestId = window.location.href.match(uuidRegex)?.[0];
     const apiRequestUrl = apiUrl + `/${requestId}`;
 
-    // first try to fetch results.xml; if we have it, test is done
-    const resultsXml = await fetchXML(baseUrl + '/results.xml');
+    // fetch the API request
+    const apiRequest = await fetchJSON(apiRequestUrl);
 
-    if (resultsXml) {
-        // fetch the possible error reason
-        const apiRequest = await fetchJSON(apiRequestUrl);
-        const errorReason = apiRequest?.result?.summary;
+    // handle complete requests
+    if (apiRequest.state === 'complete') {
+        // fetch results.xml
+        const resultsXml = await fetchXML(baseUrl + '/results.xml');
 
         selectInlineLogs(resultsXml);
         const overallResult = resultsXml.firstChild.getAttribute('overall-result');
@@ -468,19 +471,45 @@ async function main () {
         if (!isPassed(overallResult) && resultsXml.querySelectorAll('testcase[result^="pass"]').length > 0) {
             document.getElementById('config').removeAttribute('hidden');
             document.getElementById('show_passed').addEventListener(
-                'change', ev => renderTests(resultsXml, ev.target.checked, errorReason));
+                'change', ev => renderTests(resultsXml, ev.target.checked));
         }
-        renderTests(resultsXml, isPassed(overallResult), errorReason);
-    } else {
-        // no results.xml yet, fall back to "in progress" and showing pipeline.log
+        renderTests(resultsXml, isPassed(overallResult));
+
+    // handle errored and canceled results
+    } else if (apiRequest.state === 'error') {
+        // set the overall result of the request to `error`
+        document.getElementById('overall-result').innerHTML = 'error';
+
+        // fetch the possible error reason
+        const errorReason = apiRequest?.result?.summary;
+
+        // fetch results.xml
+        const resultsXml = await fetchXML(baseUrl + '/results.xml');
+
+        if (resultsXml) {
+            selectInlineLogs(resultsXml);
+        }
+
+        renderError(resultsXml, errorReason);
+    } else if (apiRequest.state === 'queued' || apiRequest.state === 'running') {
+        // set the result of the request to `in progress`
         document.getElementById('overall-result').innerHTML = 'in progress';
+
         // prevent caching the response of pipeline.log
         const pipelineLog = await fetchFile(pipelineLogUrl, { cache: 'no-store' });
         render(html`<pre>${pipelineLog}</pre>`, document.getElementById('main'));
+
         // reload in 5 seconds, what matches the pipeline.log refresh tick (5s)
         window.setTimeout(() => reloadPage(), 5000);
+
         // scroll to bottom of the page, if scrolled to the bottom
         window.scrollTo(0, document.body.scrollHeight);
+    } else if (apiRequest.state === 'cancel-requested' || apiRequest.state === 'canceled') {
+        // set the result of the request to `canceled`
+        document.getElementById('overall-result').innerHTML = 'canceled';
+
+        // Render a plain note that the request was canceled
+        render(html`<pre>Request was canceled on user request.</pre>`, document.getElementById('main'));
     }
 
     // show results-junit.xml in header if it exists

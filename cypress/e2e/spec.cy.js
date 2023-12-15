@@ -1,3 +1,12 @@
+// most of the tests are fine with this request 
+beforeEach(() => {
+    cy.intercept(
+        'GET',
+        'https://api.dev.testing-farm.io/v0.1/requests/undefined',
+        { fixture: 'complete.json' }
+    )
+})
+
 describe('tmt-single-pass', () => it('run', () => {
     cy.visit('/results.html?url=scenarios/tmt-single-pass');
     cy.get('#overall-result').should('have.text', 'passed');
@@ -313,6 +322,12 @@ describe('tmt-multihost-pass', () => it('run', () => {
 }));
 
 describe('tmt-failed-install', () => it('run', () => {
+    cy.intercept(
+        'GET',
+        'https://api.dev.testing-farm.io/v0.1/requests/undefined',
+        { fixture: 'error.json' }
+    )
+
     cy.visit('/results.html?url=scenarios/tmt-failed-install');
     cy.get('#overall-result').should('have.text', 'error');
     // no config box, as only failed tests
@@ -353,6 +368,12 @@ describe('tmt-failed-install', () => it('run', () => {
 }));
 
 describe('tmt-failed-install-rhel', () => it('run', () => {
+    cy.intercept(
+        'GET',
+        'https://api.dev.testing-farm.io/v0.1/requests/undefined',
+        { fixture: 'error.json' }
+    )
+
     cy.visit('/results.html?url=scenarios/tmt-failed-install-rhel');
     cy.get('#overall-result').should('have.text', 'error');
     // docs are always visible
@@ -378,6 +399,12 @@ describe('tmt-failed-install-rhel', () => it('run', () => {
 }));
 
 describe('tmt-failed-prepare', () => it('run', () => {
+    cy.intercept(
+        'GET',
+        'https://api.dev.testing-farm.io/v0.1/requests/undefined',
+        { fixture: 'error.json' }
+    )
+
     cy.visit('/results.html?url=scenarios/tmt-failed-prepare');
     cy.get('#overall-result').should('have.text', 'error');
     // docs are always visible
@@ -409,6 +436,12 @@ describe('tmt-failed-prepare', () => it('run', () => {
 }));
 
 describe('tmt-error-no-logs', () => it('run', () => {
+    cy.intercept(
+        'GET',
+        'https://api.dev.testing-farm.io/v0.1/requests/undefined',
+        { fixture: 'error.json' }
+    )
+
     cy.exec('mkdir -p cypress/downloads/nologs');
     cy.writeFile('cypress/downloads/nologs/pipeline.log', 'pipeline details\nwith more\nerror messages\n');
     cy.writeFile('cypress/downloads/nologs/results.xml',
@@ -445,6 +478,12 @@ describe('tmt-error-no-logs', () => it('run', () => {
 }));
 
 describe('inprogress', () => it('run', () => {
+    cy.intercept(
+        'GET',
+        'https://api.dev.testing-farm.io/v0.1/requests/undefined',
+        { fixture: 'running.json' }
+    )
+
     // initialize 🕗, we want to move forward time
     cy.clock();
     // copy scenrios/inprogress into cypress/downloads, so we can play with it
@@ -471,6 +510,12 @@ describe('inprogress', () => it('run', () => {
 }));
 
 describe('inprogress-no-reload', () => it('run', () => {
+    cy.intercept(
+        'GET',
+        'https://api.dev.testing-farm.io/v0.1/requests/undefined',
+        { fixture: 'running.json' }
+    )
+
     // initialize 🕗, we want to move forward time
     cy.clock();
     // copy scenrios/inprogress into cypress/downloads, so we can play with it
@@ -506,6 +551,12 @@ describe('inprogress-no-reload', () => it('run', () => {
 
 // produced by https://gitlab.com/testing-farm/infrastructure/-/blob/testing-farm/ranch/public/jobs/tf-tmt
 describe('tf-synthetic-error', () => it('run', () => {
+    cy.intercept(
+        'GET',
+        'https://api.dev.testing-farm.io/v0.1/requests/undefined',
+        { fixture: 'error.json' }
+    )
+
     cy.visit('/results.html?url=scenarios/tf-synthetic-error');
     cy.get('#overall-result').should('have.text', 'error');
     // docs are always visible
@@ -518,8 +569,15 @@ describe('tf-synthetic-error', () => it('run', () => {
 
 // check if api link shown
 describe('api-link', () => it('run', () => {
+    cy.intercept(
+        'GET',
+        'https://api.dev.testing-farm.io/v0.1/requests/7614510d-5a51-4cb8-a81b-40b7d78ff111',
+        { fixture: 'error.json' }
+    )
+
     // NOTE: this url is malformed on purpose, to simulate a more real URL, not passed via `url` param
     cy.visit('/results.html?7614510d-5a51-4cb8-a81b-40b7d78ff111', { failOnStatusCode: false } );
+
     // docs are always visible
     cy.get('#docs').should('be.visible');
 
