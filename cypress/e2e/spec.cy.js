@@ -586,3 +586,42 @@ describe('api-link', () => it('run', () => {
         .should('contain', 'API request')
         .and('have.attr', 'href', 'https://api.dev.testing-farm.io/v0.1/requests/7614510d-5a51-4cb8-a81b-40b7d78ff111')
 }));
+
+// produced by https://gitlab.com/testing-farm/infrastructure/-/blob/testing-farm/ranch/public/jobs/tf-tmt
+describe('tf-canceled', () => it('run', () => {
+    cy.intercept(
+        'GET',
+        'https://api.dev.testing-farm.io/v0.1/requests/undefined',
+        { fixture: 'canceled.json' }
+    )
+
+    // this does not matter at all
+    cy.visit('/results.html?url=scenarios/tf-synthetic-error');
+
+    // the title should be canceled
+    cy.get('#overall-result').should('have.text', 'canceled');
+
+    // docs are always visible
+    cy.get('#docs').should('be.visible');
+
+    // nice text should be shown
+    cy.get('main pre').should('include.text', 'Request was canceled on user request.');
+
+    cy.intercept(
+        'GET',
+        'https://api.dev.testing-farm.io/v0.1/requests/undefined',
+        { fixture: 'cancel-requested.json' }
+    )
+
+    // this does not matter at all
+    cy.visit('/results.html?url=scenarios/tf-synthetic-error');
+
+    // the title should be canceled
+    cy.get('#overall-result').should('have.text', 'canceled');
+
+    // docs are always visible
+    cy.get('#docs').should('be.visible');
+
+    // nice text should be shown
+    cy.get('main pre').should('include.text', 'Request was canceled on user request.');
+}));
