@@ -1,14 +1,21 @@
+
+const requestIdMock = "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee";
+
+function addRequestId(url){
+    return url + "&requestId=" + requestIdMock;
+}
+
 // most of the tests are fine with this request 
 beforeEach(() => {
     cy.intercept(
         'GET',
-        'https://api.dev.testing-farm.io/v0.1/requests/undefined',
+        'https://api.dev.testing-farm.io/v0.1/requests/' + requestIdMock,
         { fixture: 'complete.json' }
     )
 })
 
 describe('tmt-single-pass', () => it('run', () => {
-    cy.visit('/results.html?url=scenarios/tmt-single-pass');
+    cy.visit(addRequestId('/results.html?url=scenarios/tmt-single-pass'));
     cy.get('#overall-result').should('have.text', 'passed');
     // no config box, as only passed tests
     cy.get('#config').should('not.be.visible');
@@ -65,7 +72,7 @@ describe('tmt-single-pass', () => it('run', () => {
 }));
 
 describe('tmt-single-info', () => it('run', () => {
-    cy.visit('/results.html?url=scenarios/tmt-single-info');
+    cy.visit(addRequestId('/results.html?url=scenarios/tmt-single-info'));
     cy.get('#overall-result').should('have.text', 'info');
     // no config box, as only passed tests
     cy.get('#config').should('not.be.visible');
@@ -107,7 +114,7 @@ describe('tmt-single-info', () => it('run', () => {
 
 
 describe('tmt-21-fails', () => it('run', () => {
-    cy.visit('/results.html?url=scenarios/tmt-21-fails');
+    cy.visit(addRequestId('/results.html?url=scenarios/tmt-21-fails'));
     cy.get('#overall-result').should('have.text', 'failed');
     // no config box, as only failed tests
     cy.get('#config').should('not.be.visible');
@@ -142,7 +149,7 @@ describe('tmt-21-fails', () => it('run', () => {
 
 
 describe('tmt-single-fail', () => it('run', () => {
-    cy.visit('/results.html?url=scenarios/tmt-single-fail');
+    cy.visit(addRequestId('/results.html?url=scenarios/tmt-single-fail'));
     cy.get('#overall-result').should('have.text', 'failed');
     // no config box, as only failed tests
     cy.get('#config').should('not.be.visible');
@@ -179,7 +186,7 @@ describe('tmt-single-fail', () => it('run', () => {
 }));
 
 describe('tmt-double-pass', () => it('run', () => {
-    cy.visit('/results.html?url=scenarios/tmt-double-pass');
+    cy.visit(addRequestId('/results.html?url=scenarios/tmt-double-pass'));
 
     // container test - does not have compose visible
     cy.get('#main > details:nth-child(2) > summary:nth-child(1)').should('contain', '/testing-farm/sanity')
@@ -190,7 +197,7 @@ describe('tmt-double-pass', () => it('run', () => {
 }));
 
 describe('tmt-html-artifact', () => it('run', () => {
-    cy.visit('/results.html?url=scenarios/tmt-html-artifact');
+    cy.visit(addRequestId('/results.html?url=scenarios/tmt-html-artifact'));
     cy.get('#overall-result').should('have.text', 'failed');
 
     // docs are always visible
@@ -226,7 +233,7 @@ describe('tmt-html-artifact', () => it('run', () => {
 }));
 
 describe('tmt-mixed', () => it('run', () => {
-    cy.visit('/results.html?url=scenarios/tmt-mixed');
+    cy.visit(addRequestId('/results.html?url=scenarios/tmt-mixed'));
     cy.get('#overall-result').should('have.text', 'failed');
     // docs are always visible
     cy.get('#docs').should('be.visible');
@@ -277,7 +284,7 @@ describe('tmt-mixed', () => it('run', () => {
 }));
 
 describe('tmt-multihost-pass', () => it('run', () => {
-    cy.visit('/results.html?url=scenarios/tmt-multihost-pass');
+    cy.visit(addRequestId('/results.html?url=scenarios/tmt-multihost-pass'));
 
     // plan contains the correct plan name, names, arches and composes of all guests
     const plan = cy.get('#main > details:nth-child(2) > summary:nth-child(1)')
@@ -324,11 +331,11 @@ describe('tmt-multihost-pass', () => it('run', () => {
 describe('tmt-failed-install', () => it('run', () => {
     cy.intercept(
         'GET',
-        'https://api.dev.testing-farm.io/v0.1/requests/undefined',
+        'https://api.dev.testing-farm.io/v0.1/requests/' + requestIdMock,
         { fixture: 'error.json' }
     )
 
-    cy.visit('/results.html?url=scenarios/tmt-failed-install');
+    cy.visit(addRequestId('/results.html?url=scenarios/tmt-failed-install'));
     cy.get('#overall-result').should('have.text', 'error');
     // no config box, as only failed tests
     cy.get('#config').should('not.be.visible');
@@ -370,11 +377,11 @@ describe('tmt-failed-install', () => it('run', () => {
 describe('tmt-failed-install-rhel', () => it('run', () => {
     cy.intercept(
         'GET',
-        'https://api.dev.testing-farm.io/v0.1/requests/undefined',
+        'https://api.dev.testing-farm.io/v0.1/requests/' + requestIdMock,
         { fixture: 'error.json' }
     )
 
-    cy.visit('/results.html?url=scenarios/tmt-failed-install-rhel');
+    cy.visit(addRequestId('/results.html?url=scenarios/tmt-failed-install-rhel'));
     cy.get('#overall-result').should('have.text', 'error');
     // docs are always visible
     cy.get('#docs').should('be.visible');
@@ -401,11 +408,11 @@ describe('tmt-failed-install-rhel', () => it('run', () => {
 describe('tmt-failed-prepare', () => it('run', () => {
     cy.intercept(
         'GET',
-        'https://api.dev.testing-farm.io/v0.1/requests/undefined',
+        'https://api.dev.testing-farm.io/v0.1/requests/' + requestIdMock,
         { fixture: 'error.json' }
     )
 
-    cy.visit('/results.html?url=scenarios/tmt-failed-prepare');
+    cy.visit(addRequestId('/results.html?url=scenarios/tmt-failed-prepare'));
     cy.get('#overall-result').should('have.text', 'error');
     // docs are always visible
     cy.get('#docs').should('be.visible');
@@ -438,8 +445,8 @@ describe('tmt-failed-prepare', () => it('run', () => {
 describe('tmt-error-no-logs', () => it('run', () => {
     cy.intercept(
         'GET',
-        'https://api.dev.testing-farm.io/v0.1/requests/undefined',
-        { fixture: 'error.json' }
+        'https://api.dev.testing-farm.io/v0.1/requests/' + requestIdMock,
+        { fixture: 'request-error-reason.json' }
     )
 
     cy.exec('mkdir -p cypress/downloads/nologs');
@@ -449,13 +456,7 @@ describe('tmt-error-no-logs', () => it('run', () => {
                  '  <testsuite name="/plans/ci" result="undefined" tests="0"></testsuite>\n' +
                  '</testsuites>\n');
 
-    cy.intercept(
-        'GET',
-        'https://api.dev.testing-farm.io/v0.1/requests/1a941b5c-24c3-4746-b3e3-0888a06abeb4',
-        { fixture: 'request-error-reason.json' }
-    )
-
-    cy.visit('/results.html?url=cypress/downloads/nologs&requestId=1a941b5c-24c3-4746-b3e3-0888a06abeb4');
+    cy.visit(addRequestId('/results.html?url=cypress/downloads/nologs'));
     cy.get('#overall-result').should('have.text', 'error');
 
     cy.get('main > details')
@@ -480,7 +481,7 @@ describe('tmt-error-no-logs', () => it('run', () => {
 describe('inprogress', () => it('run', () => {
     cy.intercept(
         'GET',
-        'https://api.dev.testing-farm.io/v0.1/requests/undefined',
+        'https://api.dev.testing-farm.io/v0.1/requests/' + requestIdMock,
         { fixture: 'running.json' }
     )
 
@@ -490,7 +491,7 @@ describe('inprogress', () => it('run', () => {
     // NOTE: cypress/downloads location is trashed on each start of cypress
     //       https://docs.cypress.io/guides/references/configuration#Downloads
     cy.exec('mkdir -p cypress/downloads/; cp -r scenarios/inprogress cypress/downloads/');
-    cy.visit('/results.html?url=cypress/downloads/inprogress');
+    cy.visit(addRequestId('/results.html?url=cypress/downloads/inprogress'));
     cy.get('#overall-result').should('to.have.text', 'in progress');
     // docs are always visible
     cy.get('#docs').should('be.visible');
@@ -512,7 +513,7 @@ describe('inprogress', () => it('run', () => {
 describe('inprogress-no-reload', () => it('run', () => {
     cy.intercept(
         'GET',
-        'https://api.dev.testing-farm.io/v0.1/requests/undefined',
+        'https://api.dev.testing-farm.io/v0.1/requests/' + requestIdMock,
         { fixture: 'running.json' }
     )
 
@@ -523,7 +524,7 @@ describe('inprogress-no-reload', () => it('run', () => {
     //       https://docs.cypress.io/guides/references/configuration#Downloads
     cy.exec('cp -r scenarios/inprogress cypress/downloads')
     cy.writeFile('cypress/downloads/inprogress/pipeline.log', 'old line\n'.repeat(100)+'last old line\n', { flag: 'a+' })
-    cy.visit('/results.html?url=cypress/downloads/inprogress');
+    cy.visit(addRequestId('/results.html?url=cypress/downloads/inprogress'));
     cy.get('#overall-result').should('to.have.text', 'in progress');
     // no config box
     cy.get('#config').should('not.be.visible');
@@ -553,11 +554,11 @@ describe('inprogress-no-reload', () => it('run', () => {
 describe('tf-synthetic-error', () => it('run', () => {
     cy.intercept(
         'GET',
-        'https://api.dev.testing-farm.io/v0.1/requests/undefined',
+        'https://api.dev.testing-farm.io/v0.1/requests/' + requestIdMock,
         { fixture: 'error.json' }
     )
 
-    cy.visit('/results.html?url=scenarios/tf-synthetic-error');
+    cy.visit(addRequestId('/results.html?url=scenarios/tf-synthetic-error'));
     cy.get('#overall-result').should('have.text', 'error');
     // docs are always visible
     cy.get('#docs').should('be.visible');
@@ -571,11 +572,11 @@ describe('tf-synthetic-error', () => it('run', () => {
 describe('tf-complete-error', () => it('run', () => {
     cy.intercept(
         'GET',
-        'https://api.dev.testing-farm.io/v0.1/requests/undefined',
+        'https://api.dev.testing-farm.io/v0.1/requests/' + requestIdMock,
         { fixture: 'error-with-reason.json' }
     )
 
-    cy.visit('/results.html?url=scenarios/tf-complete-error');
+    cy.visit(addRequestId('/results.html?url=scenarios/tf-complete-error'));
     cy.get('#overall-result').should('have.text', 'error');
 
     // docs are always visible
@@ -599,7 +600,7 @@ describe('api-link', () => it('run', () => {
     )
 
     // NOTE: this url is malformed on purpose, to simulate a more real URL, not passed via `url` param
-    cy.visit('/results.html?7614510d-5a51-4cb8-a81b-40b7d78ff111', { failOnStatusCode: false } );
+    cy.visit(addRequestId('/results.html?7614510d-5a51-4cb8-a81b-40b7d78ff111'), { failOnStatusCode: false } );
 
     // docs are always visible
     cy.get('#docs').should('be.visible');
@@ -614,12 +615,14 @@ describe('api-link', () => it('run', () => {
 describe('tf-canceled', () => it('run', () => {
     cy.intercept(
         'GET',
-        'https://api.dev.testing-farm.io/v0.1/requests/undefined',
+        'https://api.dev.testing-farm.io/v0.1/requests/' + requestIdMock,
         { fixture: 'canceled.json' }
     )
+    globalThis.window.location.href = '7614510d-5a51-4cb8-a81b-40b7d78ff111'
+                                      
 
     // this does not matter at all
-    cy.visit('/results.html?url=scenarios/tf-synthetic-error');
+    cy.visit(addRequestId('/results.html?url=scenarios/tf-synthetic-error'));
 
     // the title should be canceled
     cy.get('#overall-result').should('have.text', 'canceled');
@@ -632,12 +635,12 @@ describe('tf-canceled', () => it('run', () => {
 
     cy.intercept(
         'GET',
-        'https://api.dev.testing-farm.io/v0.1/requests/undefined',
+        'https://api.dev.testing-farm.io/v0.1/requests/' + requestIdMock,
         { fixture: 'cancel-requested.json' }
     )
 
     // this does not matter at all
-    cy.visit('/results.html?url=scenarios/tf-synthetic-error');
+    cy.visit(addRequestId('/results.html?url=scenarios/tf-synthetic-error'));
 
     // the title should be canceled
     cy.get('#overall-result').should('have.text', 'canceled');
@@ -653,11 +656,11 @@ describe('tf-canceled', () => it('run', () => {
 describe('tf-error-show-passed', () => it('run', () => {
     cy.intercept(
         'GET',
-        'https://api.dev.testing-farm.io/v0.1/requests/undefined',
+        'https://api.dev.testing-farm.io/v0.1/requests/' + requestIdMock,
         { fixture: 'error-with-reason.json' }
     )
 
-    cy.visit('/results.html?url=scenarios/tf-error-show-passed');
+    cy.visit(addRequestId('/results.html?url=scenarios/tf-error-show-passed'));
     cy.get('#overall-result').should('have.text', 'error');
 
     // docs are always visible

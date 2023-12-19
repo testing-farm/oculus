@@ -455,10 +455,16 @@ function reloadPage () {
 async function main () {
     // get request ID
     const requestId = window.location.href.match(uuidRegex)?.[0];
-    const apiRequestUrl = apiUrl + `/${requestId}`;
+    let apiRequestUrl = null;
+
+    // defaulting to this request when real request cannot be fetched
+    let apiRequest = { state: 'complete' };
 
     // fetch the API request
-    const apiRequest = await fetchJSON(apiRequestUrl);
+    if (requestId !== undefined) {
+        apiRequestUrl = apiUrl + `/${requestId}`;
+        apiRequest = await fetchJSON(apiRequestUrl);
+    }
 
     // handle complete and error requests
     if (apiRequest.state === 'complete' || apiRequest.state === 'error') {
@@ -511,7 +517,7 @@ async function main () {
     }
 
     // extract request UUID from current URL; show API request when present
-    if (requestId) {
+    if (apiRequestUrl) {
         document.getElementById('api-request-separator').removeAttribute('hidden');
         document.getElementById('api-request').removeAttribute('hidden');
         document.getElementById('api-request').setAttribute('href', apiRequestUrl);
