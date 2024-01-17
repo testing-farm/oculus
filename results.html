@@ -434,7 +434,12 @@ function renderError (resultsXml, errorReason) {
 
     // show pipeline log in case of errors
     items.push(html`<details class="pipeline-log" open>
-        <summary class="result-error"><a href="${pipelineLogUrl}"}>pipeline.log</a></summary>
+        <summary class="result-error">
+            <a href="${pipelineLogUrl}"}>pipeline.log</a>
+            <monospace>
+                ${errorReason ? html`<p>⚠ ${errorReason}</p>` : null}
+            </monospace>
+        </summary>
         <log-viewer url="${pipelineLogUrl}" />
       </details>`);
 
@@ -463,17 +468,30 @@ async function main () {
         // fetch results.xml
         const resultsXml = await fetchXML(baseUrl + '/results.xml');
 
-        selectInlineLogs(resultsXml);
-        const overallResult = resultsXml.firstChild.getAttribute('overall-result');
-        document.getElementById('overall-result').innerHTML = overallResult;
+        // results xunit available, valid results available
+        if (resultsXml) {
+            selectInlineLogs(resultsXml);
+            const overallResult = resultsXml.firstChild.getAttribute('overall-result');
+            document.getElementById('overall-result').innerHTML = overallResult;
 
-        /* keep config hidden if there are only passed or only failed tests */
-        if (!isPassed(overallResult) && resultsXml.querySelectorAll('testcase[result^="pass"]').length > 0) {
-            document.getElementById('config').removeAttribute('hidden');
-            document.getElementById('show_passed').addEventListener(
-                'change', ev => renderTests(resultsXml, ev.target.checked));
+            /* keep config hidden if there are only passed or only failed tests */
+            if (!isPassed(overallResult) && resultsXml.querySelectorAll('testcase[result^="pass"]').length > 0) {
+                document.getElementById('config').removeAttribute('hidden');
+                document.getElementById('show_passed').addEventListener(
+                    'change', ev => renderTests(resultsXml, ev.target.checked));
+            }
+            renderTests(resultsXml, isPassed(overallResult));
+
+        // handle errors with complete state (user facing error)
+        } else {
+            // set the overall result of the request to `error`
+            document.getElementById('overall-result').innerHTML = 'error';
+
+            // fetch the possible error reason
+            const errorReason = apiRequest?.result?.summary;
+
+            renderError(resultsXml, errorReason);
         }
-        renderTests(resultsXml, isPassed(overallResult));
 
     // handle errored and canceled results
     } else if (apiRequest.state === 'error') {

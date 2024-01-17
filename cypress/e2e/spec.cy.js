@@ -567,6 +567,29 @@ describe('tf-synthetic-error', () => it('run', () => {
         .and('have.attr', 'open');
 }));
 
+// scenario with a user facing error, request in complete state
+describe('tf-complete-error', () => it('run', () => {
+    cy.intercept(
+        'GET',
+        'https://api.dev.testing-farm.io/v0.1/requests/undefined',
+        { fixture: 'error-with-reason.json' }
+    )
+
+    cy.visit('/results.html?url=scenarios/tf-complete-error');
+    cy.get('#overall-result').should('have.text', 'error');
+
+    // docs are always visible
+    cy.get('#docs').should('be.visible');
+
+    cy.get('main > details')
+        .should('contain', 'pipeline')
+        .and('have.attr', 'open');
+
+    // error reason shown
+    cy.get('main > details summary p')
+        .should('contain', '⚠ A nice human-readable error reason.')
+}));
+
 // check if api link shown
 describe('api-link', () => it('run', () => {
     cy.intercept(
