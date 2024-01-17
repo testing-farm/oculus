@@ -648,3 +648,49 @@ describe('tf-canceled', () => it('run', () => {
     // nice text should be shown
     cy.get('main pre').should('include.text', 'Request was canceled on user request.');
 }));
+
+// scenario with a passed and errored testsuites, request in complete state
+describe('tf-error-show-passed', () => it('run', () => {
+    cy.intercept(
+        'GET',
+        'https://api.dev.testing-farm.io/v0.1/requests/undefined',
+        { fixture: 'error-with-reason.json' }
+    )
+
+    cy.visit('/results.html?url=scenarios/tf-error-show-passed');
+    cy.get('#overall-result').should('have.text', 'error');
+
+    // docs are always visible
+    cy.get('#docs').should('be.visible');
+
+    cy.get('main > details')
+        .should('contain', 'pipeline')
+        .and('have.attr', 'open');
+
+    // error reason shown
+    cy.get('main > details summary p')
+        .should('contain', '⚠ A nice human-readable error reason.');
+
+    // passed plan not visible yet
+    cy.get('#main > details').should('have.length', 2);
+
+    // show passed tests
+    cy.get('#config input').click();
+    
+    // inspect the plans and tests
+    cy.get('#main > details').should('have.length', 3);
+
+    cy.get('#main > details:nth-child(2) > summary:nth-child(1)')
+    .should('have.class', 'result-pass')
+    .should('contain', '/plan/pass');
+    cy.get('#main > details:nth-child(2) > details:nth-child(3) > summary:nth-child(1)')
+    .should('have.class', 'result-pass')
+    .should('contain', '/test/pass');
+
+    cy.get('#main > details:nth-child(3) > summary:nth-child(1)')
+    .should('have.class', 'result-error')
+    .should('contain', '/plan/error');
+    cy.get('#main > details:nth-child(3) > details:nth-child(3) > summary:nth-child(1)')
+    .should('have.class', 'result-error')
+    .should('contain', '/test/error');
+}));

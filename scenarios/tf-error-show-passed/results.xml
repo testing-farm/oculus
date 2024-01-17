@@ -1,0 +1,16 @@
+<testsuites overall-result="error">
+ <testsuite name="/plan/pass" result="passed" tests="1">
+  <testcase name="/test/pass" result="passed">
+   <logs>
+       <log name="pipeline.log" href="./scenarios/tf-synthetic-error/pipeline.log"/>
+   </logs>
+  </testcase>
+ </testsuite>
+ <testsuite name="/plan/error">
+  <testcase name="/test/error" result="error" tests="1">
+   <logs>
+       <log name="pipeline.log" href="./scenarios/tf-synthetic-error/pipeline.log"/>
+   </logs>
+  </testcase>
+ </testsuite>
+</testsuites>

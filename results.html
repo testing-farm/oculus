@@ -423,17 +423,13 @@ function selectInlineLogs (results) {
     });
 }
 
-function renderTests (resultsXml, showPassed) {
-    const items = renderTestList(resultsXml, 'testsuite', 'testcase', showPassed, null);
-
-    render(items, document.getElementById('main'));
-}
-
-function renderError (resultsXml, errorReason) {
-    const items = resultsXml ? renderTestList(resultsXml, 'testsuite', 'testcase', null, errorReason) : [];
+function renderTests (resultsXml, showPassed, apiRequest) {
+    const errorReason = apiRequest?.result?.summary;
+    const items = resultsXml ? renderTestList(resultsXml, 'testsuite', 'testcase', showPassed, errorReason) : [];
 
     // show pipeline log in case of errors
-    items.push(html`<details class="pipeline-log" open>
+    if (apiRequest.state === 'error') {
+        items.push(html`<details class="pipeline-log" open>
         <summary class="result-error">
             <a href="${pipelineLogUrl}"}>pipeline.log</a>
             <monospace>
@@ -442,7 +438,7 @@ function renderError (resultsXml, errorReason) {
         </summary>
         <log-viewer url="${pipelineLogUrl}" />
       </details>`);
-
+    }
     render(items, document.getElementById('main'));
 }
 
@@ -463,52 +459,28 @@ async function main () {
     // fetch the API request
     const apiRequest = await fetchJSON(apiRequestUrl);
 
-    // handle complete requests
-    if (apiRequest.state === 'complete') {
+    // handle complete and error requests
+    if (apiRequest.state === 'complete' || apiRequest.state === 'error') {
         // fetch results.xml
         const resultsXml = await fetchXML(baseUrl + '/results.xml');
+        let overallResult = 'error'; // error when results.xml is not present (user facing error)
 
-        // results xunit available, valid results available
+        // results xunit available, valid results available (might still be an error)
         if (resultsXml) {
             selectInlineLogs(resultsXml);
-            const overallResult = resultsXml.firstChild.getAttribute('overall-result');
-            document.getElementById('overall-result').innerHTML = overallResult;
+            overallResult = resultsXml.firstChild.getAttribute('overall-result');
 
             /* keep config hidden if there are only passed or only failed tests */
             if (!isPassed(overallResult) && resultsXml.querySelectorAll('testcase[result^="pass"]').length > 0) {
                 document.getElementById('config').removeAttribute('hidden');
                 document.getElementById('show_passed').addEventListener(
-                    'change', ev => renderTests(resultsXml, ev.target.checked));
+                    'change', ev => renderTests(resultsXml, ev.target.checked, apiRequest));
             }
-            renderTests(resultsXml, isPassed(overallResult));
-
-        // handle errors with complete state (user facing error)
-        } else {
-            // set the overall result of the request to `error`
-            document.getElementById('overall-result').innerHTML = 'error';
-
-            // fetch the possible error reason
-            const errorReason = apiRequest?.result?.summary;
-
-            renderError(resultsXml, errorReason);
         }
 
-    // handle errored and canceled results
-    } else if (apiRequest.state === 'error') {
-        // set the overall result of the request to `error`
-        document.getElementById('overall-result').innerHTML = 'error';
+        document.getElementById('overall-result').innerHTML = overallResult;
 
-        // fetch the possible error reason
-        const errorReason = apiRequest?.result?.summary;
-
-        // fetch results.xml
-        const resultsXml = await fetchXML(baseUrl + '/results.xml');
-
-        if (resultsXml) {
-            selectInlineLogs(resultsXml);
-        }
-
-        renderError(resultsXml, errorReason);
+        renderTests(resultsXml, isPassed(overallResult), apiRequest);
     } else if (apiRequest.state === 'queued' || apiRequest.state === 'running') {
         // set the result of the request to `in progress`
         document.getElementById('overall-result').innerHTML = 'in progress';
