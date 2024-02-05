@@ -346,13 +346,14 @@ function renderTestList (doc, elementType, subElementType, showPassed, errorReas
         const rightSideTexts = [];
         if (guestInfo) { rightSideTexts.push(guestInfo) }
         if (checks && checks.getAttribute('checks') > 0) { rightSideTexts.push(`with ${renderCheckSummary(checks)}`) }
+        if (item.getAttribute('time')) { rightSideTexts.push(`took ${item.getAttribute('time')} s`) }
 
         res.push(html`
           <details ?open=${isOpen}>
             <summary class="result-${result}">
                 ${name}${note ? ` (${note})` : ''}
                 <monospace>
-                    <span style="float:right;">${rightSideTexts.join(' ')}</span><br>
+                    <span style="float:right;">${rightSideTexts.join(', ')}</span><br>
                     ${guestsStr.map((guest) => html`${guest}<br>`)}
                     ${result === 'error' && errorReason ? html`<p>⚠ ${errorReason}</p>` : null}
                 </monospace>
