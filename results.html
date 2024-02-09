@@ -457,7 +457,7 @@ async function main () {
     const requestId = window.location.href.match(uuidRegex)?.[0];
     let apiRequestUrl = null;
 
-    // defaulting to this request when real request cannot be fetched
+    // defaulting to this request when real request cannot be fetched (e.g. when developing locally)
     let apiRequest = { state: 'complete' };
 
     // fetch the API request
