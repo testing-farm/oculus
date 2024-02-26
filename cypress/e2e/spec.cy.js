@@ -9,7 +9,7 @@ function addRequestId(url){
 beforeEach(() => {
     cy.intercept(
         'GET',
-        'https://api.dev.testing-farm.io/v0.1/requests/' + requestIdMock,
+        'https://api.testing-farm.io/v0.1/requests/' + requestIdMock,
         { fixture: 'complete.json' }
     )
 })
@@ -331,7 +331,7 @@ describe('tmt-multihost-pass', () => it('run', () => {
 describe('tmt-failed-install', () => it('run', () => {
     cy.intercept(
         'GET',
-        'https://api.dev.testing-farm.io/v0.1/requests/' + requestIdMock,
+        'https://api.testing-farm.io/v0.1/requests/' + requestIdMock,
         { fixture: 'error.json' }
     )
 
@@ -377,7 +377,7 @@ describe('tmt-failed-install', () => it('run', () => {
 describe('tmt-failed-install-rhel', () => it('run', () => {
     cy.intercept(
         'GET',
-        'https://api.dev.testing-farm.io/v0.1/requests/' + requestIdMock,
+        'https://api.testing-farm.io/v0.1/requests/' + requestIdMock,
         { fixture: 'error.json' }
     )
 
@@ -408,7 +408,7 @@ describe('tmt-failed-install-rhel', () => it('run', () => {
 describe('tmt-failed-prepare', () => it('run', () => {
     cy.intercept(
         'GET',
-        'https://api.dev.testing-farm.io/v0.1/requests/' + requestIdMock,
+        'https://api.testing-farm.io/v0.1/requests/' + requestIdMock,
         { fixture: 'error.json' }
     )
 
@@ -445,7 +445,7 @@ describe('tmt-failed-prepare', () => it('run', () => {
 describe('tmt-error-no-logs', () => it('run', () => {
     cy.intercept(
         'GET',
-        'https://api.dev.testing-farm.io/v0.1/requests/' + requestIdMock,
+        'https://api.testing-farm.io/v0.1/requests/' + requestIdMock,
         { fixture: 'request-error-reason.json' }
     )
 
@@ -481,7 +481,7 @@ describe('tmt-error-no-logs', () => it('run', () => {
 describe('inprogress', () => it('run', () => {
     cy.intercept(
         'GET',
-        'https://api.dev.testing-farm.io/v0.1/requests/' + requestIdMock,
+        'https://api.testing-farm.io/v0.1/requests/' + requestIdMock,
         { fixture: 'running.json' }
     )
 
@@ -513,7 +513,7 @@ describe('inprogress', () => it('run', () => {
 describe('inprogress-no-reload', () => it('run', () => {
     cy.intercept(
         'GET',
-        'https://api.dev.testing-farm.io/v0.1/requests/' + requestIdMock,
+        'https://api.testing-farm.io/v0.1/requests/' + requestIdMock,
         { fixture: 'running.json' }
     )
 
@@ -554,7 +554,7 @@ describe('inprogress-no-reload', () => it('run', () => {
 describe('tf-synthetic-error', () => it('run', () => {
     cy.intercept(
         'GET',
-        'https://api.dev.testing-farm.io/v0.1/requests/' + requestIdMock,
+        'https://api.testing-farm.io/v0.1/requests/' + requestIdMock,
         { fixture: 'error.json' }
     )
 
@@ -572,7 +572,7 @@ describe('tf-synthetic-error', () => it('run', () => {
 describe('tf-complete-error', () => it('run', () => {
     cy.intercept(
         'GET',
-        'https://api.dev.testing-farm.io/v0.1/requests/' + requestIdMock,
+        'https://api.testing-farm.io/v0.1/requests/' + requestIdMock,
         { fixture: 'error-with-reason.json' }
     )
 
@@ -595,7 +595,7 @@ describe('tf-complete-error', () => it('run', () => {
 describe('api-link', () => it('run', () => {
     cy.intercept(
         'GET',
-        'https://api.dev.testing-farm.io/v0.1/requests/7614510d-5a51-4cb8-a81b-40b7d78ff111',
+        'https://api.testing-farm.io/v0.1/requests/7614510d-5a51-4cb8-a81b-40b7d78ff111',
         { fixture: 'error.json' }
     )
 
@@ -608,14 +608,14 @@ describe('api-link', () => it('run', () => {
     cy.get('header > #api-request')
         .should('be.visible')
         .should('contain', 'API request')
-        .and('have.attr', 'href', 'https://api.dev.testing-farm.io/v0.1/requests/7614510d-5a51-4cb8-a81b-40b7d78ff111')
+        .and('have.attr', 'href', 'https://api.testing-farm.io/v0.1/requests/7614510d-5a51-4cb8-a81b-40b7d78ff111')
 }));
 
 // produced by https://gitlab.com/testing-farm/infrastructure/-/blob/testing-farm/ranch/public/jobs/tf-tmt
 describe('tf-canceled', () => it('run', () => {
     cy.intercept(
         'GET',
-        'https://api.dev.testing-farm.io/v0.1/requests/' + requestIdMock,
+        'https://api.testing-farm.io/v0.1/requests/' + requestIdMock,
         { fixture: 'canceled.json' }
     )
     globalThis.window.location.href = '7614510d-5a51-4cb8-a81b-40b7d78ff111'
@@ -635,7 +635,7 @@ describe('tf-canceled', () => it('run', () => {
 
     cy.intercept(
         'GET',
-        'https://api.dev.testing-farm.io/v0.1/requests/' + requestIdMock,
+        'https://api.testing-farm.io/v0.1/requests/' + requestIdMock,
         { fixture: 'cancel-requested.json' }
     )
 
@@ -656,7 +656,7 @@ describe('tf-canceled', () => it('run', () => {
 describe('tf-error-show-passed', () => it('run', () => {
     cy.intercept(
         'GET',
-        'https://api.dev.testing-farm.io/v0.1/requests/' + requestIdMock,
+        'https://api.testing-farm.io/v0.1/requests/' + requestIdMock,
         { fixture: 'error-with-reason.json' }
     )
 
