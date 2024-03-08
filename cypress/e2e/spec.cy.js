@@ -491,6 +491,7 @@ describe('inprogress', () => it('run', () => {
     // NOTE: cypress/downloads location is trashed on each start of cypress
     //       https://docs.cypress.io/guides/references/configuration#Downloads
     cy.exec('mkdir -p cypress/downloads/; cp -r scenarios/inprogress cypress/downloads/');
+    cy.writeFile('cypress/downloads/inprogress/pipeline.log', 'tests\nare\n...\nrunning', { flag: 'w+' })
     cy.visit(addRequestId('/results.html?url=cypress/downloads/inprogress'));
     cy.get('#overall-result').should('to.have.text', 'in progress');
     // docs are always visible
@@ -499,18 +500,10 @@ describe('inprogress', () => it('run', () => {
     cy.get('#config').should('not.be.visible');
     // no results-junit.xml yet
     cy.get('#download-junit').should('not.be.visible');
-    // show pipeline.log
-    cy.get('main pre').should('have.text', 'tests\nare\n...\nrunning\n');
-    cy.get('details').should('not.exist');
-    // add more stuff into progress.log
-    cy.writeFile('cypress/downloads/inprogress/pipeline.log', 'added to log later\naligator\n', { flag: 'a+' })
-    // go forward 6s
-    cy.tick(6000);
-    // make sure the log is updated
-    cy.get('main pre').should('have.text', 'tests\nare\n...\nrunning\nadded to log later\naligator\n');
+    cy.get('details').should('exist');
 }));
 
-describe('inprogress-no-reload', () => it('run', () => {
+describe('inprogress-no-results-xml', () => it('run', () => {
     cy.intercept(
         'GET',
         'https://api.testing-farm.io/v0.1/requests/' + requestIdMock,
@@ -522,9 +515,41 @@ describe('inprogress-no-reload', () => it('run', () => {
     // copy scenrios/inprogress into cypress/downloads, so we can play with it
     // NOTE: cypress/downloads location is trashed on each start of cypress
     //       https://docs.cypress.io/guides/references/configuration#Downloads
-    cy.exec('cp -r scenarios/inprogress cypress/downloads')
-    cy.writeFile('cypress/downloads/inprogress/pipeline.log', 'old line\n'.repeat(100)+'last old line\n', { flag: 'a+' })
-    cy.visit(addRequestId('/results.html?url=cypress/downloads/inprogress'));
+    cy.exec('mkdir -p cypress/downloads/; cp -r scenarios/inprogress-no-results-xml cypress/downloads/');
+    cy.visit(addRequestId('/results.html?url=cypress/downloads/inprogress-no-results-xml'));
+    cy.get('#overall-result').should('to.have.text', 'in progress');
+    // docs are always visible
+    cy.get('#docs').should('be.visible');
+    // no config box
+    cy.get('#config').should('not.be.visible');
+    // no results-junit.xml yet
+    cy.get('#download-junit').should('not.be.visible');
+    // show pipeline.log
+    cy.get('main pre').should('have.text', 'tests\nare\n...\nrunning\n');
+    cy.get('details').should('not.exist');
+    // add more stuff into progress.log
+    cy.writeFile('cypress/downloads/inprogress-no-results-xml/pipeline.log', 'added to log later\naligator\n', { flag: 'a+' })
+    // go forward 6s
+    cy.tick(6000);
+    // make sure the log is updated
+    cy.get('main pre').should('have.text', 'tests\nare\n...\nrunning\nadded to log later\naligator\n');
+}));
+
+describe('inprogress-no-results-xml-no-reload', () => it('run', () => {
+    cy.intercept(
+        'GET',
+        'https://api.testing-farm.io/v0.1/requests/' + requestIdMock,
+        { fixture: 'running.json' }
+    )
+
+    // initialize 🕗, we want to move forward time
+    cy.clock();
+    // copy scenrios/inprogress into cypress/downloads, so we can play with it
+    // NOTE: cypress/downloads location is trashed on each start of cypress
+    //       https://docs.cypress.io/guides/references/configuration#Downloads
+    cy.exec('cp -r scenarios/inprogress-no-results-xml cypress/downloads')
+    cy.writeFile('cypress/downloads/inprogress-no-results-xml/pipeline.log', 'old line\n'.repeat(100)+'last old line\n', { flag: 'a+' })
+    cy.visit(addRequestId('/results.html?url=cypress/downloads/inprogress-no-results-xml'));
     cy.get('#overall-result').should('to.have.text', 'in progress');
     // no config box
     cy.get('#config').should('not.be.visible');
@@ -538,7 +563,7 @@ describe('inprogress-no-reload', () => it('run', () => {
     // scroll page up so the log won't be reloaded
     cy.scrollTo('top');
     // add more stuff into progress.log
-    cy.writeFile('cypress/downloads/inprogress/pipeline.log', 'new line\n', { flag: 'a+' })
+    cy.writeFile('cypress/downloads/inprogress-no-results-xml/pipeline.log', 'new line\n', { flag: 'a+' })
     // go forward 6s
     cy.tick(6000);
     // confirm the log was not updated

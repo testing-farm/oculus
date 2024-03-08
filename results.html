@@ -51,6 +51,7 @@
     .result-info { background-color: lightblue; font-size: 12px; }
     .result-skip { background-color: lightgrey; font-size: 12px; }
     .result-error { background-color: darkorange; font-size: 12px; }
+    .result-running { background-color: paleturquoise; font-size: 12px; }
 
     iframe.html-artifact { height: 80vh; }
   </style>
@@ -108,7 +109,7 @@ const docsUrl = 'https://docs.testing-farm.io/general/0.1/index.html';
 
 // HACK: Until TFT-1687 is implemented.
 // unify the variations of "pass", "passed", "failed", "failure", etc. to the defined .result-.. classes
-function normalizeResult (result) {
+function normalizeResult (result, isPipelineRunning) {
     if (!result) {
         return 'error';
     }
@@ -117,6 +118,7 @@ function normalizeResult (result) {
     if (lower.includes('fail') || lower.includes('inspection')) { return 'fail' }
     if (lower.includes('skip')) { return 'skip' }
     if (lower.includes('info')) { return 'info' }
+    if (lower.includes('undefined') && isPipelineRunning) { return 'running' }
     // treat other values like "error", "undefined", unknown as generic error
     return 'error';
 }
@@ -286,7 +288,7 @@ function renderCheckList (checks, artifactsAnchor) {
 
 // testsuites contain a list of testsuite, which contain a list of testcase; these have
 // exactly the same structure, so we can render them with just one function
-function renderTestList (doc, elementType, subElementType, showPassed, errorReason) {
+function renderTestList (doc, elementType, subElementType, showPassed, errorReason, isPipelineRunning) {
     const res = [];
     const items = doc.querySelectorAll(elementType);
     items.forEach(item => {
@@ -296,7 +298,7 @@ function renderTestList (doc, elementType, subElementType, showPassed, errorReas
         let guestName = null;
         let guestRole = null;
         let isOpen = true;
-        const result = normalizeResult(item.getAttribute('result'));
+        const result = normalizeResult(item.getAttribute('result'), isPipelineRunning);
         const note = item.getAttribute('note');
         const guestsStr = [];
         let guestInfo = null; // displayed for testcases run in multihost pipelines
@@ -345,6 +347,7 @@ function renderTestList (doc, elementType, subElementType, showPassed, errorReas
 
         const rightSideTexts = [];
         if (guestInfo) { rightSideTexts.push(guestInfo) }
+        if (elementType === 'testsuite') { rightSideTexts.push(`${result}`) }
         if (checks && checks.getAttribute('checks') > 0) { rightSideTexts.push(`with ${renderCheckSummary(checks)}`) }
         if (item.getAttribute('time')) { rightSideTexts.push(`took ${item.getAttribute('time')} s`) }
 
@@ -353,7 +356,7 @@ function renderTestList (doc, elementType, subElementType, showPassed, errorReas
             <summary class="result-${result}">
                 ${name}${note ? ` (${note})` : ''}
                 <monospace>
-                    <span style="float:right;">${rightSideTexts.join(', ')}</span><br>
+                    <span style="float:right;"><strong>${rightSideTexts.join(', ')}</strong></span><br>
                     ${guestsStr.map((guest) => html`${guest}<br>`)}
                     ${result === 'error' && errorReason ? html`<p>⚠ ${errorReason}</p>` : null}
                 </monospace>
@@ -398,9 +401,16 @@ function selectInlineTestcaseLogs (testcase) {
 }
 
 // always show TMT reproducer; if the setup failed, also show these logs
-function selectInlineTestsuiteLogs (testsuite, failedSetup) {
-    testsuite.querySelectorAll(':scope > logs > log[name="tmt-reproducer"]')
-        .forEach(log => log.setAttribute(SHOW_ATTR, ''));
+function selectInlineTestsuiteLogs (testsuite, failedSetup, isPipelineRunning) {
+    if (!isPipelineRunning) {
+        testsuite.querySelectorAll(':scope > logs > log[name="tmt-reproducer"]')
+            .forEach(log => {
+                console.log('fetching', log.getAttribute('href'));
+                if (fetchFile(log.getAttribute('href'))) {
+                    log.setAttribute(SHOW_ATTR, '');
+                }
+            });
+    }
     if (!failedSetup) { return }
 
     const tmtLogs = testsuite.querySelectorAll(':scope > logs > log[name="tmt-log"]');
@@ -417,17 +427,20 @@ function selectInlineTestsuiteLogs (testsuite, failedSetup) {
     }
 }
 
-function selectInlineLogs (results) {
+function selectInlineLogs (results, isPipelineRunning) {
     results.querySelectorAll('testsuite').forEach(testsuite => {
         const testcases = testsuite.querySelectorAll('testcase');
         testcases.forEach(selectInlineTestcaseLogs);
-        selectInlineTestsuiteLogs(testsuite, testcases.length === 0);
+        selectInlineTestsuiteLogs(testsuite, testcases.length === 0, isPipelineRunning);
     });
 }
 
-function renderTests (resultsXml, showPassed, apiRequest) {
+function renderTests (resultsXml, showPassed, apiRequest, isPipelineRunning) {
     const errorReason = apiRequest?.result?.summary;
-    const items = resultsXml ? renderTestList(resultsXml, 'testsuite', 'testcase', showPassed, errorReason) : [];
+    const items = resultsXml
+        ? renderTestList(
+            resultsXml, 'testsuite', 'testcase', showPassed, errorReason, isPipelineRunning)
+        : [];
 
     // show pipeline log in case of errors
     if (apiRequest.state === 'error') {
@@ -475,7 +488,7 @@ async function main () {
 
         // results xunit available, valid results available (might still be an error)
         if (resultsXml) {
-            selectInlineLogs(resultsXml);
+            selectInlineLogs(resultsXml, false);
             overallResult = resultsXml.firstChild.getAttribute('overall-result');
 
             /* keep config hidden if there are only passed or only failed tests */
@@ -489,7 +502,27 @@ async function main () {
         document.getElementById('overall-result').innerHTML = overallResult;
 
         renderTests(resultsXml, isPassed(overallResult), apiRequest);
-    } else if (apiRequest.state === 'queued' || apiRequest.state === 'running') {
+    } else if (apiRequest.state === 'running') {
+        // fetch results.xml
+        const resultsXml = await fetchXML(baseUrl + '/results.xml', { cache: 'no-store' });
+        const pipelineLog = await fetchFile(pipelineLogUrl, { cache: 'no-store' });
+        document.getElementById('overall-result').innerHTML = 'in progress';
+
+        // results xunit available, valid results available (might still be an error)
+        if (resultsXml) {
+            selectInlineLogs(resultsXml, true);
+
+            renderTests(resultsXml, true, apiRequest, true);
+        } else {
+            render(html`<pre>${pipelineLog}</pre>`, document.getElementById('main'));
+
+            // reload in 5 seconds, what matches the pipeline.log refresh tick (5s)
+            window.setTimeout(() => reloadPage(), 5000);
+
+            // scroll to bottom of the page, if scrolled to the bottom
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+    } else if (apiRequest.state === 'queued') {
         // set the result of the request to `in progress`
         document.getElementById('overall-result').innerHTML = 'in progress';
 
