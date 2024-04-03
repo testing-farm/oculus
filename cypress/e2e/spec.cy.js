@@ -368,7 +368,9 @@ describe('tmt-failed-install', () => it('run', () => {
     cy.get('details[class="pipeline-log"] log-viewer')
         .shadow().find('pre')
         .should('contain', 'pipeline details')
-        .should('contain', '[E]rror messages');
+        .should('contain', '[E]rror messages')
+        .find('span')
+        .should('have.attr', 'style', 'color:rgb(187,0,0)');
 
     // error reason shown not be shown (no mocked request)
     cy.get('main > details summary p').should('not.exist')
@@ -421,7 +423,9 @@ describe('tmt-failed-prepare', () => it('run', () => {
         // renders artifact installation logs inline, with concatenating all log files
         cy.get('log-viewer[url*="/tmt-run.log"]')
             .shadow().find('pre')
-            .should('contain', 'tmt log with an error');
+            .should('contain', 'tmt log with an error')
+            .find('span')
+            .should('have.attr', 'style', 'color:rgb(187,0,0)');
 
         // guest setup succeeded, log link present
         cy.get('ul')
@@ -533,6 +537,17 @@ describe('inprogress-no-results-xml', () => it('run', () => {
     cy.tick(6000);
     // make sure the log is updated
     cy.get('main pre').should('have.text', 'tests\nare\n...\nrunning\nadded to log later\naligator\n');
+
+    // check that the output is colored
+    cy.get('main pre span').should(($spans) => {
+        expect($spans).to.have.length(3)
+        expect($spans.eq(0)).to.contain('tests')
+        expect($spans.eq(0)).to.have.attr('style', 'color:rgb(0,187,0)')
+        expect($spans.eq(1)).to.contain('are')
+        expect($spans.eq(1)).to.have.attr('style', 'color:rgb(187,187,0)')
+        expect($spans.eq(2)).to.contain('running')
+        expect($spans.eq(2)).to.have.attr('style', 'color:rgb(187,0,0)')
+      })
 }));
 
 describe('inprogress-no-results-xml-no-reload', () => it('run', () => {

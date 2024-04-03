@@ -82,7 +82,12 @@
 </body>
 
 <script type="module">
-import { LitElement, html, css, render, nothing } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js';
+import {
+    LitElement, html, unsafeHTML, css, render, nothing
+} from 'https://cdn.jsdelivr.net/gh/lit/dist@2/all/lit-all.min.js';
+import { AnsiUp } from 'https://cdn.jsdelivr.net/npm/ansi_up@6.0.2/ansi_up.js';
+
+const ansiUp = new AnsiUp();
 
 const SHOW_ATTR = '_show'; /* marks logs which are shown inline */
 const HTML_ATTR = '_html'; /* marks HTML artifacts which are shown inline */
@@ -190,7 +195,7 @@ class LogViewer extends LitElement {
     }
 
     render () {
-        return html`<pre class="log-viewer">${this._contents ?? 'Loading...'}</pre>`;
+        return html`<pre class="log-viewer">${unsafeHTML(ansiUp.ansi_to_html(this._contents)) ?? 'Loading...'}</pre>`;
     }
 
     static styles = css`
@@ -514,7 +519,7 @@ async function main () {
 
             renderTests(resultsXml, true, apiRequest, true);
         } else {
-            render(html`<pre>${pipelineLog}</pre>`, document.getElementById('main'));
+            render(html`<pre>${unsafeHTML(ansiUp.ansi_to_html(pipelineLog))}</pre>`, document.getElementById('main'));
 
             // reload in 5 seconds, what matches the pipeline.log refresh tick (5s)
             window.setTimeout(() => reloadPage(), 5000);
@@ -528,7 +533,7 @@ async function main () {
 
         // prevent caching the response of pipeline.log
         const pipelineLog = await fetchFile(pipelineLogUrl, { cache: 'no-store' });
-        render(html`<pre>${pipelineLog}</pre>`, document.getElementById('main'));
+        render(html`<pre>${unsafeHTML(ansiUp.ansi_to_html(pipelineLog))}</pre>`, document.getElementById('main'));
 
         // reload in 5 seconds, what matches the pipeline.log refresh tick (5s)
         window.setTimeout(() => reloadPage(), 5000);
