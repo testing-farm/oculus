@@ -71,8 +71,10 @@
     <span id="docs-separator" hidden>|</span>
     <a id="api-request" hidden>API request</a>
     <span id="api-request-separator" hidden>|</span>
-    <a id="pipeline-log">Pipeline log</a>
-    <span id="pipeline-log-separator">|</span>
+    <a id="pipeline-log" hidden>Pipeline log</a>
+    <span id="pipeline-log-separator" hidden>|</span>
+    <a id="show-raw-file" hidden>Show raw file</a>
+    <span id="show-raw-file-separator" hidden>|</span>
     <a href="https://gitlab.com/testing-farm/oculus/-/issues">Issues for this page</a>
     <span id="download-junit-separator" hidden>|</span>
     <a id="download-junit" download hidden>Download JUnit</a>
@@ -108,6 +110,10 @@ const baseUrl = new URLSearchParams(window.location.search).get('url') ?? '.';
 
 // pipeline log, the main log of the worker
 const pipelineLogUrl = `${baseUrl}/pipeline.log`;
+
+// colored pipeline log is rendered when oculus receives `file=logUrl` parameter
+const pipelineLogColoredUrl = new URL(window.location.href.split('?')[0]);
+pipelineLogColoredUrl.searchParams.append('file', pipelineLogUrl);
 
 // link to the user docs
 const docsUrl = 'https://docs.testing-farm.io/Testing%20Farm/0.1/index.html';
@@ -451,7 +457,7 @@ function renderTests (resultsXml, showPassed, apiRequest, isPipelineRunning) {
     if (apiRequest.state === 'error') {
         items.push(html`<details class="pipeline-log" open>
         <summary class="result-error">
-            <a href="${pipelineLogUrl}"}>pipeline.log</a>
+            <a href="${pipelineLogColoredUrl.href}"}>pipeline.log</a>
             <monospace>
                 ${errorReason ? html`<p>⚠ ${errorReason}</p>` : null}
             </monospace>
@@ -475,6 +481,20 @@ async function main () {
     // get request ID
     const requestId = window.location.href.match(uuidRegex)?.[0];
     let apiRequestUrl = null;
+
+    // if url contains `file=` parameter, render the file and don't do anything else
+    const fileUrlToRender = new URLSearchParams(window.location.search).get('file');
+    console.log('url', window.location.search);
+    if (fileUrlToRender) {
+        console.log('render', fileUrlToRender);
+        const fileContents = await fetchFile(fileUrlToRender, { cache: 'no-store' });
+        render(html`<pre>${unsafeHTML(ansiUp.ansi_to_html(fileContents))}</pre>`, document.getElementById('main'));
+
+        document.getElementById('show-raw-file-separator').removeAttribute('hidden');
+        document.getElementById('show-raw-file').removeAttribute('hidden');
+        document.getElementById('show-raw-file').setAttribute('href', fileUrlToRender);
+        return;
+    }
 
     // defaulting to this request when real request cannot be fetched (e.g. when developing locally)
     let apiRequest = { state: 'complete' };
@@ -564,7 +584,7 @@ async function main () {
 
     document.getElementById('pipeline-log-separator').removeAttribute('hidden');
     document.getElementById('pipeline-log').removeAttribute('hidden');
-    document.getElementById('pipeline-log').setAttribute('href', pipelineLogUrl);
+    document.getElementById('pipeline-log').setAttribute('href', pipelineLogColoredUrl.href);
 
     document.getElementById('docs-separator').removeAttribute('hidden');
     document.getElementById('docs').removeAttribute('hidden');
