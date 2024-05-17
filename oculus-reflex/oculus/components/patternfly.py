@@ -1,6 +1,6 @@
 import reflex as rx
 
-from typing import Union
+from typing import Any, Union
 
 
 class PatternflyComponent(rx.Component):
@@ -40,6 +40,12 @@ class Tabs(PatternflyComponent):
     tag = "Tabs"
     activeKey: rx.Var[Union[str, int]]
 
+    def get_event_triggers(self) -> dict[str, Any]:
+        return {
+            **super().get_event_triggers(),
+            "onSelect": lambda e0, e1: [e0, e1],
+        }
+
 class Tab(PatternflyComponent):
     tag = "Tab"
     title: rx.Var[str]
@@ -63,10 +69,10 @@ class FormSelect(PatternflyComponent):
     tag = "FormSelect"
     value: rx.Var[str]
 
-    @classmethod
-    def get_controlled_triggers(cls) -> dict[str, dict]:
+    def get_event_triggers(self) -> dict[str, Any]:
         return {
-            "on_change": rx.EVENT_ARG
+            **super().get_event_triggers(),
+            "on_change": lambda e0: [e0],
         }
 
 class FormSelectOption(PatternflyComponent):
@@ -165,6 +171,37 @@ class Label(PatternflyComponent):
     tag = "Label"
     color: rx.Var[str]
 
+class CardPatternfly(PatternflyComponent):
+    tag = "Card"
+    ouiaId: rx.Var[str] = "BasicCard"
+
+class CardTitlePatternfly(PatternflyComponent):
+    tag = "CardTitle"
+
+class CardBodyPatternfly(PatternflyComponent):
+    tag = "CardBody"
+
+class CardFooterPatternfly(PatternflyComponent):
+    tag = "CardFooter"
+
+
+class AlertPatternfly(PatternflyComponent):
+    tag = "Alert"
+    variant: rx.Var[str]
+    title: rx.Var[str]
+    ouiaId: rx.Var[str]
+
+class Title(PatternflyComponent):
+    tag = "Title"
+    headingLevel: rx.Var[str]
+
+
+card_patternfly = CardPatternfly.create
+card_title_patternfly = CardTitlePatternfly.create
+card_body_patternfly = CardBodyPatternfly.create
+card_footer_patternfly = CardFooterPatternfly.create
+alert_patternfly = AlertPatternfly.create
+
 button = Button.create
 external_link_square_alt_icon = ExternalLinkSquareAltIcon.create
 spinner = Spinner.create
@@ -197,3 +234,4 @@ code_editor = CodeEditor.create
 label = Label.create
 form_select = FormSelect.create
 form_select_option = FormSelectOption.create
+title = Title.create

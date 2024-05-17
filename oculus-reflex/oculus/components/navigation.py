@@ -24,7 +24,10 @@ def create_nav_item(title: str, destination: str) -> rx.Component:
             isActive=State.current_page == destination,
             component='span',
         ),
-        href=destination
+        href=destination,
+        style=rx.style.Style({
+            'text-decoration': 'none'
+        })
     )
 
 def navigation() -> rx.Component:

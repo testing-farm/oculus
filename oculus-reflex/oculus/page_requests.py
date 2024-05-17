@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 import requests
 from typing import Optional
 import pydantic
+from oculus import TESTING_FARM_API_URL
 
 REQUEST_STATES = ['New', 'Queued', 'Running', 'Error', 'Complete']
 
@@ -36,7 +37,7 @@ class RequestsState(State):
         response = requests.get(url)
         print('fetching requests from tf api', url)
         loaded_requests = []
-        if response.status_code == 200:
+        if response.status_code == 200 and response.json():
             loaded_requests = sorted(
                 [Request(**request) for request in response.json()],
                 key=lambda request: request.created,
@@ -47,7 +48,8 @@ class RequestsState(State):
 
     def load_queried_requests(self):
         created_after = datetime.now() - timedelta(days=3)
-        url = 'https://api.dev.testing-farm.io/v0.1/requests?state={}&created_after={}'.format(
+        url = '{}requests?state={}&created_after={}'.format(
+            TESTING_FARM_API_URL,
             self.query_state.lower(),
             created_after.strftime('%Y-%m-%d')
         )
@@ -57,7 +59,8 @@ class RequestsState(State):
     def load_my_requests(self):
         if not self._logged_user_id:
             return
-        self.my_requests = self._get_requests(f'https://api.dev.testing-farm.io/v0.1/requests?user_id={self._logged_user_id}')
+        url = f'{TESTING_FARM_API_URL}v0.1/requests?user_id={self._logged_user_id}'
+        self.my_requests = self._get_requests(url)
         self.my_requests_loading = False
 
     toggled_accordion: Optional[str] = None
@@ -74,6 +77,9 @@ class RequestsState(State):
         self.my_requests_loading = True
 
 def get_label(state: str) -> rx.Component:
+    """
+    Converts request state to a label.
+    """
     return rx.cond(
         state == 'new',
         label(state, color='green'),
@@ -98,8 +104,7 @@ def get_label(state: str) -> rx.Component:
 
 def show_request(request: Request) -> rx.Component:
     request_id = request.id.to_string()[1:-1]
-    api_url = "https://api.dev.testing-farm.io/v0.1/requests/" + request_id
-    #artifacts_url = request.run.artifacts.to_string()[1:-1] if request.run else ''
+    api_url = f'{TESTING_FARM_API_URL}/requests/{request_id}'
     request_string = request.to_string()
     return accordion_item(
         accordion_toggle(
@@ -126,14 +131,16 @@ def show_request(request: Request) -> rx.Component:
                         is_external=True,
                     )
                 ),
-                rx.link(
-                    button("Restart", variant="primary"),
-                    href='submit/' + request_id,
+                rx.cond(
+                    State.logged_in,
+                    rx.link(
+                        button("Restart", variant="primary"),
+                        href='submit/' + request_id,
+                    ),
                 ),
                 code_block(
                     code_block_code(
                         request_string
-                        #str({k: v for k, v in request.items()})
                     ),
                     width="90%"
                 ),
@@ -141,7 +148,6 @@ def show_request(request: Request) -> rx.Component:
             isHidden=(RequestsState.toggled_accordion != request.id),
         )
     )
-    #return rx.text(request['id'])#rx.box([f'{k}: {v}' for k, v in request.items()])
 
 def requests_component(show_spinner: bool, requests: list[Request]) -> rx.Component:
     return rx.cond(
@@ -193,12 +199,13 @@ def page_requests() -> rx.Component:
         tabs(
             tab(
                 tab_query(),
-                title='Query Requests', eventKey=1, on_click=RequestsState.set_page_requests_active_tab(1)
+                title='Query Requests', eventKey=1,
             ),
             tab(
                 tab_my_requests(),
-                title='My Requests', eventKey=2, on_click=RequestsState.set_page_requests_active_tab(2)
+                title='My Requests', eventKey=2,
             ),
-            activeKey=RequestsState.page_requests_active_tab
+            activeKey=RequestsState.page_requests_active_tab,
+            onSelect=lambda _, value: RequestsState.set_page_requests_active_tab(value),
         ),
     ))

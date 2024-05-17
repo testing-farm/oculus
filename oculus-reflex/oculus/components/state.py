@@ -1,10 +1,10 @@
 import reflex as rx
 from typing import Optional
 import requests
+from oculus import TESTING_FARM_INTERNAL_API_URL
 
 class State(rx.State):
     counter = 0
-    active_tab = 1
 
     logged_in: bool = False
     _logged_user_name: str = ''
@@ -34,7 +34,7 @@ class State(rx.State):
 
     def login_click(self):
         print('Logging in')
-        url = 'https://internal.api.dev.testing-farm.io/v0.1/users?api_key={}'.format(self.login_form_token)
+        url = '{}users?api_key={}'.format(TESTING_FARM_INTERNAL_API_URL, self.login_form_token)
         
         result = requests.get(url).json()
         for user in result:

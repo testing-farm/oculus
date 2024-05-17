@@ -9,6 +9,8 @@ import subprocess
 import re
 import requests
 from typing import Any
+from oculus import TESTING_FARM_API_URL
+
 
 class Request(rx.Base):
     environments: list[dict[str, Any]]
@@ -37,7 +39,7 @@ class SubmitRequestState(State):
         _request_id = uuid_match.group()
 
         # Construct URL to the internal API
-        get_url = "https://api.dev.testing-farm.io/v0.1/requests/{}".format(_request_id)
+        get_url = "{}v0.1/requests/{}".format(TESTING_FARM_API_URL, _request_id)
 
         # Setting up retries
         session = requests.Session()
@@ -84,7 +86,7 @@ class SubmitRequestState(State):
     def submit(self):
         import json
         session = requests.Session()
-        post_url = "https://api.dev.testing-farm.io/v0.1/requests"
+        post_url = f"{TESTING_FARM_API_URL}requests"
         print(json.loads(self.r.json()))
         response = session.post(post_url, json=json.loads(self.r.json()))
         print(response)
