@@ -505,6 +505,9 @@ describe('inprogress', () => it('run', () => {
     // no results-junit.xml yet
     cy.get('#download-junit').should('not.be.visible');
     cy.get('details').should('exist');
+    cy.get('log-viewer[url*="/tmt-run.log"]')
+        .shadow().find('pre')
+        .should('contain', 'Test environment setup is in progress');
 }));
 
 describe('inprogress-no-results-xml', () => it('run', () => {

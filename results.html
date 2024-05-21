@@ -128,6 +128,24 @@ function normalizeResult (result, isPipelineRunning) {
     return 'error';
 }
 
+function stagePlaceholder (stage) {
+    switch (stage) {
+    case 'created':
+    case 'ready':
+        return 'Preparing to run';
+    case 'guest_provisioning':
+        return 'Provisioning in progress';
+    case 'guest_provisioned':
+    case 'guest_setup':
+        return 'Test environment setup is in progress';
+    case 'prepared':
+    case 'running':
+        return 'Tests are being executed';
+    default:
+        return 'Loading...';
+    }
+}
+
 async function fetchFile (url, options) {
     try {
         const response = await fetch(url, options);
@@ -173,29 +191,40 @@ async function fetchXML (url) {
 class LogViewer extends LitElement {
     static properties = {
         url: { type: String },
+        placeholder: { type: String },
         _contents: { type: String, state: true }
     };
 
     updated (changedProperties) {
         if (changedProperties.has('url')) {
             fetchFile(this.url).then(text => {
-                // is this a directory index? if so, load all of its *.txt files and concatenate
-                if (text?.includes('<title>Index of ')) {
-                    const indexDoc = new DOMParser().parseFromString(text, 'text/html');
-                    const fetches = [];
-                    indexDoc.querySelectorAll('a[href*=".txt"]').forEach(link =>
-                        fetches.push(fetchFile(this.url + '/' + link.getAttribute('href'))));
-                    Promise.all(fetches).then(texts => { this._contents = texts.join('\n\n') });
+                if (text) {
+                    // is this a directory index? if so, load all of its *.txt files and concatenate
+                    if (text.includes('<title>Index of ')) {
+                        const indexDoc = new DOMParser().parseFromString(text, 'text/html');
+                        const fetches = [];
+                        indexDoc.querySelectorAll('a[href*=".txt"]').forEach(link =>
+                            fetches.push(fetchFile(this.url + '/' + link.getAttribute('href'))));
+                        Promise.all(fetches).then(texts => { this._contents = texts.join('\n\n') });
+                    } else {
+                        // plain file
+                        this._contents = text;
+                    }
                 } else {
-                // plain file
-                    this._contents = text;
+                    // file doesn't exist or has no text
+                    this._contents = null;
                 }
             });
         }
     }
 
     render () {
-        return html`<pre class="log-viewer">${unsafeHTML(ansiUp.ansi_to_html(this._contents)) ?? 'Loading...'}</pre>`;
+        if (this._contents === null) {
+            return html`<pre class="log-viewer">${this.placeholder}</pre>`;
+        } else {
+            return html`<pre class="log-viewer">${unsafeHTML(
+                ansiUp.ansi_to_html(this._contents)) ?? 'Loading...'}</pre>`;
+        }
     }
 
     static styles = css`
@@ -209,19 +238,20 @@ class LogViewer extends LitElement {
 
 customElements.define('log-viewer', LogViewer);
 
-function renderLogs (logElements, artifactsAnchor) {
+function renderLogs (logElements, artifactsAnchor, stage) {
     const logLinks = [];
     const inlineLogs = [];
     logElements.forEach(log => {
         let name = log.getAttribute('name');
         const href = log.getAttribute('href');
         if (!name) { name = href }
+        const placeholder = stagePlaceholder(stage);
         // HACK: results.xml should have unique names; fix that, and then clean this up
         const setupStage = log.getAttribute('guest-setup-stage');
         if (setupStage && name === 'guest setup') { name = setupStage }
         if (log.hasAttribute(SHOW_ATTR)) {
             inlineLogs.push(html`<h3><a href=${href}>${name}</a></h3>
-                                 <log-viewer url=${href} />`);
+                                 <log-viewer placeholder=${placeholder} url=${href} />`);
         } else if (log.hasAttribute(HTML_ATTR)) {
             inlineLogs.push(html`<h3><a href=${href}>${name}</a></h3>
                                  <iframe class="html-artifact" title=${name} src=${href} width="100%" />`);
@@ -351,6 +381,7 @@ function renderTestList (doc, elementType, subElementType, showPassed, errorReas
         }
 
         const rightSideTexts = [];
+        const stage = item.getAttribute('stage');
         if (guestInfo) { rightSideTexts.push(guestInfo) }
         if (elementType === 'testsuite') { rightSideTexts.push(`${result}`) }
         if (checks && checks.getAttribute('checks') > 0) { rightSideTexts.push(`with ${renderCheckSummary(checks)}`) }
@@ -368,7 +399,7 @@ function renderTestList (doc, elementType, subElementType, showPassed, errorReas
             </summary>
             ${artifactsAnchor ? html`<p><a href="#${artifactsAnchor}">Go to Logs and Artifacts</a></p>` : null}
             ${subElementType ? renderTestList(item, subElementType, null, showPassed, null) : null}
-            ${renderLogs(item.querySelectorAll(':scope > logs > log'), artifactsAnchor)}
+            ${renderLogs(item.querySelectorAll(':scope > logs > log'), artifactsAnchor, stage)}
             ${renderCheckList(checks, artifactsAnchor)}
           </details>`);
     });

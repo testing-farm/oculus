@@ -249,7 +249,7 @@
    <property name="snapshots" value="False"/>
   </testing-environment>
  </testsuite>
- <testsuite name="/plans/upgrade-el8toel9_2" result="error" tests="0">
+ <testsuite name="/plans/upgrade-el8toel9_2" result="undefined" tests="0" stage='guest_setup'>
   <logs>
    <log href="http://artifacts.osci.redhat.com/testing-farm/a8ffd8d2-cd15-4996-891e-f713e2b988e5/work-upgrade-el8toel9_22znti6c5/8a55927a-178c-49e2-a786-d3fb08397323-artemis-guest-log.yaml" name="Guest event log"/>
    <log href="http://artifacts.osci.redhat.com/testing-farm/a8ffd8d2-cd15-4996-891e-f713e2b988e5/work-upgrade-el8toel9_22znti6c5/console-8a55927a-178c-49e2-a786-d3fb08397323.log" name="console log"/>
@@ -257,7 +257,7 @@
    <log href="http://artifacts.osci.redhat.com/testing-farm/a8ffd8d2-cd15-4996-891e-f713e2b988e5/work-upgrade-el8toel9_22znti6c5/flasher-event-8a55927a-178c-49e2-a786-d3fb08397323.log" name="flasher event log"/>
    <log guest-setup-stage="pre_artifact_installation" href="http://artifacts.osci.redhat.com/testing-farm/a8ffd8d2-cd15-4996-891e-f713e2b988e5/guest-setup-8a55927a-178c-49e2-a786-d3fb08397323/guest-setup-output-pre-artifact-installation.txt" name="guest setup" schedule-stage="guest-setup"/>
    <log guest-setup-stage="post_artifact_installation" href="http://artifacts.osci.redhat.com/testing-farm/a8ffd8d2-cd15-4996-891e-f713e2b988e5/guest-setup-8a55927a-178c-49e2-a786-d3fb08397323/guest-setup-output-post-artifact-installation.txt" name="guest setup" schedule-stage="guest-setup"/>
-   <log href="http://artifacts.osci.redhat.com/testing-farm/a8ffd8d2-cd15-4996-891e-f713e2b988e5/work-upgrade-el8toel9_22znti6c5/tmt-run.log" name="tmt-log"/>
+   <log href="/tmt-run.log" name="tmt-log"/>
    <log href="http://artifacts.osci.redhat.com/testing-farm/a8ffd8d2-cd15-4996-891e-f713e2b988e5/work-upgrade-el8toel9_22znti6c5/tmt-reproducer.sh" name="tmt-reproducer"/>
    <log href="http://artifacts.osci.redhat.com/testing-farm/a8ffd8d2-cd15-4996-891e-f713e2b988e5/work-upgrade-el8toel9_22znti6c5" name="workdir"/>
   </logs>
