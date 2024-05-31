@@ -510,7 +510,6 @@ async function main () {
     } else if (apiRequest.state === 'running') {
         // fetch results.xml
         const resultsXml = await fetchXML(baseUrl + '/results.xml', { cache: 'no-store' });
-        const pipelineLog = await fetchFile(pipelineLogUrl, { cache: 'no-store' });
         document.getElementById('overall-result').innerHTML = 'in progress';
 
         // results xunit available, valid results available (might still be an error)
@@ -519,6 +518,7 @@ async function main () {
 
             renderTests(resultsXml, true, apiRequest, true);
         } else {
+            const pipelineLog = await fetchFile(pipelineLogUrl, { cache: 'no-store' });
             render(html`<pre>${unsafeHTML(ansiUp.ansi_to_html(pipelineLog))}</pre>`, document.getElementById('main'));
 
             // reload in 5 seconds, what matches the pipeline.log refresh tick (5s)
