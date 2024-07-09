@@ -1,15 +1,15 @@
 # Testing Farm Oculus
 
-This is the Testing Farm Console's web interface for presenting a result.
+This is web application for presenting a Testing Farm results.
 
-[results.html](./results.html) should be put into the result directory of a
-test. If `./results.xml` is available, it will load, parse, and present it.
-Otherwise, it considers the test to be in progress still, and loads/presents
-`./pipeline.log`.
+The web app is a self-contained [results.html](./results.html) file that should
+be put into the result directory of a test. If `./results.xml` is available, it
+will load, parse, and present it. Otherwise, it considers the test to be still
+in progress, and loads/presents `./pipeline.log`.
 
 ## Development and testing
 
-results.html accepts an `url` argument to point it at a base directory other
+`results.html` accepts an `url` argument to point it at a base directory other
 than `.`. For development, start an HTTP server in the repository checkout, for
 example:
 
