@@ -52,6 +52,7 @@
     .result-skip { background-color: lightgrey; font-size: 12px; }
     .result-error { background-color: darkorange; font-size: 12px; }
     .result-running { background-color: paleturquoise; font-size: 12px; }
+    .footer { color:#929292; }
 
     iframe.html-artifact { height: 80vh; }
   </style>
@@ -80,7 +81,7 @@
 
   <main id="main"></main>
 
-  <footer>rendered from: <a id="results-xml-src"></a></footer>
+  <footer><hr><div class="footer">Rendered from: <a id="results-xml-src"></a></div></footer>
 </body>
 
 <script type="module">
@@ -517,14 +518,13 @@ async function main () {
         apiRequestUrl = apiUrl + `/${requestId}`;
         apiRequest = await fetchJSON(apiRequestUrl);
     }
+    const resultsXmlLink = baseUrl + '/results.xml';
+    document.getElementById('results-xml-src').setAttribute('href', resultsXmlLink);
+    document.getElementById('results-xml-src').textContent = resultsXmlLink;
 
     // handle complete and error requests
     if (apiRequest.state === 'complete' || apiRequest.state === 'error') {
         // fetch results.xml
-        const resultsXmlLink = baseUrl + '/results.xml';
-        document.getElementById('results-xml-src').setAttribute('href', resultsXmlLink);
-        document.getElementById('results-xml-src').textContent = resultsXmlLink;
-
         const resultsXml = await fetchXML(resultsXmlLink);
         let overallResult = 'error'; // error when results.xml is not present (user facing error)
 
