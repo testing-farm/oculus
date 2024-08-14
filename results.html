@@ -78,7 +78,9 @@
     <a id="download-junit" download hidden>Download JUnit</a>
   </header>
 
-  <main id="main" />
+  <main id="main"></main>
+
+  <footer>rendered from: <a id="results-xml-src"></a></footer>
 </body>
 
 <script type="module">
@@ -519,7 +521,11 @@ async function main () {
     // handle complete and error requests
     if (apiRequest.state === 'complete' || apiRequest.state === 'error') {
         // fetch results.xml
-        const resultsXml = await fetchXML(baseUrl + '/results.xml');
+        const resultsXmlLink = baseUrl + '/results.xml';
+        document.getElementById('results-xml-src').setAttribute('href', resultsXmlLink);
+        document.getElementById('results-xml-src').textContent = resultsXmlLink;
+
+        const resultsXml = await fetchXML(resultsXmlLink);
         let overallResult = 'error'; // error when results.xml is not present (user facing error)
 
         // results xunit available, valid results available (might still be an error)

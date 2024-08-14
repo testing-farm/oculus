@@ -189,11 +189,11 @@ describe('tmt-double-pass', () => it('run', () => {
     cy.visit(addRequestId('/results.html?url=scenarios/tmt-double-pass'));
 
     // container test - does not have compose visible
-    cy.get('#main > details:nth-child(2) > summary:nth-child(1)').should('contain', '/testing-farm/sanity')
-    cy.get('#main > details:nth-child(2) > summary:nth-child(1) > monospace').should('contain', '💻 x86_64')
+    cy.get('#main > details:nth-child(1) > summary:nth-child(1)').should('contain', '/testing-farm/sanity')
+    cy.get('#main > details:nth-child(1) > summary:nth-child(1) > monospace').should('contain', '💻 x86_64')
     // guest test - does have compose visible
-    cy.get('#main > details:nth-child(3) > summary:nth-child(1)').should('contain', '/testing-farm/sanity1')
-    cy.get('#main > details:nth-child(3) > summary:nth-child(1) > monospace').should('contain', '💻 x86_64 💿 Fedora-Rawhide\n')
+    cy.get('#main > details:nth-child(2) > summary:nth-child(1)').should('contain', '/testing-farm/sanity1')
+    cy.get('#main > details:nth-child(2) > summary:nth-child(1) > monospace').should('contain', '💻 x86_64 💿 Fedora-Rawhide\n')
 }));
 
 describe('tmt-html-artifact', () => it('run', () => {
@@ -287,9 +287,9 @@ describe('tmt-multihost-pass', () => it('run', () => {
     cy.visit(addRequestId('/results.html?url=scenarios/tmt-multihost-pass'));
 
     // plan contains the correct plan name, names, arches and composes of all guests
-    const plan = cy.get('#main > details:nth-child(2) > summary:nth-child(1)')
+    const plan = cy.get('#main > details:nth-child(1) > summary:nth-child(1)')
     plan.should('contain', '/testing-farm/multihost')
-    const plan_info = cy.get('#main > details:nth-child(2) > summary:nth-child(1) > monospace')
+    const plan_info = cy.get('#main > details:nth-child(1) > summary:nth-child(1) > monospace')
     plan_info.should('contain', 'server: 💻 x86_64 💿 Fedora-Rawhide')
     plan_info.should('contain', 'client: 💻 x86_64 💿 Fedora-Rawhide')
     // check if css is set to a small monospace font
@@ -297,19 +297,19 @@ describe('tmt-multihost-pass', () => it('run', () => {
     plan_info.should('have.css', 'font-size', '11px')
 
     // each test contains the correct name of the test and name of the guest it was executed on 
-    const test_1 = cy.get('#main > details:nth-child(2) > details:nth-child(3) > summary:nth-child(1)')
+    const test_1 = cy.get('#main > details:nth-child(1) > details:nth-child(3) > summary:nth-child(1)')
     test_1.should('contain', '/server-setup/testing-farm/tests/multihost/A')
     test_1.should('contain', 'test #1 on server')
-    const test_2 = cy.get('#main > details:nth-child(2) > details:nth-child(4) > summary:nth-child(1)')
+    const test_2 = cy.get('#main > details:nth-child(1) > details:nth-child(4) > summary:nth-child(1)')
     test_2.should('contain', '/tests/testing-farm/tests/multihost/B')
     test_2.should('contain', 'test #2 on server')
-    const test_3 = cy.get('#main > details:nth-child(2) > details:nth-child(5) > summary:nth-child(1)')
+    const test_3 = cy.get('#main > details:nth-child(1) > details:nth-child(5) > summary:nth-child(1)')
     test_3.should('contain', '/tests/testing-farm/tests/multihost/B')
     test_3.should('contain', 'test #2 on client')
-    const test_4 = cy.get('#main > details:nth-child(2) > details:nth-child(6) > summary:nth-child(1)')
+    const test_4 = cy.get('#main > details:nth-child(1) > details:nth-child(6) > summary:nth-child(1)')
     test_4.should('contain', '/tests/testing-farm/tests/multihost/C')
     test_4.should('contain', 'test #3 on server')
-    const test_5 = cy.get('#main > details:nth-child(2) > details:nth-child(7) > summary:nth-child(1)')
+    const test_5 = cy.get('#main > details:nth-child(1) > details:nth-child(7) > summary:nth-child(1)')
     test_5.should('contain', '/tests/testing-farm/tests/multihost/C')
     test_5.should('contain', 'test #3 on client')
 
@@ -722,21 +722,21 @@ describe('tf-error-show-passed', () => it('run', () => {
 
     // show passed tests
     cy.get('#config input').click();
-    
+
     // inspect the plans and tests
     cy.get('#main > details').should('have.length', 3);
 
-    cy.get('#main > details:nth-child(2) > summary:nth-child(1)')
+    cy.get('#main > details:nth-child(1) > summary:nth-child(1)')
     .should('have.class', 'result-pass')
     .should('contain', '/plan/pass');
-    cy.get('#main > details:nth-child(2) > details:nth-child(3) > summary:nth-child(1)')
+    cy.get('#main > details:nth-child(1) > details:nth-child(3) > summary:nth-child(1)')
     .should('have.class', 'result-pass')
     .should('contain', '/test/pass');
 
-    cy.get('#main > details:nth-child(3) > summary:nth-child(1)')
+    cy.get('#main > details:nth-child(2) > summary:nth-child(1)')
     .should('have.class', 'result-error')
     .should('contain', '/plan/error');
-    cy.get('#main > details:nth-child(3) > details:nth-child(3) > summary:nth-child(1)')
+    cy.get('#main > details:nth-child(2) > details:nth-child(3) > summary:nth-child(1)')
     .should('have.class', 'result-error')
     .should('contain', '/test/error');
 }));
