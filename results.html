@@ -351,7 +351,7 @@ function renderTestList (doc, elementType, subElementType, showPassed, errorReas
 
             if (guests.length > 0) { // Multihost pipeline, testing environment is under <guest> elements
                 guests.forEach(guest => {
-                    const environment = item.querySelector('testing-environment[name=provisioned]');
+                    const environment = guest.querySelector('testing-environment[name=provisioned]');
                     if (environment != null) {
                         arch = environment.querySelector('property[name=arch]')?.getAttribute('value') ?? arch;
                         compose = environment.querySelector('property[name=compose]')?.getAttribute('value') ?? compose;

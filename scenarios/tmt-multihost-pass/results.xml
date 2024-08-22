@@ -60,8 +60,8 @@
    </logs>
    <guest name="client">
     <testing-environment name="provisioned">
-     <property name="arch" value="x86_64"/>
-     <property name="compose" value="Fedora-Rawhide"/>
+     <property name="arch" value="aarch64"/>
+     <property name="compose" value="Fedora-40"/>
      <property name="snapshots" value="False"/>
     </testing-environment>
    </guest>
@@ -96,8 +96,8 @@
    </logs>
    <guest name="client">
     <testing-environment name="provisioned">
-     <property name="arch" value="x86_64"/>
-     <property name="compose" value="Fedora-Rawhide"/>
+     <property name="arch" value="aarch64"/>
+     <property name="compose" value="Fedora-40"/>
      <property name="snapshots" value="False"/>
     </testing-environment>
    </guest>
@@ -111,8 +111,8 @@
   </guest>
   <guest name="client">
    <testing-environment name="provisioned">
-    <property name="arch" value="x86_64"/>
-    <property name="compose" value="Fedora-Rawhide"/>
+    <property name="arch" value="aarch64"/>
+    <property name="compose" value="Fedora-40"/>
     <property name="snapshots" value="False"/>
    </testing-environment>
   </guest>

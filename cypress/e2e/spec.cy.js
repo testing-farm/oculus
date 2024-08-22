@@ -291,7 +291,7 @@ describe('tmt-multihost-pass', () => it('run', () => {
     plan.should('contain', '/testing-farm/multihost')
     const plan_info = cy.get('#main > details:nth-child(1) > summary:nth-child(1) > monospace')
     plan_info.should('contain', 'server: 💻 x86_64 💿 Fedora-Rawhide')
-    plan_info.should('contain', 'client: 💻 x86_64 💿 Fedora-Rawhide')
+    plan_info.should('contain', 'client: 💻 aarch64 💿 Fedora-40')
     // check if css is set to a small monospace font
     plan_info.should('have.css', 'font-family', 'monospace')
     plan_info.should('have.css', 'font-size', '11px')
