@@ -124,7 +124,7 @@ function normalizeResult (result, isPipelineRunning) {
     const lower = result.toLowerCase();
     if (lower.includes('pass')) { return 'pass' }
     if (lower.includes('fail') || lower.includes('inspection')) { return 'fail' }
-    if (lower.includes('skip')) { return 'skip' }
+    if (lower.includes('skip') || lower.includes('not_applicable')) { return 'skip' }
     if (lower.includes('info')) { return 'info' }
     if (lower.includes('undefined') && isPipelineRunning) { return 'running' }
     // treat other values like "error", "undefined", unknown as generic error
