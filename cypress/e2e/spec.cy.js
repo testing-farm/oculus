@@ -616,7 +616,7 @@ describe('tf-complete-error', () => it('run', () => {
     cy.intercept(
         'GET',
         'https://api.testing-farm.io/v0.1/requests/' + requestIdMock,
-        { fixture: 'error-with-reason.json' }
+        { fixture: 'error-with-complete-state.json' }
     )
 
     cy.visit(addRequestId('/results.html?url=scenarios/tf-complete-error'));

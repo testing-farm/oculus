@@ -482,7 +482,7 @@ function renderTests (resultsXml, showPassed, apiRequest, isPipelineRunning) {
         : [];
 
     // show pipeline log in case of errors
-    if (apiRequest.state === 'error') {
+    if (apiRequest.state === 'error' || items.length === 0) {
         items.push(html`<details class="pipeline-log" open>
         <summary class="result-error">
             <a href="${pipelineLogUrl}"}>pipeline.log</a>
