@@ -265,4 +265,64 @@
    <property name="baseosci.result" value="error"/>
   </properties>
  </testsuite>
+ <testsuite name="/plans/basic-tmt-verbose-log" result="undefined" tests="0">
+  <logs>
+   <log href="http://artifacts.osci.redhat.com/testing-farm/a8ffd8d2-cd15-4996-891e-f713e2b988e5/work-basic_8ma11_u/df22a4f8-6d16-4765-b547-7928e34169d7-artemis-guest-log.yaml" name="Guest event log"/>
+   <log href="http://artifacts.osci.redhat.com/testing-farm/a8ffd8d2-cd15-4996-891e-f713e2b988e5/work-basic_8ma11_u/console-df22a4f8-6d16-4765-b547-7928e34169d7.log" name="console log"/>
+   <log href="http://artifacts.osci.redhat.com/testing-farm/a8ffd8d2-cd15-4996-891e-f713e2b988e5/work-basic_8ma11_u/flasher-debug-df22a4f8-6d16-4765-b547-7928e34169d7.log" name="flasher debug log"/>
+   <log href="http://artifacts.osci.redhat.com/testing-farm/a8ffd8d2-cd15-4996-891e-f713e2b988e5/work-basic_8ma11_u/flasher-event-df22a4f8-6d16-4765-b547-7928e34169d7.log" name="flasher event log"/>
+   <log guest-setup-stage="pre_artifact_installation" href="http://artifacts.osci.redhat.com/testing-farm/a8ffd8d2-cd15-4996-891e-f713e2b988e5/guest-setup-df22a4f8-6d16-4765-b547-7928e34169d7/guest-setup-output-pre-artifact-installation.txt" name="guest setup" schedule-stage="guest-setup"/>
+   <log guest-setup-stage="post_artifact_installation" href="http://artifacts.osci.redhat.com/testing-farm/a8ffd8d2-cd15-4996-891e-f713e2b988e5/guest-setup-df22a4f8-6d16-4765-b547-7928e34169d7/guest-setup-output-post-artifact-installation.txt" name="guest setup" schedule-stage="guest-setup"/>
+   <log href="/cypress/downloads/inprogress/work-basic_8ma11_u/tmt-run.log" name="tmt-log"/>
+   <log href="/cypress/downloads/inprogress/work-basic_8ma11_u/log.txt" name="tmt-verbose-log"/>
+   <log href="http://artifacts.osci.redhat.com/testing-farm/a8ffd8d2-cd15-4996-891e-f713e2b988e5/work-basic_8ma11_u/tmt-reproducer.sh" name="tmt-reproducer"/>
+   <log href="http://artifacts.osci.redhat.com/testing-farm/a8ffd8d2-cd15-4996-891e-f713e2b988e5/work-basic_8ma11_u" name="workdir"/>
+  </logs>
+  <properties>
+   <property name="baseosci.result" value="undefined"/>
+  </properties>
+ </testsuite>
+ <testsuite name="/plans/basic-running-test" result="undefined" tests="0">
+  <logs>
+   <log href="http://artifacts.osci.redhat.com/testing-farm/a8ffd8d2-cd15-4996-891e-f713e2b988e5/work-basic_8ma11_u/df22a4f8-6d16-4765-b547-7928e34169d7-artemis-guest-log.yaml" name="Guest event log"/>
+   <log href="http://artifacts.osci.redhat.com/testing-farm/a8ffd8d2-cd15-4996-891e-f713e2b988e5/work-basic_8ma11_u/console-df22a4f8-6d16-4765-b547-7928e34169d7.log" name="console log"/>
+   <log href="http://artifacts.osci.redhat.com/testing-farm/a8ffd8d2-cd15-4996-891e-f713e2b988e5/work-basic_8ma11_u/flasher-debug-df22a4f8-6d16-4765-b547-7928e34169d7.log" name="flasher debug log"/>
+   <log href="http://artifacts.osci.redhat.com/testing-farm/a8ffd8d2-cd15-4996-891e-f713e2b988e5/work-basic_8ma11_u/flasher-event-df22a4f8-6d16-4765-b547-7928e34169d7.log" name="flasher event log"/>
+   <log guest-setup-stage="pre_artifact_installation" href="http://artifacts.osci.redhat.com/testing-farm/a8ffd8d2-cd15-4996-891e-f713e2b988e5/guest-setup-df22a4f8-6d16-4765-b547-7928e34169d7/guest-setup-output-pre-artifact-installation.txt" name="guest setup" schedule-stage="guest-setup"/>
+   <log guest-setup-stage="post_artifact_installation" href="http://artifacts.osci.redhat.com/testing-farm/a8ffd8d2-cd15-4996-891e-f713e2b988e5/guest-setup-df22a4f8-6d16-4765-b547-7928e34169d7/guest-setup-output-post-artifact-installation.txt" name="guest setup" schedule-stage="guest-setup"/>
+   <log href="/cypress/downloads/inprogress/work-basic_8ma11_u/tmt-run.log" name="tmt-log"/>
+   <log href="/cypress/downloads/inprogress/work-basic_8ma11_u/log.txt" name="tmt-verbose-log"/>
+   <log href="http://artifacts.osci.redhat.com/testing-farm/a8ffd8d2-cd15-4996-891e-f713e2b988e5/work-basic_8ma11_u/tmt-reproducer.sh" name="tmt-reproducer"/>
+   <log href="http://artifacts.osci.redhat.com/testing-farm/a8ffd8d2-cd15-4996-891e-f713e2b988e5/work-basic_8ma11_u" name="workdir"/>
+  </logs>
+  <properties>
+   <property name="baseosci.result" value="undefined"/>
+  </properties>
+  <testcase name="/upgrade/tasks/00_initial_checks" result="undefined" time="2">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.connectable_host" value="10.31.14.68"/>
+    <property name="baseosci.distro" value="RHEL-9.4.0-Nightly"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="baseosci.testcase.source.url" value=""/>
+    <property name="baseosci.variant" value=""/>
+   </properties>
+   <logs>
+    <log href="http://artifacts.osci.redhat.com/testing-farm/a8ffd8d2-cd15-4996-891e-f713e2b988e5/work-upgrade-el7toel8ueqw_rpg/plans/upgrade-el7toel8/execute/data/guest/default-0/upgrade/tasks/00_initial_checks-0/journal.txt" name="journal.txt" schedule-entry="RHEL-9.4.0-Nightly:x86_64:/plans/upgrade-el7toel8" schedule-stage="running"/>
+    <log href="http://artifacts.osci.redhat.com/testing-farm/a8ffd8d2-cd15-4996-891e-f713e2b988e5/work-upgrade-el7toel8ueqw_rpg/plans/upgrade-el7toel8/execute/data/guest/default-0/upgrade/tasks/00_initial_checks-0" name="log_dir" schedule-entry="RHEL-9.4.0-Nightly:x86_64:/plans/upgrade-el7toel8" schedule-stage="running"/>
+    <log href="/cypress/downloads/inprogress/work-basic_8ma11_u/output.txt" name="testout.log" schedule-entry="RHEL-9.4.0-Nightly:x86_64:/plans/upgrade-el7toel8" schedule-stage="running"/>
+   </logs>
+   <failure/>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="RHEL-9.4.0-Nightly"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="RHEL-9.4.0-Nightly"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+ </testsuite>
 </testsuites>

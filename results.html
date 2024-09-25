@@ -452,6 +452,10 @@ function selectInlineTestsuiteLogs (testsuite, failedSetup, isPipelineRunning) {
     }
     if (!failedSetup) { return }
 
+    const tmtVerboseLogs = testsuite.querySelectorAll(':scope > logs > log[name="tmt-verbose-log"]');
+    tmtVerboseLogs.forEach(log => log.setAttribute(SHOW_ATTR, ''));
+    if (tmtVerboseLogs.length > 0) { return }
+
     const tmtLogs = testsuite.querySelectorAll(':scope > logs > log[name="tmt-log"]');
     tmtLogs.forEach(log => log.setAttribute(SHOW_ATTR, ''));
     if (tmtLogs.length > 0) { return }
