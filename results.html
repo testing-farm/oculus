@@ -327,6 +327,35 @@ function renderLogs (logElements, artifactsAnchor, stage) {
     </div>`;
 }
 
+function renderTmtWebLink (item, elementType, apiRequest) {
+    // for now Public Ranch only
+    if (!apiRequest.run?.artifacts?.startsWith('https://artifacts.dev.testing-farm.io')) { return html`` }
+
+    // fmf data about test suite are derived from API request
+    if (!apiRequest?.test?.fmf) { return html`` }
+
+    // fmf data about test case are taken from <fmf-id> element in results.xml
+    const fmfId = item.querySelector('fmf-id');
+    if (elementType === 'testcase' && (!fmfId?.getAttribute('url') || !fmfId?.getAttribute('ref') ||
+        !fmfId?.getAttribute('name'))) { return html`` }
+
+    let tmtWebUrl = 'https://tmt.testing-farm.io/?';
+    if (elementType === 'testsuite') {
+        tmtWebUrl += `plan-url=${apiRequest.test.fmf.url}` +
+            `&plan-ref=${apiRequest.test.fmf.ref}` +
+            `&plan-name=${item.getAttribute('name')}` +
+            ([null, '.'].includes(apiRequest.test.fmf.path) ? '' : `&plan-path=${apiRequest.test.fmf.path}`);
+    } else {
+        tmtWebUrl += `test-url=${fmfId?.getAttribute('url')}` +
+            `&test-ref=${fmfId?.getAttribute('ref')}` +
+            `&test-name=${fmfId?.getAttribute('name')}` +
+            (fmfId?.getAttribute('path') === null
+                ? ''
+                : `&test-path=${fmfId?.getAttribute('path')}`);
+    }
+    return html`<a href="${tmtWebUrl}&format=html" style="text-decoration: none;" title="Inspect on tmt web">🔎</a>`;
+}
+
 function renderSubresults (subresults, artifactsAnchor) {
     if (!subresults || subresults.length === 0) return html``;
 
@@ -463,7 +492,7 @@ function renderNotes (notes) {
 
 // testsuites contain a list of testsuite, which contain a list of testcase; these have
 // exactly the same structure, so we can render them with just one function
-function renderTestList (doc, elementType, subElementType, showPassed, errorReason, isPipelineRunning) {
+function renderTestList (doc, elementType, subElementType, showPassed, errorReason, apiRequest, isPipelineRunning) {
     const res = [];
     const items = doc.querySelectorAll(elementType);
     items.forEach(item => {
@@ -506,7 +535,7 @@ function renderTestList (doc, elementType, subElementType, showPassed, errorReas
             if (guests.length > 0) { // Multihost pipeline, testing environment is under <guest> elements
                 guests.forEach(guest => {
                     const environment = guest.querySelector('testing-environment[name=provisioned]');
-                    if (environment != null) {
+                    if (environment !== null) {
                         arch = environment.querySelector('property[name=arch]')?.getAttribute('value') ?? arch;
                         compose = environment.querySelector('property[name=compose]')?.getAttribute('value') ?? compose;
                         guestName = guest?.getAttribute('name');
@@ -549,10 +578,12 @@ function renderTestList (doc, elementType, subElementType, showPassed, errorReas
         if (item.getAttribute('time')) { rightSideTexts.push(`took ${item.getAttribute('time')} s`) }
 
         const detailsClass = id === hash ? 'highlight' : null;
+
         res.push(html`
           <details id="${id ?? nothing}" ?open="${isOpen}" class="${detailsClass ?? nothing}">
             <summary class="result-${result}">
                 ${id ? html`<a class="anchor" href=#${id}>${name}</a>` : `${name}`}                
+                ${renderTmtWebLink(item, elementType, apiRequest)}
                 ${note ? ` (${note})` : ''}
                 <monospace>
                     <span style="float:right;"><strong>${rightSideTexts.join(', ')}</strong></span><br>
@@ -562,7 +593,7 @@ function renderTestList (doc, elementType, subElementType, showPassed, errorReas
                 ${renderNotes(notes)}
             </summary>
             ${artifactsAnchor ? html`<p><a href="#${artifactsAnchor}">Go to Logs and Artifacts</a></p>` : null}
-            ${subElementType ? renderTestList(item, subElementType, null, showPassedIteration, null) : null}
+            ${subElementType ? renderTestList(item, subElementType, null, showPassedIteration, null, apiRequest) : null}
             ${renderSubresults(subresults, artifactsAnchor)}
             ${renderCheckList(checks, artifactsAnchor)}
             ${renderLogs(item.querySelectorAll(':scope > logs > log'), artifactsAnchor, stage)}
@@ -648,7 +679,7 @@ function renderTests (resultsXml, showPassed, apiRequest, isPipelineRunning) {
     const errorReason = apiRequest?.result?.summary;
     const items = resultsXml
         ? renderTestList(
-            resultsXml, 'testsuite', 'testcase', showPassed, errorReason, isPipelineRunning)
+            resultsXml, 'testsuite', 'testcase', showPassed, errorReason, apiRequest, isPipelineRunning)
         : [];
 
     // show pipeline log in case of errors

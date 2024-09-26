@@ -792,6 +792,7 @@
     <property name="baseosci.variant" value=""/>
     <property name="id" value="work-basic_WExhR_plans-features-basic_14_default-0"/>
    </properties>
+   <fmf-id url="https://gitlab.com/testing-farm/tests" ref="main" name="/tests/execute/basic"/>
    <logs>
     <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/execute/basic" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
     <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/execute/basic/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>
@@ -818,6 +819,7 @@
     <property name="baseosci.variant" value=""/>
     <property name="id" value="work-basic_WExhR_plans-features-basic_15_default-0"/>
    </properties>
+   <fmf-id url="https://gitlab.com/testing-farm/tests" ref="main" name="/tests/execute/basic" path="some/path"/>
    <logs>
     <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/execute/codes" name="log_dir" schedule-entry="/plans/features/basic" schedule-stage="running"/>
     <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-basic_WExhR/plans/features/basic/execute/data/tests/execute/codes/output.txt" name="testout.log" schedule-entry="/plans/features/basic" schedule-stage="running"/>

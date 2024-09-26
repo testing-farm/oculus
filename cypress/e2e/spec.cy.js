@@ -364,7 +364,7 @@ describe('tmt-mixed', () => it('run', () => {
     cy.window().its('scrollY').should('lessThan', 150);
 
     // jump to plan artifacts
-    cy.get('main > details:nth-of-type(1) > p > a')
+    cy.get('main > details:nth-of-type(1) > p:nth-child(2) > a:nth-child(1)')
         .should('have.text', 'Go to Logs and Artifacts')
         .click();
     // this moves tmt-reproducer to the top
@@ -379,6 +379,11 @@ describe('tmt-mixed', () => it('run', () => {
         .shadow().find('pre')
         .should('contain', 'plan --name ^\\/plans\\/features\\/advanced');
 
+    // tmt web link for test suite should be correct
+    cy.get('#work-advancedw2ccwZ_plans-features-advanced > summary:nth-child(1) > a:nth-child(2)')
+        .should('have.text', '🔎')
+        .should("have.attr", "href", "https://tmt.testing-farm.io/?plan-url=https://github.com/martinpitt/python-dbusmock&plan-ref=fmftest&plan-name=/plans/features/advanced&format=html");
+
     // error reason shown not be shown
     cy.get('main > details summary p').should('not.exist')
 
@@ -387,6 +392,16 @@ describe('tmt-mixed', () => it('run', () => {
         addRequestId('/results.html?url=scenarios/tmt-mixed') + '#work-basic_WExhR_plans-features-basic_14_default-0'
     );
     cy.reload();
+
+    // tmt web link for test case should be correct
+    cy.get('#work-basic_WExhR_plans-features-basic_14_default-0 > summary:nth-child(1) > a:nth-child(2)')
+        .should('have.text', '🔎')
+        .should("have.attr", "href", "https://tmt.testing-farm.io/?test-url=https://gitlab.com/testing-farm/tests&test-ref=main&test-name=/tests/execute/basic&format=html");
+
+    cy.get('#work-basic_WExhR_plans-features-basic_15_default-0 > summary:nth-child(1) > a:nth-child(2)')
+        .should('have.text', '🔎')
+        .should("have.attr", "href", "https://tmt.testing-farm.io/?test-url=https://gitlab.com/testing-farm/tests&test-ref=main&test-name=/tests/execute/basic&test-path=some/path&format=html");
+
 
     // window should be scrolled down to the visited element
     cy.window().its('scrollY').should('greaterThan', 150);
@@ -453,7 +468,7 @@ describe('tmt-multihost-pass', () => it('run', () => {
     cy.window().its('scrollY').should('lessThan', 150);
 
     // jump to plan artifacts
-    cy.get('main > details:nth-of-type(1) > p > a')
+    cy.get('main > details:nth-of-type(1) > p:nth-child(2) > a:nth-child(1)')
         .should('have.text', 'Go to Logs and Artifacts')
         .click();
 }));
