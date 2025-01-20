@@ -53,6 +53,7 @@
     .result-error { background-color: darkorange; font-size: 12px; }
     .result-running { background-color: paleturquoise; font-size: 12px; }
     .footer { color:#929292; }
+    .subresult { padding: 1ex; margin: 3ex; background-color: white; box-shadow: 2px 2px 2px lightgrey; }
 
     iframe.html-artifact { height: 80vh; }
   </style>
@@ -285,6 +286,50 @@ function renderLogs (logElements, artifactsAnchor, stage) {
     </div>`;
 }
 
+function renderSubresults (subresults, artifactsAnchor) {
+    if (!subresults) return html``;
+
+    const subresultsStr = [];
+    const subresultsCount = subresults.length;
+    let failCount = 0;
+    let errorCount = 0;
+    let passCount = 0;
+    subresults.forEach(subresult => {
+        if (subresult.getAttribute('result') === 'fail') failCount++;
+        if (subresult.getAttribute('result') === 'error') errorCount++;
+        if (subresult.getAttribute('result') === 'pass') passCount++;
+        const logs = subresult.querySelectorAll('logs > log');
+        if (logs.length > 0) {
+            subresultsStr.push(html`
+                <details>
+                    <summary class="result-${subresult.getAttribute('result')}">
+                        ${subresult.getAttribute('name')}
+                    </summary>
+                    ${renderLogs(logs, artifactsAnchor)}
+                </details>`
+            );
+        } else {
+            subresultsStr.push(html`
+                <div class="subresult">
+                    <monospace>
+                        <div class="result-${subresult.getAttribute('result')}">
+                            ${subresult.getAttribute('name')}
+                        </div>
+                    </monospace>
+                </div>`
+            );
+        }
+    });
+    const result = failCount + errorCount === 0 ? 'pass' : (errorCount > 0 ? 'error' : 'fail');
+    return html`<h3>Subresults</h3>
+        <details>
+            <summary class="result-${result}">
+                ${subresultsCount} subresults (${passCount} passed, ${failCount} failed, ${errorCount} error)
+            </summary>
+            ${subresultsStr}
+        </details>`;
+}
+
 function renderCheckSummary (checks) {
     const checkCount = checks.getAttribute('checks');
     const failCount = checks.getAttribute('failures');
@@ -341,6 +386,7 @@ function renderTestList (doc, elementType, subElementType, showPassed, errorReas
         const guestsStr = [];
         let guestInfo = null; // displayed for testcases run in multihost pipelines
         let checks = null;
+        let subresults = null;
         if (!showPassed && isPassed(result)) { return }
 
         // render artifacts anchors for top-level plans, as they can be quite far away
@@ -381,6 +427,7 @@ function renderTestList (doc, elementType, subElementType, showPassed, errorReas
                 guestInfo = `test #${serialNumber} on ${guestName}${guestRole ? ` (${guestRole})` : ''}`;
             }
             checks = item.querySelector('checks');
+            subresults = item.querySelectorAll('subresult');
         }
 
         const rightSideTexts = [];
@@ -402,8 +449,9 @@ function renderTestList (doc, elementType, subElementType, showPassed, errorReas
             </summary>
             ${artifactsAnchor ? html`<p><a href="#${artifactsAnchor}">Go to Logs and Artifacts</a></p>` : null}
             ${subElementType ? renderTestList(item, subElementType, null, showPassed, null) : null}
-            ${renderLogs(item.querySelectorAll(':scope > logs > log'), artifactsAnchor, stage)}
+            ${renderSubresults(subresults, artifactsAnchor)}
             ${renderCheckList(checks, artifactsAnchor)}
+            ${renderLogs(item.querySelectorAll(':scope > logs > log'), artifactsAnchor, stage)}
           </details>`);
     });
     return res;

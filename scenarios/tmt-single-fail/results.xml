@@ -36,6 +36,19 @@
     <property name="compose" value="Fedora-37"/>
     <property name="snapshots" value="False"/>
    </testing-environment>
+   <subresults>
+    <subresult name="/some-test" result="pass" original-result="pass" end-time="2025-02-04T09:10:12.549559+00:00">
+     <logs>
+      <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb/work-sanity3yq55pww/testing-farm/sanity/execute/data/guest/default-0/testing-farm/script-1/data/some-test_log1.txt" name="some-test_log1.txt"/>
+     </logs>
+    </subresult>
+    <subresult name="/some-other-test" result="pass" original-result="pass" end-time="2025-02-04T09:10:12.571171+00:00">
+     <logs>
+      <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb33b68574975c/work-sanity3yq55pww/testing-farm/sanity/execute/data/guest/default-0/testing-farm/script-1/data/some-other-test_log2.txt" name="some-other-test_log2.txt"/>
+     </logs>
+    </subresult>
+    <subresult name="/some-test" result="fail" original-result="fail" end-time="2025-02-04T09:10:12.578504+00:00"/>
+   </subresults>
   </testcase>
  </testsuite>
 </testsuites>

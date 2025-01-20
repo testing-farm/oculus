@@ -211,6 +211,16 @@ describe('tmt-single-fail', () => it('run', () => {
         // testout.log visible
         cy.get('details log-viewer').shadow().find('pre')
             .should('have.text', 'something went wrong\n');
+        
+        // subresults
+        cy.get('details:nth-child(3) > details:nth-child(3) > summary').should('have.class', 'result-fail').should('contain', '3 subresults (2 passed, 1 failed, 0 error)');
+        cy.get('details:nth-child(3) > details:nth-child(3)').within(() => {
+              cy.get('details:nth-child(2) > summary').should('have.class', 'result-pass').should('contain', '/some-test')
+              cy.get('details:nth-child(2) > div > ul > li > a').should('have.text', 'some-test_log1.txt')
+              cy.get('details:nth-child(3) > summary').should('have.class', 'result-pass').should('contain', '/some-other-test')
+              cy.get('details:nth-child(3) > div > ul > li > a').should('have.text', 'some-other-test_log2.txt')
+              cy.get('div:nth-child(4) > monospace > div').should('have.class', 'result-fail').should('contain', '/some-test')
+        });
     });
 
     // no pipeline.log, as not an error state
