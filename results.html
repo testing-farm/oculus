@@ -332,11 +332,22 @@ function renderSubresults (subresults, artifactsAnchor) {
 }
 
 function renderCheckSummary (checks) {
-    const checkCount = checks.getAttribute('checks');
-    const failCount = checks.getAttribute('failures');
-    const errorCount = checks.getAttribute('errors');
-    const passCount = checkCount - failCount - errorCount;
-    return `${checkCount} checks (${passCount} passed, ${failCount} failed, ${errorCount} error)`;
+    let checkCount = 0;
+    let failCount = 0;
+    let errorCount = 0;
+    let passCount = 0;
+    let skipCount = 0;
+
+    checks.querySelectorAll('check').forEach(check => {
+        checkCount++;
+        switch (check.getAttribute('result')) {
+        case 'fail': { failCount++; break }
+        case 'error': { errorCount++; break }
+        case 'pass': { passCount++; break }
+        case 'skip': { skipCount++; break }
+        }
+    });
+    return `${checkCount} checks (${passCount} passed, ${failCount} failed, ${errorCount} error, ${skipCount} skipped)`;
 }
 
 function renderCheckList (checks, artifactsAnchor) {
@@ -351,12 +362,24 @@ function renderCheckList (checks, artifactsAnchor) {
         const checkName = check.getAttribute('name');
         const checkResult = check.getAttribute('result');
         const checkEvent = check.getAttribute('event');
-
-        checksStr.push(
-            html`<details><summary class="result-${checkResult}">${checkName} (${checkEvent})</summary>
-                ${renderLogs(check.querySelectorAll('logs > log'), artifactsAnchor)}
+        const logs = check.querySelectorAll('logs > log');
+        if (logs.length > 0) {
+            checksStr.push(html`
+                <details><summary class="result-${checkResult}">${checkName} (${checkEvent})</summary>
+                ${renderLogs(logs, artifactsAnchor)}
                 </details>`
-        );
+            );
+        } else {
+            checksStr.push(html`
+                <div class="subresult">
+                    <monospace>
+                        <div class="result-${checkResult}">
+                            ${checkName} (${checkEvent})
+                        </div>
+                    </monospace>
+                </div>`
+            );
+        }
     });
     if (checksStr.length > 0) {
         return html`<h3>Checks</h3>

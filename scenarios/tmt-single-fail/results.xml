@@ -51,6 +51,26 @@
     </subresult>
     <subresult name="/some-test" result="fail" original-result="fail" end-time="2025-02-04T09:10:12.578504+00:00"/>
    </subresults>
+   <checks checks="4" errors="1" failures="1">
+    <check name="dmesg" result="fail" event="before-test">
+     <logs>
+      <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb33b68574975c/work-sanity3yq55pww/testing-farm/sanity/execute/data/guest/default-0/testing-farm/script-1/selinux_state_check/smoke/tests/selinux/selinux_check-1/checks/dmesg-before-test.txt" name="dmesg-before-test.txt"/>
+     </logs>
+    </check>
+    <check name="dmesg" result="pass" event="after-test">
+     <logs>
+      <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb33b68574975c/work-sanity3yq55pww/testing-farm/sanity/execute/data/guest/default-0/testing-farm/script-1/selinux_state_check/smoke/tests/selinux/selinux_check-1/checks/dmesg-after-test.txt" name="dmesg-after-test.txt"/>
+     </logs>
+    </check>
+    <check name="avc" result="error" event="before-test">
+     <logs>
+      <log href="https://artifacts.dev.testing-farm.io/8587cad1-aa42-46a8-97fc-21cc612d8edb33b68574975c/work-sanity3yq55pww/testing-farm/sanity/execute/data/guest/default-0/testing-farm/script-1/checks/avc-before-test.txt" name="avc-before-test.txt"/>
+     </logs>
+    </check>
+    <check name="avc" result="skip" event="after-test">
+     <logs/>
+    </check>
+   </checks>
   </testcase>
  </testsuite>
 </testsuites>

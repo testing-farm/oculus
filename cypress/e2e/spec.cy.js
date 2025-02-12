@@ -221,6 +221,18 @@ describe('tmt-single-fail', () => it('run', () => {
               cy.get('details:nth-child(3) > div > ul > li > a').should('have.text', 'some-other-test_log2.txt')
               cy.get('div:nth-child(4) > monospace > div').should('have.class', 'result-fail').should('contain', '/some-test')
         });
+
+        // checks
+        cy.get('details:nth-child(3) > details:nth-child(5) > summary').should('have.class', 'result-error').should('contain', '4 checks (1 passed, 1 failed, 1 error, 1 skipped)');
+        cy.get('details:nth-child(3) > details:nth-child(5)').within(() => {
+            cy.get('details:nth-child(2) > summary').should('have.class', 'result-fail').should('contain', 'dmesg (before-test)');
+            cy.get('details:nth-child(2) > div > ul > li > a').should('have.text', 'dmesg-before-test.txt')
+            cy.get('details:nth-child(3) > summary').should('have.class', 'result-pass').should('contain', 'dmesg (after-test)');
+            cy.get('details:nth-child(3) > div > ul > li > a').should('have.text', 'dmesg-after-test.txt')
+            cy.get('details:nth-child(4) > summary').should('have.class', 'result-error').should('contain', 'avc (before-test)');
+            cy.get('details:nth-child(4) > div > ul > li > a').should('have.text', 'avc-before-test.txt')
+            cy.get('div:nth-child(5) > monospace > div').should('have.class', 'result-skip').should('contain', 'avc (after-test)');
+        });
     });
 
     // no pipeline.log, as not an error state
