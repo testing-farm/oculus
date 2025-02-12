@@ -55,6 +55,9 @@ describe('tmt-single-pass', () => it('run', () => {
         // testout.log visible
         cy.get('details log-viewer').shadow().find('pre')
             .should('have.text', 'all good!\n');
+        
+        // subresults or checks should not exist
+        cy.get('details details').should('not.exist');
     });
 
     // no pipeline.log, as successful
@@ -97,6 +100,9 @@ describe('tmt-single-info', () => it('run', () => {
         // testout.log visible
         cy.get('details log-viewer').shadow().find('pre')
             .should('have.text', 'some info only\n');
+
+        // subresults or checks should not exist
+        cy.get('details details').should('not.exist');
     });
 
     // no pipeline.log, as successful
@@ -138,6 +144,9 @@ describe('tmt-21-fails', () => it('run', () => {
             .should('contain', '/tests1')
             .and('not.have.attr', 'open');
         cy.get('details summary').should('have.class', 'result-fail');
+
+        // subresults or checks should not exist
+        cy.get('details details').should('not.exist');
     });
 
     // no pipeline.log, as not an error state
@@ -173,6 +182,9 @@ describe('tmt-2-fails', () => it('run', () => {
             .should('contain', '/tests1')
             .and('not.have.attr', 'open');
         cy.get('details summary').should('have.class', 'result-fail');
+
+        // subresults or checks should not exist
+        cy.get('details details').should('not.exist');
     });
 
     // no pipeline.log, as not an error state
@@ -287,6 +299,9 @@ describe('tmt-html-artifact', () => it('run', () => {
             // retries until body is loaded
             .its('0.contentDocument.body').should('not.be.empty')
             .should('contain', 'Custom results viewer');
+
+        // subresults or checks should not exist
+        cy.get('details details').should('not.exist');
     });
 
     // error reason shown not be shown
@@ -423,6 +438,9 @@ describe('tmt-failed-install', () => it('run', () => {
             .and('contain', 'dnf --allowerasing -y install')
             .and('contain', 'nothing provides pkgconfig(binutils-devel)')
             .and('not.contain', 'Index of');
+
+        // subresults or checks should not exist
+        cy.get('details details').should('not.exist');
     });
 
     // error state shows pipeline.log
@@ -462,6 +480,9 @@ describe('tmt-failed-install-rhel', () => it('run', () => {
             .should('contain', 'TheDownloadLog')
             .and('contain', 'TheInstallLog')
             .and('not.contain', 'Index of');
+
+        // subresults or checks should not exist
+        cy.get('details details').should('not.exist');
     });
 
     // error reason shown not be shown (no mocked request)
@@ -495,6 +516,8 @@ describe('tmt-failed-prepare', () => it('run', () => {
             .and('contain', 'post_artifact_installation')
             .and('contain', 'workdir');
 
+        // subresults or checks should not exist
+        cy.get('details details').should('not.exist');
     });
 
     // error state shows pipeline.log

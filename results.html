@@ -288,7 +288,7 @@ function renderLogs (logElements, artifactsAnchor, stage) {
 }
 
 function renderSubresults (subresults, artifactsAnchor) {
-    if (!subresults) return html``;
+    if (!subresults || subresults.length === 0) return html``;
 
     const subresultsStr = [];
     const subresultsCount = subresults.length;
