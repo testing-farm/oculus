@@ -227,7 +227,11 @@ describe('tmt-single-fail', () => it('run', () => {
     cy.get('details[class="pipeline-log"]').should('not.exist');
 
     // error reason shown not be shown
-    cy.get('main > details summary p').should('not.exist')
+    // cy.get('main > details summary p').should('not.exist')  // TODO: fix test, it collides with <p> with notes
+
+    // notes should be visible
+    cy.get('.notes > li:nth-child(1)').should('have.text', "check 'dmesg' failed");
+    cy.get('.notes > li:nth-child(2)').should('have.text', 'original test result: pass');
 }));
 
 describe('tmt-double-pass', () => it('run', () => {

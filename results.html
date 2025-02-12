@@ -54,6 +54,7 @@
     .result-running { background-color: paleturquoise; font-size: 12px; }
     .footer { color:#929292; }
     .subresult { padding: 1ex; margin: 3ex; background-color: white; box-shadow: 2px 2px 2px lightgrey; }
+    .notes { margin-top: 0px; margin-bottom: 0px; padding-left: 0px; }
 
     iframe.html-artifact { height: 80vh; }
   </style>
@@ -369,6 +370,15 @@ function renderCheckList (checks, artifactsAnchor) {
     return html``;
 }
 
+function renderNotes (notes) {
+    if (!notes || notes.length === 0) { return html`` }
+    const notesHtml = [];
+    notes.forEach(note => {
+        notesHtml.push(html`<li>${note.textContent}</li>`);
+    });
+    return html`<p>notes:</p><ul class="notes">${notesHtml}</ul>`;
+}
+
 // testsuites contain a list of testsuite, which contain a list of testcase; these have
 // exactly the same structure, so we can render them with just one function
 function renderTestList (doc, elementType, subElementType, showPassed, errorReason, isPipelineRunning) {
@@ -382,7 +392,10 @@ function renderTestList (doc, elementType, subElementType, showPassed, errorReas
         let guestRole = null;
         let isOpen = true;
         const result = normalizeResult(item.getAttribute('result'), isPipelineRunning);
+
+        // "note" attribute is an old method of passing note, keeping it for compatibility with old requests
         const note = item.getAttribute('note');
+        let notes = null;
         const guestsStr = [];
         let guestInfo = null; // displayed for testcases run in multihost pipelines
         let checks = null;
@@ -428,6 +441,7 @@ function renderTestList (doc, elementType, subElementType, showPassed, errorReas
             }
             checks = item.querySelector('checks');
             subresults = item.querySelectorAll('subresult');
+            notes = item.querySelectorAll('note');
         }
 
         const rightSideTexts = [];
@@ -446,6 +460,7 @@ function renderTestList (doc, elementType, subElementType, showPassed, errorReas
                     ${guestsStr.map((guest) => html`${guest}<br>`)}
                     ${result === 'error' && errorReason ? html`<p>⚠ ${errorReason}</p>` : null}
                 </monospace>
+                ${renderNotes(notes)}
             </summary>
             ${artifactsAnchor ? html`<p><a href="#${artifactsAnchor}">Go to Logs and Artifacts</a></p>` : null}
             ${subElementType ? renderTestList(item, subElementType, null, showPassed, null) : null}

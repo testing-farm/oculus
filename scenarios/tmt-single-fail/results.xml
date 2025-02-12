@@ -14,6 +14,8 @@
    <property name="baseosci.result" value="failed"/>
   </properties>
   <testcase name="/tests" result="failed">
+   <note>check 'dmesg' failed</note>
+   <note>original test result: pass</note>
    <properties>
     <property name="baseosci.arch" value="x86_64"/>
     <property name="baseosci.connectable_host" value="13.58.236.184"/>
