@@ -305,6 +305,7 @@ function renderSubresults (subresults, artifactsAnchor) {
                 <details>
                     <summary class="result-${subresult.getAttribute('result')}">
                         ${subresult.getAttribute('name')}
+                        <span style="float:right;"><strong>${subresult.getAttribute('result')}</strong></span>
                     </summary>
                     ${renderLogs(logs, artifactsAnchor)}
                 </details>`
@@ -315,6 +316,7 @@ function renderSubresults (subresults, artifactsAnchor) {
                     <monospace>
                         <div class="result-${subresult.getAttribute('result')}">
                             ${subresult.getAttribute('name')}
+                            <span style="float:right;"><strong>${subresult.getAttribute('result')}</strong></span>
                         </div>
                     </monospace>
                 </div>`
@@ -365,7 +367,11 @@ function renderCheckList (checks, artifactsAnchor) {
         const logs = check.querySelectorAll('logs > log');
         if (logs.length > 0) {
             checksStr.push(html`
-                <details><summary class="result-${checkResult}">${checkName} (${checkEvent})</summary>
+                <details>
+                    <summary class="result-${checkResult}">
+                        ${checkName} (${checkEvent})
+                        <span style="float:right;"><strong>${checkResult}</strong></span>
+                    </summary>
                 ${renderLogs(logs, artifactsAnchor)}
                 </details>`
             );
@@ -375,6 +381,7 @@ function renderCheckList (checks, artifactsAnchor) {
                     <monospace>
                         <div class="result-${checkResult}">
                             ${checkName} (${checkEvent})
+                            <span style="float:right;"><strong>${checkResult}</strong></span>
                         </div>
                     </monospace>
                 </div>`
