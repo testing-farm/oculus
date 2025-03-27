@@ -75,15 +75,13 @@
     <a id="api-request" hidden>API request</a>
     <span id="api-request-separator" hidden>|</span>
     <a id="pipeline-log">Pipeline log</a>
-    <span id="pipeline-log-separator">|</span>
-    <a href="https://gitlab.com/testing-farm/oculus/-/issues">Issues for this page</a>
     <span id="download-junit-separator" hidden>|</span>
     <a id="download-junit" download hidden>Download JUnit</a>
   </header>
 
   <main id="main"></main>
 
-  <footer><hr><div class="footer">Rendered from: <a id="results-xml-src"></a></div></footer>
+  <footer><hr><div class="footer">Rendered from: <a id="results-xml-src"></a> by <a href="https://gitlab.com/testing-farm/oculus">Oculus</a></div></footer>
 </body>
 
 <script type="module">
@@ -700,7 +698,6 @@ async function main () {
         document.getElementById('api-request').setAttribute('href', apiRequestUrl);
     }
 
-    document.getElementById('pipeline-log-separator').removeAttribute('hidden');
     document.getElementById('pipeline-log').removeAttribute('hidden');
     document.getElementById('pipeline-log').setAttribute('href', pipelineLogUrl);
 
