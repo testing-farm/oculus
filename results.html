@@ -56,6 +56,9 @@
     .footer { color:#929292; }
     .subresult { padding: 1ex; margin: 3ex; background-color: white; box-shadow: 2px 2px 2px lightgrey; }
     .notes { margin-top: 0px; margin-bottom: 0px; padding-left: 0px; }
+    .highlight { outline-style: solid; outline-color: navy; }
+    .anchor { text-decoration: none; color: inherit }
+    .anchor:hover { text-decoration: underline; }
 
     iframe.html-artifact { height: 80vh; }
   </style>
@@ -139,6 +142,9 @@ const pipelineLogUrl = `${baseUrl}/pipeline.log`;
 // link to the user docs
 const docsUrl = 'https://docs.testing-farm.io/Testing%20Farm/0.1/index.html';
 
+// scroll a linked element into view only once
+let scrolledIntoView = false;
+
 // HACK: Until TFT-1687 is implemented.
 // unify the variations of "pass", "passed", "failed", "failure", etc. to the defined .result-.. classes
 function normalizeResult (result, isPipelineRunning) {
@@ -219,12 +225,14 @@ class LogViewer extends LitElement {
     static properties = {
         url: { type: String },
         placeholder: { type: String },
-        _contents: { type: String, state: true }
+        _contents: { type: String, state: true },
+        _loading: { type: Boolean }
     };
 
     updated (changedProperties) {
         if (changedProperties.has('url')) {
             fetchFile(this.url).then(text => {
+                this._loading = true;
                 if (text) {
                     // is this a directory index? if so, load all of its *.txt files and concatenate
                     if (text.includes('<title>Index of ')) {
@@ -241,7 +249,10 @@ class LogViewer extends LitElement {
                     // file doesn't exist or has no text
                     this._contents = null;
                 }
+                this._loading = false;
             });
+        } else if (scrolledIntoView === false && changedProperties.has('_loading') && this._loading === false) {
+            scrollIntoLinkedElement();
         }
     }
 
@@ -261,6 +272,13 @@ class LogViewer extends LitElement {
             overflow: auto;
             max-height: 70em;
         }`;
+}
+
+function scrollIntoLinkedElement () {
+    const element = document.getElementById(window.location.hash.substring(1));
+    if (!element) { return }
+    scrolledIntoView = true;
+    element.scrollIntoView();
 }
 
 customElements.define('log-viewer', LogViewer);
@@ -450,6 +468,14 @@ function renderTestList (doc, elementType, subElementType, showPassed, errorReas
     const items = doc.querySelectorAll(elementType);
     items.forEach(item => {
         const name = item.getAttribute('name');
+        const id = item.querySelector(':scope > properties > property[name=id]')?.getAttribute('value');
+
+        // Fetch ids of all children to determine if plan should be open and visible if a test inside is linked
+        const idsChildren = [];
+        item.querySelectorAll('properties > property[name=id]').forEach(node => {
+            idsChildren.push(node.getAttribute('value'));
+        });
+
         let arch = null;
         let compose = null;
         let guestName = null;
@@ -464,7 +490,12 @@ function renderTestList (doc, elementType, subElementType, showPassed, errorReas
         let guestInfo = null; // displayed for testcases run in multihost pipelines
         let checks = null;
         let subresults = null;
-        if (!showPassed && isPassed(result)) { return }
+
+        // Render the test suite with all tests if a test inside is linked
+        const hash = window.location.hash.substring(1);
+        const showPassedIteration = idsChildren.includes(hash) ? true : showPassed;
+
+        if (!showPassedIteration && isPassed(result)) { return }
 
         // render artifacts anchors for top-level plans, as they can be quite far away
         const artifactsAnchor = subElementType ? 'artifacts-' + name : undefined;
@@ -492,11 +523,13 @@ function renderTestList (doc, elementType, subElementType, showPassed, errorReas
                     guestsStr.push(`${arch ? ` 💻 ${arch}` : ''}${compose ? ` 💿 ${compose}` : ''}`);
                 }
             }
-            isOpen = (result !== 'pass' || items.length === 1);
+            isOpen = (result !== 'pass' || items.length === 1 || idsChildren.includes(hash));
         } else {
             // As we show only show not passed tests by default, we need to count them and ignore passed
             const failedTestsCount = Array.from(items).filter(i => !isPassed(i.getAttribute('result'))).length;
-            isOpen = (result !== 'pass' || items.length === 1) && failedTestsCount < tooManyTestcases;
+            isOpen = (
+                id === hash || ((result !== 'pass' || items.length === 1) && failedTestsCount < tooManyTestcases)
+            );
             guestName = item.querySelector('guest')?.getAttribute('name');
             guestRole = item.querySelector('guest')?.getAttribute('role');
             const serialNumber = item?.getAttribute('serial-number');
@@ -515,10 +548,12 @@ function renderTestList (doc, elementType, subElementType, showPassed, errorReas
         if (checks && checks.getAttribute('checks') > 0) { rightSideTexts.push(`with ${renderCheckSummary(checks)}`) }
         if (item.getAttribute('time')) { rightSideTexts.push(`took ${item.getAttribute('time')} s`) }
 
+        const detailsClass = id === hash ? 'highlight' : null;
         res.push(html`
-          <details ?open=${isOpen}>
+          <details id="${id ?? nothing}" ?open="${isOpen}" class="${detailsClass ?? nothing}">
             <summary class="result-${result}">
-                ${name}${note ? ` (${note})` : ''}
+                ${id ? html`<a class="anchor" href=#${id}>${name}</a>` : `${name}`}                
+                ${note ? ` (${note})` : ''}
                 <monospace>
                     <span style="float:right;"><strong>${rightSideTexts.join(', ')}</strong></span><br>
                     ${guestsStr.map((guest) => html`${guest}<br>`)}
@@ -527,7 +562,7 @@ function renderTestList (doc, elementType, subElementType, showPassed, errorReas
                 ${renderNotes(notes)}
             </summary>
             ${artifactsAnchor ? html`<p><a href="#${artifactsAnchor}">Go to Logs and Artifacts</a></p>` : null}
-            ${subElementType ? renderTestList(item, subElementType, null, showPassed, null) : null}
+            ${subElementType ? renderTestList(item, subElementType, null, showPassedIteration, null) : null}
             ${renderSubresults(subresults, artifactsAnchor)}
             ${renderCheckList(checks, artifactsAnchor)}
             ${renderLogs(item.querySelectorAll(':scope > logs > log'), artifactsAnchor, stage)}
@@ -674,6 +709,15 @@ async function main () {
                 document.getElementById('show_passed').addEventListener(
                     'change', ev => renderTests(resultsXml, ev.target.checked, apiRequest));
             }
+
+            /* render and highlight a particular test/plan when a user clicks on it */
+            window.addEventListener('hashchange', function () {
+                renderTests(
+                    resultsXml,
+                    isPassed(overallResult) || document.getElementById('show_passed').checked,
+                    apiRequest
+                );
+            });
         }
 
         document.getElementById('overall-result').innerHTML = overallResult;

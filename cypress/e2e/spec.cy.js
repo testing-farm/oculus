@@ -381,6 +381,36 @@ describe('tmt-mixed', () => it('run', () => {
 
     // error reason shown not be shown
     cy.get('main > details summary p').should('not.exist')
+
+    // visiting testcase
+    cy.visit(
+        addRequestId('/results.html?url=scenarios/tmt-mixed') + '#work-basic_WExhR_plans-features-basic_14_default-0'
+    );
+    cy.reload();
+
+    // window should be scrolled down to the visited element
+    cy.window().its('scrollY').should('greaterThan', 150);
+
+    // visited testcase should be visible
+    cy.get('#work-basic_WExhR_plans-features-basic_14_default-0 > div:nth-child(2) > log-viewer:nth-child(2)')
+        .should('be.visible');
+
+    // other passed testsuite should not be visible
+    cy.get('#main > details').should('have.length', 1);
+
+    // visiting testsuite
+    cy.visit(addRequestId('/results.html?url=scenarios/tmt-mixed') + '#work-core5IC43P_plans-features-core');
+    cy.reload();
+
+    // window should be scrolled down to the visited element
+    cy.window().its('scrollY').should('greaterThan', 150);
+
+    // visited testsuite should be visible
+    cy.get('#work-core5IC43P_plans-features-core')
+        .should('be.visible');
+
+    // other passed testsuite should not be visible
+    cy.get('#main > details').should('have.length', 2);
 }));
 
 describe('tmt-multihost-pass', () => it('run', () => {
