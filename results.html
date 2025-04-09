@@ -266,7 +266,7 @@ function renderLogs (logElements, artifactsAnchor, stage) {
     // no logs means an infrastructure problem, provide some hints how to handle the situation
     if (logElements.length === 0) {
         return [
-            html`<p>Tests failed to run. See <a href=${pipelineLogUrl}></a> for details.</p>`,
+            html`<p>Tests failed to run. See <a href="#log-links">logs</a> for more details.</p>`,
             html`
                 <p>This can be an infrastructure problem, check
                 <a href=https://status.testing-farm.io>status page</a>
@@ -281,7 +281,7 @@ function renderLogs (logElements, artifactsAnchor, stage) {
 
     return html`<div id=${artifactsAnchor ?? nothing}>
         ${inlineLogs}
-        ${logLinks.length > 0 ? html`<h3>Log links</h3><ul>${logLinks}</ul>` : null}
+        ${logLinks.length > 0 ? html`<h3 id="log-links">Log links</h3><ul>${logLinks}</ul>` : null}
     </div>`;
 }
 
