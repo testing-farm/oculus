@@ -227,7 +227,7 @@ describe('tmt-single-fail', () => it('run', () => {
         // subresults
         cy.get('details:nth-child(3) > details:nth-child(3) > summary')
             .should('have.class', 'result-fail')
-            .should('contain', '3 subresults (2 passed, 1 failed, 0 error)');
+            .should('contain', '4 subresults (2 passed, 1 failed, 1 warn)');
         cy.get('details:nth-child(3) > details:nth-child(3)').within(() => {
             cy.get('details:nth-child(2) > summary')
                 .should('have.class', 'result-pass')

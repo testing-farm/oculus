@@ -52,6 +52,7 @@
     .result-skip { background-color: lightgrey; font-size: 12px; }
     .result-error { background-color: darkorange; font-size: 12px; }
     .result-running { background-color: paleturquoise; font-size: 12px; }
+    .result-warn { background-color: khaki; font-size: 12px; }
     .footer { color:#929292; }
     .subresult { padding: 1ex; margin: 3ex; background-color: white; box-shadow: 2px 2px 2px lightgrey; }
     .notes { margin-top: 0px; margin-bottom: 0px; padding-left: 0px; }
@@ -293,10 +294,16 @@ function renderSubresults (subresults, artifactsAnchor) {
     let failCount = 0;
     let errorCount = 0;
     let passCount = 0;
+    let skipCount = 0;
+    let warnCount = 0;
     subresults.forEach(subresult => {
-        if (subresult.getAttribute('result') === 'fail') failCount++;
-        if (subresult.getAttribute('result') === 'error') errorCount++;
-        if (subresult.getAttribute('result') === 'pass') passCount++;
+        switch (subresult.getAttribute('result')) {
+        case 'fail': { failCount++; break }
+        case 'error': { errorCount++; break }
+        case 'pass': { passCount++; break }
+        case 'skip': { skipCount++; break }
+        case 'warn': { warnCount++; break }
+        }
         const logs = subresult.querySelectorAll('logs > log');
         if (logs.length > 0) {
             subresultsStr.push(html`
@@ -325,7 +332,13 @@ function renderSubresults (subresults, artifactsAnchor) {
     return html`<h3>Subresults</h3>
         <details>
             <summary class="result-${result}">
-                ${subresultsCount} subresults (${passCount} passed, ${failCount} failed, ${errorCount} error)
+                ${subresultsCount} subresults (${[
+    passCount > 0 ? `${passCount} passed` : null,
+    failCount > 0 ? `${failCount} failed` : null,
+    errorCount > 0 ? `${errorCount} error` : null,
+    skipCount > 0 ? `${skipCount} skipped` : null,
+    warnCount > 0 ? `${warnCount} warn` : null
+].filter(element => element !== null).join(', ')})
             </summary>
             ${subresultsStr}
         </details>`;

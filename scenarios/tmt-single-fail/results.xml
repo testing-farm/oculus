@@ -50,6 +50,7 @@
      </logs>
     </subresult>
     <subresult name="/some-test" result="fail" original-result="fail" end-time="2025-02-04T09:10:12.578504+00:00"/>
+    <subresult name="/some-warn" result="warn" original-result="warn" end-time="2025-02-04T09:10:12.579504+00:00"/>
    </subresults>
    <checks checks="4" errors="1" failures="1">
     <check name="dmesg" result="fail" event="before-test">
