@@ -83,20 +83,20 @@
   </header>
 
   <script>
-    // Early redirect to result.min.html if preference is set and file exists
+    // Early redirect to next.html if preference is set and file exists
     (async () => {
       try {
         if (localStorage.getItem('oculusUIVersion') === 'next') {
-          const response = await fetch('result.min.html', { method: 'HEAD' });
+          const response = await fetch('next.html', { method: 'HEAD' });
           if (response.ok) {
-            window.location.href = 'result.min.html';
+            window.location.href = 'next.html';
           } else {
-            // If result.min.html is not found, clear the preference
+            // If next.html is not found, clear the preference
             localStorage.removeItem('oculusUIVersion');
           }
         }
       } catch (error) {
-        console.warn('Error checking for results.min.html during early redirect:', error);
+        console.warn('Error checking for next.html during early redirect:', error);
         // Potentially clear preference if fetch fails due to network or other issues
         localStorage.removeItem('oculusUIVersion');
       }
@@ -741,10 +741,10 @@ async function main () {
     document.getElementById('docs').removeAttribute('hidden');
     document.getElementById('docs').setAttribute('href', docsUrl);
 
-    // Function to check for results.min.html and enable the switcher
+    // Function to check for next.html and enable the switcher
     async function enableNewUISwitcher() {
       try {
-        const response = await fetch('results.min.html', { method: 'HEAD' });
+        const response = await fetch('next.html', { method: 'HEAD' });
         if (response.ok) {
           const switchToNewUILink = document.getElementById('switchToNewUI');
           const switchToNewUISeparator = document.getElementById('switchToNewUISeparator');
@@ -756,12 +756,12 @@ async function main () {
             switchToNewUILink.addEventListener('click', (event) => {
               event.preventDefault();
               localStorage.setItem('oculusUIVersion', 'next');
-              window.location.href = baseUrl === "." ? 'results.min.html' : `results.min.html?url=${baseUrl}`;
+              window.location.href = baseUrl === "." ? 'next.html' : `next.html?url=${baseUrl}`;
             });
           }
         }
       } catch (error) {
-        console.warn('Could not check for results.min.html:', error);
+        console.warn('Could not check for next.html: ', error);
       }
     }
 
