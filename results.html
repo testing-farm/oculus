@@ -85,21 +85,21 @@
   <script>
     // Early redirect to next.html if preference is set and file exists
     (async () => {
-      try {
-        if (localStorage.getItem('oculusUIVersion') === 'next') {
-          const response = await fetch('next.html', { method: 'HEAD' });
-          if (response.ok) {
-            window.location.href = 'next.html';
-          } else {
-            // If next.html is not found, clear the preference
+        try {
+            if (localStorage.getItem('oculusUIVersion') === 'next') {
+                const response = await fetch('next.html', { method: 'HEAD' });
+                if (response.ok) {
+                    window.location.href = 'next.html';
+                } else {
+                    // If next.html is not found, clear the preference
+                    localStorage.removeItem('oculusUIVersion');
+                }
+            }
+        } catch (error) {
+            console.warn('Error checking for next.html during early redirect:', error);
+            // Potentially clear preference if fetch fails due to network or other issues
             localStorage.removeItem('oculusUIVersion');
-          }
         }
-      } catch (error) {
-        console.warn('Error checking for next.html during early redirect:', error);
-        // Potentially clear preference if fetch fails due to network or other issues
-        localStorage.removeItem('oculusUIVersion');
-      }
     })();
   </script>
 
@@ -742,27 +742,27 @@ async function main () {
     document.getElementById('docs').setAttribute('href', docsUrl);
 
     // Function to check for next.html and enable the switcher
-    async function enableNewUISwitcher() {
-      try {
-        const response = await fetch('next.html', { method: 'HEAD' });
-        if (response.ok) {
-          const switchToNewUILink = document.getElementById('switchToNewUI');
-          const switchToNewUISeparator = document.getElementById('switchToNewUISeparator');
+    async function enableNewUISwitcher () {
+        try {
+            const response = await fetch('next.html', { method: 'HEAD' });
+            if (response.ok) {
+                const switchToNewUILink = document.getElementById('switchToNewUI');
+                const switchToNewUISeparator = document.getElementById('switchToNewUISeparator');
 
-          if (switchToNewUILink && switchToNewUISeparator) {
-            switchToNewUILink.removeAttribute('hidden');
-            switchToNewUISeparator.removeAttribute('hidden');
+                if (switchToNewUILink && switchToNewUISeparator) {
+                    switchToNewUILink.removeAttribute('hidden');
+                    switchToNewUISeparator.removeAttribute('hidden');
 
-            switchToNewUILink.addEventListener('click', (event) => {
-              event.preventDefault();
-              localStorage.setItem('oculusUIVersion', 'next');
-              window.location.href = baseUrl === "." ? 'next.html' : `next.html?url=${baseUrl}`;
-            });
-          }
+                    switchToNewUILink.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        localStorage.setItem('oculusUIVersion', 'next');
+                        window.location.href = baseUrl === '.' ? 'next.html' : `next.html?url=${baseUrl}`;
+                    });
+                }
+            }
+        } catch (error) {
+            console.warn('Could not check for next.html: ', error);
         }
-      } catch (error) {
-        console.warn('Could not check for next.html: ', error);
-      }
     }
 
     // Call the function to enable switcher after other initializations
