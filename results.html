@@ -492,7 +492,7 @@ function renderNotes (notes) {
 
 // testsuites contain a list of testsuite, which contain a list of testcase; these have
 // exactly the same structure, so we can render them with just one function
-function renderTestList (doc, elementType, subElementType, showPassed, errorReason, apiRequest, isPipelineRunning) {
+function renderTestList (doc, elementType, subElementType, showPassed, apiRequest, isPipelineRunning) {
     const res = [];
     const items = doc.querySelectorAll(elementType);
     items.forEach(item => {
@@ -588,12 +588,11 @@ function renderTestList (doc, elementType, subElementType, showPassed, errorReas
                 <monospace>
                     <span style="float:right;"><strong>${rightSideTexts.join(', ')}</strong></span><br>
                     ${guestsStr.map((guest) => html`${guest}<br>`)}
-                    ${result === 'error' && errorReason ? html`<p>⚠ ${errorReason}</p>` : null}
                 </monospace>
                 ${renderNotes(notes)}
             </summary>
             ${artifactsAnchor ? html`<p><a href="#${artifactsAnchor}">Go to Logs and Artifacts</a></p>` : null}
-            ${subElementType ? renderTestList(item, subElementType, null, showPassedIteration, null, apiRequest) : null}
+            ${subElementType ? renderTestList(item, subElementType, null, showPassedIteration, apiRequest) : null}
             ${renderSubresults(subresults, artifactsAnchor)}
             ${renderCheckList(checks, artifactsAnchor)}
             ${renderLogs(item.querySelectorAll(':scope > logs > log'), artifactsAnchor, stage)}
@@ -679,7 +678,7 @@ function renderTests (resultsXml, showPassed, apiRequest, isPipelineRunning) {
     const errorReason = apiRequest?.result?.summary;
     const items = resultsXml
         ? renderTestList(
-            resultsXml, 'testsuite', 'testcase', showPassed, errorReason, apiRequest, isPipelineRunning)
+            resultsXml, 'testsuite', 'testcase', showPassed, apiRequest, isPipelineRunning)
         : [];
 
     // show pipeline log in case of errors
