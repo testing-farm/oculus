@@ -221,7 +221,11 @@ describe('tmt-single-fail', () => it('run', () => {
             .and('have.attr', 'open');
         cy.get('details summary').should('have.class', 'result-fail');
         // testout.log visible
-        cy.get('details log-viewer').shadow().find('pre')
+        cy.contains('details > summary.result-fail', '/tests')
+            .parent()
+            .find('> div > log-viewer')
+            .shadow()
+            .find('pre')
             .should('have.text', 'something went wrong\n');
         
         // subresults
@@ -233,12 +237,14 @@ describe('tmt-single-fail', () => it('run', () => {
                 .should('have.class', 'result-pass')
                 .should('contain', '/some-test')
                 .should('contain', 'pass');
-            cy.get('details:nth-child(2) > div > ul > li > a').should('have.text', 'some-test_log1.txt');
+            cy.get('details:nth-child(2) h3 > a').should('have.text', 'some-test_log1.txt');
+            cy.get('details:nth-child(2) log-viewer').should('exist');
             cy.get('details:nth-child(3) > summary')
                 .should('have.class', 'result-pass')
                 .should('contain', '/some-other-test')
                 .should('contain', 'pass');
-            cy.get('details:nth-child(3) > div > ul > li > a').should('have.text', 'some-other-test_log2.txt');
+            cy.get('details:nth-child(3) h3 > a').should('have.text', 'some-other-test_log2.txt');
+            cy.get('details:nth-child(3) log-viewer').should('exist');
             cy.get('div:nth-child(4) > monospace > div')
                 .should('have.class', 'result-fail')
                 .should('contain', '/some-test')

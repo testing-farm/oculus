@@ -376,6 +376,8 @@ function renderSubresults (subresults, artifactsAnchor) {
         }
         const logs = subresult.querySelectorAll('logs > log');
         if (logs.length > 0) {
+            // Display subresult logs inline, consistent with testcase-level logs
+            logs.forEach(log => log.setAttribute(SHOW_ATTR, ''));
             subresultsStr.push(html`
                 <details>
                     <summary class="result-${subresult.getAttribute('result')}">
