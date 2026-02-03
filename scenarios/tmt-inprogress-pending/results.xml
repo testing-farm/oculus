@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites overall-result="undefined">
+ <properties>
+  <property name="baseosci.overall-result" value="undefined"/>
+ </properties>
+ <testsuite name="/testing-farm/sanity" result="undefined" tests="3" stage="guest_provisioning">
+  <logs>
+   <log href="https://artifacts.dev.testing-farm.io/86ff07af-01c3-4d81-a600-3eeafd027294/work-sanityo92siaqv" name="workdir"/>
+  </logs>
+  <properties>
+   <property name="baseosci.result" value="undefined"/>
+   <property name="id" value="work-sanityo92siaqv_testing-farm-sanity"/>
+  </properties>
+  <testcase name="/testing-farm/script/report-result" result="pending" serial-number="1">
+   <fmf-id url="https://gitlab.com/janhavlin/tests" ref="main" name="/testing-farm/script/report-result"/>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-Rawhide"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <guest name="default-0"/>
+  </testcase>
+  <testcase name="/testing-farm/script/report-result" result="pending" serial-number="2">
+   <fmf-id url="https://gitlab.com/janhavlin/tests" ref="main" name="/testing-farm/script/report-result"/>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-Rawhide"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <guest name="default-0"/>
+  </testcase>
+  <testcase name="/testing-farm/script/report-result" result="pending" serial-number="3">
+   <fmf-id url="https://gitlab.com/janhavlin/tests" ref="main" name="/testing-farm/script/report-result"/>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-Rawhide"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <guest name="default-0"/>
+  </testcase>
+  <testing-environment name="requested">
+   <property name="arch" value="x86_64"/>
+   <property name="compose" value="Fedora-Rawhide"/>
+   <property name="snapshots" value="False"/>
+  </testing-environment>
+ </testsuite>
+</testsuites>

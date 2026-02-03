@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites overall-result="error">
+ <properties>
+  <property name="baseosci.overall-result" value="error"/>
+ </properties>
+ <testsuite name="/testing-farm/sanity" result="undefined" tests="3" stage="complete">
+  <logs>
+   <log href="https://artifacts.dev.testing-farm.io/f537fa54-b785-4976-bfad-0d41b31f57c0/work-sanity8e1y39sr" name="workdir"/>
+  </logs>
+  <properties>
+   <property name="baseosci.result" value="undefined"/>
+   <property name="id" value="work-sanity8e1y39sr_testing-farm-sanity"/>
+  </properties>
+  <testcase name="/testing-farm/script/report-result" result="pending" serial-number="1">
+   <fmf-id url="https://gitlab.com/janhavlin/tests" ref="main" name="/testing-farm/script/report-result"/>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="auto-x"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <guest name="default-0"/>
+  </testcase>
+  <testcase name="/testing-farm/script/report-result" result="pending" serial-number="2">
+   <fmf-id url="https://gitlab.com/janhavlin/tests" ref="main" name="/testing-farm/script/report-result"/>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="auto-x"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <guest name="default-0"/>
+  </testcase>
+  <testcase name="/testing-farm/script/report-result" result="pending" serial-number="3">
+   <fmf-id url="https://gitlab.com/janhavlin/tests" ref="main" name="/testing-farm/script/report-result"/>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="auto-x"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+   <guest name="default-0"/>
+  </testcase>
+  <testing-environment name="requested">
+   <property name="arch" value="x86_64"/>
+   <property name="compose" value="auto-x"/>
+   <property name="snapshots" value="False"/>
+  </testing-environment>
+ </testsuite>
+</testsuites>

@@ -156,6 +156,8 @@ function normalizeResult (result, isPipelineRunning) {
     if (lower.includes('fail') || lower.includes('inspection')) { return 'fail' }
     if (lower.includes('skip') || lower.includes('not_applicable')) { return 'skip' }
     if (lower.includes('info')) { return 'info' }
+    if (lower.includes('pending') && isPipelineRunning) { return 'running' }
+    if (lower.includes('pending')) { return 'error' }
     if (lower.includes('undefined') && isPipelineRunning) { return 'running' }
     // treat other values like "error", "undefined", unknown as generic error
     return 'error';
@@ -283,7 +285,7 @@ function scrollIntoLinkedElement () {
 
 customElements.define('log-viewer', LogViewer);
 
-function renderLogs (logElements, artifactsAnchor, stage) {
+function renderLogs (logElements, artifactsAnchor, stage, result) {
     const logLinks = [];
     const inlineLogs = [];
     logElements.forEach(log => {
@@ -305,8 +307,11 @@ function renderLogs (logElements, artifactsAnchor, stage) {
         }
     });
 
-    // no logs means an infrastructure problem, provide some hints how to handle the situation
+    // no logs can mean an infrastructure problem, provide some hints how to handle the situation
     if (logElements.length === 0) {
+        // do not print infrastructure problem if the plan/test is still running
+        if (result === 'running') { return }
+
         return [
             html`<p>Tests failed to run. See <a href="#log-links">logs</a> for more details.</p>`,
             html`
@@ -594,10 +599,12 @@ function renderTestList (doc, elementType, subElementType, showPassed, apiReques
                 ${renderNotes(notes)}
             </summary>
             ${artifactsAnchor ? html`<p><a href="#${artifactsAnchor}">Go to Logs and Artifacts</a></p>` : null}
-            ${subElementType ? renderTestList(item, subElementType, null, showPassedIteration, apiRequest) : null}
+            ${subElementType
+        ? renderTestList(item, subElementType, null, showPassedIteration, apiRequest, isPipelineRunning)
+        : null}
             ${renderSubresults(subresults, artifactsAnchor)}
             ${renderCheckList(checks, artifactsAnchor)}
-            ${renderLogs(item.querySelectorAll(':scope > logs > log'), artifactsAnchor, stage)}
+            ${renderLogs(item.querySelectorAll(':scope > logs > log'), artifactsAnchor, stage, result)}
           </details>`);
     });
     return res;

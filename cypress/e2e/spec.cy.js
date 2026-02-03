@@ -899,3 +899,67 @@ describe('tf-error-show-passed', () => it('run', () => {
     .should('have.class', 'result-error')
     .should('contain', '/test/error');
 }));
+
+// request is in running state, test cases are pending
+describe('tmt-inprogress-pending', () => it('run', () => {
+    cy.intercept(
+        'GET',
+        'https://api.testing-farm.io/v0.1/requests/' + requestIdMock,
+        { fixture: 'running.json' }
+    )
+
+    cy.visit(addRequestId('/results.html?url=scenarios/tmt-inprogress-pending'));
+
+    // test suite has undefined result, rendered as running
+    cy.get('#work-sanityo92siaqv_testing-farm-sanity > summary:nth-child(1)')
+    .should('have.class', 'result-running')
+
+    // test cases have pending result, rendered as running
+    cy.get('#work-sanityo92siaqv_testing-farm-sanity > details:nth-child(3) > summary:nth-child(1)')
+    .should('have.class', 'result-running')
+    cy.get('#work-sanityo92siaqv_testing-farm-sanity > details:nth-child(3)')
+    .should('not.contain', 'Tests failed to run')
+
+    cy.get('#work-sanityo92siaqv_testing-farm-sanity > details:nth-child(4) > summary:nth-child(1)')
+    .should('have.class', 'result-running')
+    cy.get('#work-sanityo92siaqv_testing-farm-sanity > details:nth-child(4)')
+    .should('not.contain', 'Tests failed to run')
+
+    cy.get('#work-sanityo92siaqv_testing-farm-sanity > details:nth-child(5) > summary:nth-child(1)')
+    .should('have.class', 'result-running')
+    cy.get('#work-sanityo92siaqv_testing-farm-sanity > details:nth-child(5)')
+    .should('not.contain', 'Tests failed to run')
+
+}));
+
+// request is in error state, test cases are pending
+describe('tmt-error-pending', () => it('run', () => {
+    cy.intercept(
+        'GET',
+        'https://api.testing-farm.io/v0.1/requests/' + requestIdMock,
+        { fixture: 'error-with-reason.json' }
+    )
+
+    cy.visit(addRequestId('/results.html?url=scenarios/tmt-error-pending'));
+
+    // test suite has error result, rendered as error
+    cy.get('#work-sanity8e1y39sr_testing-farm-sanity > summary:nth-child(1)')
+    .should('have.class', 'result-error')
+
+    // test cases have pending result, rendered as error
+    cy.get('#work-sanity8e1y39sr_testing-farm-sanity > details:nth-child(3) > summary:nth-child(1)')
+    .should('have.class', 'result-error')
+    cy.get('#work-sanity8e1y39sr_testing-farm-sanity > details:nth-child(3)')
+    .should('contain', 'Tests failed to run')
+
+    cy.get('#work-sanity8e1y39sr_testing-farm-sanity > details:nth-child(4) > summary:nth-child(1)')
+    .should('have.class', 'result-error')
+    cy.get('#work-sanity8e1y39sr_testing-farm-sanity > details:nth-child(4)')
+    .should('contain', 'Tests failed to run')
+
+    cy.get('#work-sanity8e1y39sr_testing-farm-sanity > details:nth-child(5) > summary:nth-child(1)')
+    .should('have.class', 'result-error')
+    cy.get('#work-sanity8e1y39sr_testing-farm-sanity > details:nth-child(5)')
+    .should('contain', 'Tests failed to run')
+
+}));
