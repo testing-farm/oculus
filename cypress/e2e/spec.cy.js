@@ -338,6 +338,32 @@ describe('tmt-html-artifact', () => it('run', () => {
     cy.get('main > details summary p').should('not.exist')
 }));
 
+describe('tmt-html-artifact-first', () => it('run', () => {
+    cy.visit(addRequestId('/results.html?url=scenarios/tmt-html-artifact-first'));
+    cy.get('#overall-result').should('have.text', 'failed');
+
+    // single top-level plan, opened by default
+    cy.get('main > details')
+        .should('contain', '/plans/all')
+        .and('have.attr', 'open');
+
+    cy.get('main > details').within(() => {
+        // failed test is expanded
+        cy.get('details')
+            .should('contain', '/tests')
+            .and('have.attr', 'open');
+        // no log viewer, as we have a HTML artifact (detected via href)
+        cy.get('details > log-viewer').should('not.exist');
+        // custom viewer is shown inline as an iframe
+        cy.get('iframe')
+            .should('have.attr', 'src')
+            .and('contain', '/plans/all/execute/data/tests/viewer.html');
+        cy.get('iframe')
+            .its('0.contentDocument.body').should('not.be.empty')
+            .should('contain', 'Custom results viewer');
+    });
+}));
+
 describe('tmt-mixed', () => it('run', () => {
     cy.visit(addRequestId('/results.html?url=scenarios/tmt-mixed'));
     cy.get('#overall-result').should('have.text', 'failed');
