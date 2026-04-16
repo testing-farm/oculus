@@ -621,7 +621,7 @@ function selectInlineTestcaseLogs (testcase) {
     let haveHtml = false;
 
     testcase.querySelectorAll(':scope > logs > log').forEach(log => {
-        if (log.getAttribute('name').endsWith('.html')) {
+        if (log.getAttribute('name').endsWith('.html') || log.getAttribute('href')?.endsWith('.html')) {
             log.setAttribute(HTML_ATTR, '');
             haveHtml = true;
         }
