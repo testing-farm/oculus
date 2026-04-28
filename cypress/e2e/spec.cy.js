@@ -926,6 +926,68 @@ describe('tf-error-show-passed', () => it('run', () => {
     .should('contain', '/test/error');
 }));
 
+describe('tmt-warnings', () => it('run', () => {
+    cy.visit(addRequestId('/results.html?url=scenarios/tmt-warnings'));
+    cy.get('#overall-result').should('have.text', 'failed');
+
+    cy.get('main > details').within(() => {
+        // warnings box should be visible and collapsed by default
+        cy.get('warnings-viewer .warnings-box')
+            .should('exist')
+            .and('not.have.attr', 'open');
+
+        // summary shows warning count badge
+        cy.get('warnings-viewer .warnings-box > summary')
+            .should('contain', 'Warnings');
+        cy.get('warnings-viewer .warnings-box > summary .warning-count')
+            .should('have.text', '2');
+
+        // help link present
+        cy.get('warnings-viewer .warnings-box > summary a[href*="warnings-yaml"]')
+            .should('exist');
+
+        // details toggle hidden when collapsed
+        cy.get('warnings-viewer .warnings-box > summary .warning-toggle')
+            .should('not.be.visible');
+
+        // expand warnings
+        cy.get('warnings-viewer .warnings-box > summary').click();
+
+        // details toggle visible when expanded
+        cy.get('warnings-viewer .warnings-box > summary .warning-toggle')
+            .should('be.visible');
+
+        // warning messages visible
+        cy.get('warnings-viewer .warnings-box .warning-msg')
+            .should('have.length', 2);
+        cy.get('warnings-viewer .warnings-box li:nth-child(1) .warning-msg')
+            .should('contain', 'User is feeling safe.');
+        cy.get('warnings-viewer .warnings-box li:nth-child(2) .warning-msg')
+            .should('contain', 'invalid');
+
+        // trace/logger not visible by default (reason/source are)
+        cy.get('warnings-viewer .warnings-box .warning-trace')
+            .should('not.contain', 'tmt.run');
+
+        // reason and source visible by default (no toggle needed)
+        cy.get('warnings-viewer .warnings-box li:nth-child(2) .warning-trace')
+            .should('contain', 'reason: fmf node validation')
+            .and('contain', 'source: /plans/all');
+
+        // trace/logger not visible until toggle enabled
+        cy.get('warnings-viewer .warnings-box .warning-trace')
+            .should('not.contain', 'tmt.run');
+
+        // enable details toggle
+        cy.get('warnings-viewer .warning-toggle input').check({ force: true });
+
+        // trace and logger now visible
+        cy.get('warnings-viewer .warnings-box .warning-trace')
+            .should('contain', 'tmt.run')
+            .and('contain', 'tmt/base/core.py');
+    });
+}));
+
 // request is in running state, test cases are pending
 describe('tmt-inprogress-pending', () => it('run', () => {
     cy.intercept(
