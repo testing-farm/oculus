@@ -433,17 +433,17 @@ class WarningsViewer extends LitElement {
                     ${this._warnings.map(w => html`
                         <li>
                             <span class="warning-msg">${w.msg}</span>
-                            ${this._showDetails && w.logger
-        ? html`<br><span class="warning-trace">[${w.logger}]</span>`
-        : nothing}
-                            ${this._showDetails && w.trace
-        ? html`<br><span class="warning-trace">${w.trace}</span>`
-        : nothing}
                             ${w.reason
         ? html`<br><span class="warning-trace">reason: ${w.reason}</span>`
         : nothing}
                             ${w.source
         ? html`<br><span class="warning-trace">source: ${w.source}</span>`
+        : nothing}
+                            ${this._showDetails && w.logger
+        ? html`<br><span class="warning-trace">[${w.logger}]</span>`
+        : nothing}
+                            ${this._showDetails && w.trace
+        ? html`<br><span class="warning-trace">${w.trace}</span>`
         : nothing}
                         </li>
                     `)}
