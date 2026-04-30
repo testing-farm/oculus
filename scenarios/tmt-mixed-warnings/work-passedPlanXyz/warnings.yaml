@@ -1,0 +1,8 @@
+- logger: tmt.run
+  msg: Deprecated feature used in passed plan.
+  trace: 'tmt/base/core.py#100: go()'
+- logger: tmt.utils
+  msg: '/plans/passed: fmf node validation warning'
+  trace: 'tmt/utils/__init__.py#200: _validate_fmf_node()'
+  reason: fmf node validation
+  source: /plans/passed

@@ -229,10 +229,10 @@ describe('tmt-single-fail', () => it('run', () => {
             .should('have.text', 'something went wrong\n');
         
         // subresults
-        cy.get('details:nth-child(3) > details:nth-child(3) > summary')
+        cy.get('details:nth-of-type(1) > details:nth-of-type(1) > summary')
             .should('have.class', 'result-fail')
             .should('contain', '4 subresults (2 passed, 1 failed, 1 warn)');
-        cy.get('details:nth-child(3) > details:nth-child(3)').within(() => {
+        cy.get('details:nth-of-type(1) > details:nth-of-type(1)').within(() => {
             cy.get('details:nth-child(2) > summary')
                 .should('have.class', 'result-pass')
                 .should('contain', '/some-test')
@@ -252,10 +252,10 @@ describe('tmt-single-fail', () => it('run', () => {
         });
 
         // checks
-        cy.get('details:nth-child(3) > details:nth-child(5) > summary')
+        cy.get('details:nth-of-type(1) > details:nth-of-type(2) > summary')
             .should('have.class', 'result-error')
             .should('contain', '4 checks (1 passed, 1 failed, 1 error, 1 skipped)');
-        cy.get('details:nth-child(3) > details:nth-child(5)').within(() => {
+        cy.get('details:nth-of-type(1) > details:nth-of-type(2)').within(() => {
             cy.get('details:nth-child(2) > summary')
                 .should('have.class', 'result-fail')
                 .should('contain', 'dmesg (before-test)').should('contain', 'fail');
@@ -370,16 +370,15 @@ describe('tmt-mixed', () => it('run', () => {
     // docs are always visible
     cy.get('#docs').should('be.visible');
     // failed tests are shown by default
-    cy.get('main > details').should('contain', '/plans/features/basic');
-    cy.get('main > details').should('contain', '/tests/discover/distgit');
-    cy.get('main > details summary').should('have.class', 'result-fail');
+    cy.get('main > details:not([hidden])').should('contain', '/plans/features/basic');
+    cy.get('main > details:not([hidden])').should('contain', '/tests/discover/distgit');
+    cy.get('main > details:not([hidden]) summary').should('have.class', 'result-fail');
     // links and shows correct reproducer
     cy.get('log-viewer[url*="/work-basic_WExhR/tmt-reproducer.sh"]')
         .shadow().find('pre')
         .should('contain', 'plan --name ^\\/plans\\/features\\/basic');
     // passed tests are hidden by default
-    cy.get('main > details').should('not.contain', '/tests/clean/chain');
-    cy.get('details[class="result-pass"').should('not.exist');
+    cy.get('main > details:not([hidden])').should('not.contain', '/tests/clean/chain');
     // config box, as there are passed and failed tests
     cy.get('#config')
         .should('be.visible')
@@ -443,7 +442,7 @@ describe('tmt-mixed', () => it('run', () => {
         .should('be.visible');
 
     // other passed testsuite should not be visible
-    cy.get('#main > details').should('have.length', 1);
+    cy.get('#main > details:not([hidden])').should('have.length', 1);
 
     // visiting testsuite
     cy.visit(addRequestId('/results.html?url=scenarios/tmt-mixed') + '#work-core5IC43P_plans-features-core');
@@ -457,7 +456,7 @@ describe('tmt-mixed', () => it('run', () => {
         .should('be.visible');
 
     // other passed testsuite should not be visible
-    cy.get('#main > details').should('have.length', 2);
+    cy.get('#main > details:not([hidden])').should('have.length', 2);
 }));
 
 describe('tmt-multihost-pass', () => it('run', () => {
@@ -474,19 +473,19 @@ describe('tmt-multihost-pass', () => it('run', () => {
     plan_info.should('have.css', 'font-size', '11px')
 
     // each test contains the correct name of the test and name of the guest it was executed on 
-    const test_1 = cy.get('#main > details:nth-child(1) > details:nth-child(3) > summary:nth-child(1)')
+    const test_1 = cy.get('#main > details:nth-of-type(1) > details:nth-of-type(1) > summary:nth-child(1)')
     test_1.should('contain', '/server-setup/testing-farm/tests/multihost/A')
     test_1.should('contain', 'test #1 on server')
-    const test_2 = cy.get('#main > details:nth-child(1) > details:nth-child(4) > summary:nth-child(1)')
+    const test_2 = cy.get('#main > details:nth-of-type(1) > details:nth-of-type(2) > summary:nth-child(1)')
     test_2.should('contain', '/tests/testing-farm/tests/multihost/B')
     test_2.should('contain', 'test #2 on server')
-    const test_3 = cy.get('#main > details:nth-child(1) > details:nth-child(5) > summary:nth-child(1)')
+    const test_3 = cy.get('#main > details:nth-of-type(1) > details:nth-of-type(3) > summary:nth-child(1)')
     test_3.should('contain', '/tests/testing-farm/tests/multihost/B')
     test_3.should('contain', 'test #2 on client')
-    const test_4 = cy.get('#main > details:nth-child(1) > details:nth-child(6) > summary:nth-child(1)')
+    const test_4 = cy.get('#main > details:nth-of-type(1) > details:nth-of-type(4) > summary:nth-child(1)')
     test_4.should('contain', '/tests/testing-farm/tests/multihost/C')
     test_4.should('contain', 'test #3 on server')
-    const test_5 = cy.get('#main > details:nth-child(1) > details:nth-child(7) > summary:nth-child(1)')
+    const test_5 = cy.get('#main > details:nth-of-type(1) > details:nth-of-type(5) > summary:nth-child(1)')
     test_5.should('contain', '/tests/testing-farm/tests/multihost/C')
     test_5.should('contain', 'test #3 on client')
 
@@ -894,34 +893,34 @@ describe('tf-error-show-passed', () => it('run', () => {
     // docs are always visible
     cy.get('#docs').should('be.visible');
 
-    cy.get('main > details')
+    cy.get('main > details:not([hidden])')
         .should('contain', 'pipeline')
         .and('have.attr', 'open');
 
     // error reason shown
-    cy.get('main > details summary p')
+    cy.get('main > details:not([hidden]) summary p')
         .should('contain', '⚠ A nice human-readable error reason.');
 
-    // passed plan not visible yet
-    cy.get('#main > details').should('have.length', 2);
+    // passed plan not visible yet (hidden via [hidden], no warnings)
+    cy.get('#main > details:not([hidden])').should('have.length', 2);
 
     // show passed tests
     cy.get('#config input').click();
 
     // inspect the plans and tests
-    cy.get('#main > details').should('have.length', 3);
+    cy.get('#main > details:not([hidden])').should('have.length', 3);
 
-    cy.get('#main > details:nth-child(1) > summary:nth-child(1)')
+    cy.get('#main > details:nth-of-type(1) > summary:nth-child(1)')
     .should('have.class', 'result-pass')
     .should('contain', '/plan/pass');
-    cy.get('#main > details:nth-child(1) > details:nth-child(3) > summary:nth-child(1)')
+    cy.get('#main > details:nth-of-type(1) > details:nth-of-type(1) > summary:nth-child(1)')
     .should('have.class', 'result-pass')
     .should('contain', '/test/pass');
 
-    cy.get('#main > details:nth-child(2) > summary:nth-child(1)')
+    cy.get('#main > details:nth-of-type(2) > summary:nth-child(1)')
     .should('have.class', 'result-error')
     .should('contain', '/plan/error');
-    cy.get('#main > details:nth-child(2) > details:nth-child(3) > summary:nth-child(1)')
+    cy.get('#main > details:nth-of-type(2) > details:nth-of-type(1) > summary:nth-child(1)')
     .should('have.class', 'result-error')
     .should('contain', '/test/error');
 }));
@@ -988,6 +987,27 @@ describe('tmt-warnings', () => it('run', () => {
     });
 }));
 
+// warnings auto-show passed plans in mixed results (passed + failed)
+describe('tmt-mixed-warnings', () => it('run', () => {
+    cy.visit(addRequestId('/results.html?url=scenarios/tmt-mixed-warnings'));
+    cy.get('#overall-result').should('have.text', 'failed');
+
+    // failed plan always visible
+    cy.get('main > details:not([hidden]) summary')
+        .should('have.class', 'result-fail');
+
+    // passed plan auto-shown because it has warnings (via CSS :has(.warnings-box))
+    cy.get('#work-passedPlanXyz_plans-passed warnings-viewer .warnings-box', { timeout: 10000 })
+        .should('exist');
+    cy.get('#work-passedPlanXyz_plans-passed')
+        .should('be.visible')
+        .and('have.attr', 'open');
+    cy.get('#work-passedPlanXyz_plans-passed > summary')
+        .should('have.class', 'result-pass');
+    cy.get('#work-passedPlanXyz_plans-passed warnings-viewer .warnings-box > summary .warning-count')
+        .should('have.text', '2');
+}));
+
 // request is in running state, test cases are pending
 describe('tmt-inprogress-pending', () => it('run', () => {
     cy.intercept(
@@ -1003,19 +1023,19 @@ describe('tmt-inprogress-pending', () => it('run', () => {
     .should('have.class', 'result-running')
 
     // test cases have pending result, rendered as running
-    cy.get('#work-sanityo92siaqv_testing-farm-sanity > details:nth-child(3) > summary:nth-child(1)')
+    cy.get('#work-sanityo92siaqv_testing-farm-sanity > details:nth-of-type(1) > summary:nth-child(1)')
     .should('have.class', 'result-running')
-    cy.get('#work-sanityo92siaqv_testing-farm-sanity > details:nth-child(3)')
+    cy.get('#work-sanityo92siaqv_testing-farm-sanity > details:nth-of-type(1)')
     .should('not.contain', 'Tests failed to run')
 
-    cy.get('#work-sanityo92siaqv_testing-farm-sanity > details:nth-child(4) > summary:nth-child(1)')
+    cy.get('#work-sanityo92siaqv_testing-farm-sanity > details:nth-of-type(2) > summary:nth-child(1)')
     .should('have.class', 'result-running')
-    cy.get('#work-sanityo92siaqv_testing-farm-sanity > details:nth-child(4)')
+    cy.get('#work-sanityo92siaqv_testing-farm-sanity > details:nth-of-type(2)')
     .should('not.contain', 'Tests failed to run')
 
-    cy.get('#work-sanityo92siaqv_testing-farm-sanity > details:nth-child(5) > summary:nth-child(1)')
+    cy.get('#work-sanityo92siaqv_testing-farm-sanity > details:nth-of-type(3) > summary:nth-child(1)')
     .should('have.class', 'result-running')
-    cy.get('#work-sanityo92siaqv_testing-farm-sanity > details:nth-child(5)')
+    cy.get('#work-sanityo92siaqv_testing-farm-sanity > details:nth-of-type(3)')
     .should('not.contain', 'Tests failed to run')
 
 }));
@@ -1035,19 +1055,19 @@ describe('tmt-error-pending', () => it('run', () => {
     .should('have.class', 'result-error')
 
     // test cases have pending result, rendered as error
-    cy.get('#work-sanity8e1y39sr_testing-farm-sanity > details:nth-child(3) > summary:nth-child(1)')
+    cy.get('#work-sanity8e1y39sr_testing-farm-sanity > details:nth-of-type(1) > summary:nth-child(1)')
     .should('have.class', 'result-error')
-    cy.get('#work-sanity8e1y39sr_testing-farm-sanity > details:nth-child(3)')
+    cy.get('#work-sanity8e1y39sr_testing-farm-sanity > details:nth-of-type(1)')
     .should('contain', 'Tests failed to run')
 
-    cy.get('#work-sanity8e1y39sr_testing-farm-sanity > details:nth-child(4) > summary:nth-child(1)')
+    cy.get('#work-sanity8e1y39sr_testing-farm-sanity > details:nth-of-type(2) > summary:nth-child(1)')
     .should('have.class', 'result-error')
-    cy.get('#work-sanity8e1y39sr_testing-farm-sanity > details:nth-child(4)')
+    cy.get('#work-sanity8e1y39sr_testing-farm-sanity > details:nth-of-type(2)')
     .should('contain', 'Tests failed to run')
 
-    cy.get('#work-sanity8e1y39sr_testing-farm-sanity > details:nth-child(5) > summary:nth-child(1)')
+    cy.get('#work-sanity8e1y39sr_testing-farm-sanity > details:nth-of-type(3) > summary:nth-child(1)')
     .should('have.class', 'result-error')
-    cy.get('#work-sanity8e1y39sr_testing-farm-sanity > details:nth-child(5)')
+    cy.get('#work-sanity8e1y39sr_testing-farm-sanity > details:nth-of-type(3)')
     .should('contain', 'Tests failed to run')
 
 }));

@@ -1,0 +1,53 @@
+<testsuites overall-result="failed">
+ <properties>
+  <property name="baseosci.overall-result" value="failed"/>
+ </properties>
+ <testsuite name="/plans/passed" result="passed" tests="1">
+  <logs>
+   <log href="./scenarios/tmt-mixed-warnings/work-passedPlanXyz/tmt-reproducer.sh" name="tmt-reproducer"/>
+   <log href="./scenarios/tmt-mixed-warnings/work-passedPlanXyz" name="workdir"/>
+  </logs>
+  <properties>
+   <property name="baseosci.result" value="passed"/>
+   <property name="id" value="work-passedPlanXyz_plans-passed"/>
+  </properties>
+  <testcase name="/tests/smoke" result="passed" serial-number="1">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.distro" value="Fedora-41"/>
+    <property name="id" value="work-passedPlanXyz_plans-passed_1_default-0"/>
+   </properties>
+   <logs>
+    <log href="./scenarios/tmt-mixed-warnings/work-passedPlanXyz/plans/passed/execute/data/tests/output.txt" name="testout.log"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-41"/>
+   </testing-environment>
+  </testcase>
+ </testsuite>
+ <testsuite name="/plans/failed" result="failed" tests="1">
+  <logs>
+   <log href="./scenarios/tmt-mixed-warnings/work-failedPlanAbc/tmt-reproducer.sh" name="tmt-reproducer"/>
+   <log href="./scenarios/tmt-mixed-warnings/work-failedPlanAbc" name="workdir"/>
+  </logs>
+  <properties>
+   <property name="baseosci.result" value="failed"/>
+   <property name="id" value="work-failedPlanAbc_plans-failed"/>
+  </properties>
+  <testcase name="/tests/integration" result="failed" serial-number="1">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.distro" value="Fedora-41"/>
+    <property name="id" value="work-failedPlanAbc_plans-failed_1_default-0"/>
+   </properties>
+   <logs>
+    <log href="./scenarios/tmt-mixed-warnings/work-failedPlanAbc/plans/failed/execute/data/tests/output.txt" name="testout.log"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-41"/>
+   </testing-environment>
+  </testcase>
+ </testsuite>
+</testsuites>
