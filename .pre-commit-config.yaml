@@ -1,18 +1,10 @@
 ---
 repos:
-- repo: https://github.com/pre-commit/mirrors-eslint
-  rev: v8.26.0
+- repo: local
   hooks:
     - id: eslint
-      additional_dependencies:
-        - eslint@8
-        - eslint-config-standard
-        - eslint-plugin-cypress
-        - eslint-plugin-html
-        - eslint-plugin-import
-        - eslint-plugin-n
-        - eslint-plugin-promise
-      args:
-        - --fix
+      name: eslint
+      entry: npx eslint --fix
+      language: system
       files: \.(js|html)$
       types: [file]
