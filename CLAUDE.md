@@ -62,4 +62,4 @@ python3 -m http.server 8000
 
 ### ESLint Style
 
-JavaScript Standard Style via neostandard (ESLint 9 flat config in `eslint.config.mjs`) with: 4-space indent, 120-char max line, semicolons required, smart eqeqeq. Style rules use `@stylistic/` prefix (e.g. `@stylistic/indent`).
+JavaScript Standard Style via neostandard (ESLint 9 flat config in `eslint.config.js`) with: 4-space indent, 120-char max line, semicolons required, smart eqeqeq. Style rules use `@stylistic/` prefix (e.g. `@stylistic/indent`).

@@ -1,10 +1,9 @@
-import neostandard from 'neostandard';
-import html from 'eslint-plugin-html';
-import globals from 'globals';
-import { globalIgnores } from 'eslint/config';
+const neostandard = require('neostandard');
+const html = require('eslint-plugin-html');
+const globals = require('globals');
 
-export default [
-    globalIgnores(['node_modules/', 'scenarios/', 'cypress/']),
+module.exports = [
+    { ignores: ['node_modules/', 'scenarios/', 'cypress/'] },
 
     ...neostandard({ semi: true }),
 

@@ -1,10 +1,15 @@
 ---
 repos:
-- repo: local
+- repo: https://github.com/pre-commit/mirrors-eslint
+  rev: v9.39.0
   hooks:
     - id: eslint
-      name: eslint
-      entry: npx eslint --fix
-      language: system
+      additional_dependencies:
+        - eslint@9
+        - neostandard
+        - eslint-plugin-html@8
+        - globals
+      args:
+        - --fix
       files: \.(js|html)$
       types: [file]
