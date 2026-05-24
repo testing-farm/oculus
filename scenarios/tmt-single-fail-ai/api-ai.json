@@ -1,0 +1,7 @@
+{
+    "state": "complete",
+    "result": {
+        "summary": "check 'dmesg' failed",
+        "ai_summary": "Test failed due to dmesg check detecting kernel warnings during test execution. The original test passed but was marked as failed due to a pre-test dmesg check failure."
+    }
+}

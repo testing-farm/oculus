@@ -11,12 +11,16 @@
         gap: 2ex;
     }
     .stretch { flex: auto; }
+    #config[hidden] {
+        display: none;
+    }
     #config {
-        padding: 1em 0.5em;
-        border: lightgray;
-        border-width: 1px;
-        border-style: solid;
+        padding: 0.5em 1em;
+        border: 1px solid lightgray;
         box-shadow: 2px 2px 2px lightgrey;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4em;
     }
 
     details {
@@ -165,6 +169,70 @@
     .warning-toggle input:checked + .warning-toggle-slider::after {
         transform: translateX(12px);
     }
+    #ai-config[hidden] {
+        display: none;
+    }
+    #ai-config {
+        padding: 0.5em 1em;
+        border: 1px solid lightgray;
+        box-shadow: 2px 2px 2px lightgrey;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4em;
+    }
+    .ai-toggle {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4em;
+        font-weight: normal;
+        font-size: 0.9em;
+        cursor: pointer;
+    }
+    .ai-toggle input {
+        display: none;
+    }
+    .ai-toggle-slider {
+        display: inline-block;
+        width: 28px;
+        height: 16px;
+        background-color: #ccc;
+        border-radius: 8px;
+        position: relative;
+        transition: background-color 0.2s;
+        vertical-align: middle;
+    }
+    .ai-toggle-slider::after {
+        content: '';
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 12px;
+        height: 12px;
+        background: white;
+        border-radius: 50%;
+        transition: transform 0.2s;
+    }
+    .ai-toggle input:checked + .ai-toggle-slider {
+        background-color: #7c4dff;
+    }
+    .ai-toggle input:checked + .ai-toggle-slider::after {
+        transform: translateX(12px);
+    }
+    .ai-disclaimer {
+        font-size: 10px;
+        color: #888;
+        font-style: italic;
+        margin: 0.5em 1em 0.5em;
+    }
+    /* Font Awesome 6.7.2 robot (CC BY 4.0) — inlined to avoid loading the full icon library */
+    .ai-robot-icon {
+        display: inline-block;
+        vertical-align: middle;
+        width: 18px;
+        height: 18px;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 512'%3E%3Cpath fill='%237c4dff' d='M320 0c17.7 0 32 14.3 32 32l0 64 120 0c39.8 0 72 32.2 72 72l0 272c0 39.8-32.2 72-72 72l-304 0c-39.8 0-72-32.2-72-72l0-272c0-39.8 32.2-72 72-72l120 0 0-64c0-17.7 14.3-32 32-32zM208 384c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zM264 256a40 40 0 1 0-80 0 40 40 0 1 0 80 0zm152 40a40 40 0 1 0 0-80 40 40 0 1 0 0 80zM48 224l16 0 0 192-16 0c-26.5 0-48-21.5-48-48l0-96c0-26.5 21.5-48 48-48zm544 0c26.5 0 48 21.5 48 48l0 96c0 26.5-21.5 48-48 48l-16 0 0-192 16 0z'/%3E%3C/svg%3E") no-repeat center/contain;
+    }
   </style>
 </head>
 
@@ -174,8 +242,18 @@
         width="64" height="64" alt="Testing Farm Logo"/>
     <h1 id="overall-result"></h1>
     <div id="config" hidden>
-        <input id="show_passed" type="checkbox" />
-        <label for="show_passed">Show passed tests</label>
+        <label class="ai-toggle">
+            <input id="show_passed" type="checkbox" />
+            <span class="ai-toggle-slider"></span>
+            Show passed tests
+        </label>
+    </div>
+    <div id="ai-config" hidden>
+        <label class="ai-toggle">
+            <input id="show_ai_summary" type="checkbox" />
+            <span class="ai-toggle-slider"></span>
+            Show AI summary
+        </label>
     </div>
     <div class="stretch"></div>
     <a href="#" id="switchToNewUI" hidden>🚀 Try New UI 🚀</a>
@@ -881,12 +959,44 @@ function selectInlineLogs (results, isPipelineRunning) {
     });
 }
 
-function renderTests (resultsXml, showPassed, apiRequest, isPipelineRunning) {
+function renderMarkdownLinks (text) {
+    const parts = text.split(/(\[[^\]]+\]\([^)]+\))/g);
+    return parts.map(part => {
+        const match = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+        if (!match) return part;
+        const [, linkText, url] = match;
+        if (/^https?:\/\//i.test(url)) {
+            return html`<a href="${url}" target="_blank" rel="noopener noreferrer">${linkText}</a>`;
+        }
+        return part;
+    });
+}
+
+function renderTests (resultsXml, showPassed, apiRequest, isPipelineRunning, showAiSummary) {
     const errorReason = apiRequest?.result?.summary;
+    const aiSummary = showAiSummary ? apiRequest?.result?.ai_summary : null;
     const items = resultsXml
         ? renderTestList(
             resultsXml, 'testsuite', 'testcase', showPassed, apiRequest, isPipelineRunning)
         : [];
+
+    // show AI summary when toggle is on
+    if (aiSummary) {
+        items.unshift(html`<details class="ai-summary" open>
+        <summary class="result-info">
+            <span class="ai-robot-icon"></span> AI Summary
+        </summary>
+        <div style="padding: 1em; white-space: pre-wrap;">${renderMarkdownLinks(aiSummary)}</div>
+        <p class="ai-disclaimer">This summary was generated by AI and may contain
+            inaccuracies. Always verify against the actual test logs.</p>
+        <p class="ai-disclaimer"><strong>⚠️ This is a prototype feature.
+            No feedback is needed at this time. User feedback will be enabled
+            via <a href="https://gitlab.com/testing-farm/oculus/-/merge_requests/94"
+            target="_blank">!94</a> once the feature is fine-tuned by Testing Farm.
+            </strong>
+        </p>
+      </details>`);
+    }
 
     // show pipeline log in case of errors
     if (apiRequest.state === 'error' || items.length === 0) {
@@ -929,11 +1039,33 @@ async function main () {
     document.getElementById('results-xml-src').setAttribute('href', resultsXmlLink);
     document.getElementById('results-xml-src').textContent = resultsXmlLink;
 
+    // check for AI summary data
+    const hasAiApi = await fetchHeader(baseUrl + '/api-ai.json');
+    const hasAiResults = await fetchHeader(baseUrl + '/results-ai.xml');
+    const hasAiData = hasAiApi || hasAiResults;
+
+    let aiApiRequest = null;
+    let aiResultsXml = null;
+
+    if (hasAiData) {
+        document.getElementById('ai-config').removeAttribute('hidden');
+    }
+
     // handle complete and error requests
     if (apiRequest.state === 'complete' || apiRequest.state === 'error') {
         // fetch results.xml
         const resultsXml = await fetchXML(resultsXmlLink);
         let overallResult = 'error'; // error when results.xml is not present (user facing error)
+
+        // returns active apiRequest and resultsXml based on AI toggle state
+        function getActiveData () {
+            const useAi = document.getElementById('show_ai_summary').checked;
+            return {
+                activeApiRequest: (useAi && aiApiRequest) ? aiApiRequest : apiRequest,
+                activeResultsXml: (useAi && aiResultsXml) ? aiResultsXml : resultsXml,
+                showAiSummary: useAi && aiApiRequest != null
+            };
+        }
 
         // results xunit available, valid results available (might still be an error)
         if (resultsXml) {
@@ -944,16 +1076,42 @@ async function main () {
             if (!isPassed(overallResult) && resultsXml.querySelectorAll('testcase[result^="pass"]').length > 0) {
                 document.getElementById('config').removeAttribute('hidden');
                 document.getElementById('show_passed').addEventListener(
-                    'change', ev => renderTests(resultsXml, ev.target.checked, apiRequest));
+                    'change', ev => {
+                        const { activeApiRequest, activeResultsXml, showAiSummary } = getActiveData();
+                        renderTests(activeResultsXml, ev.target.checked, activeApiRequest, false, showAiSummary);
+                    });
             }
 
             /* render and highlight a particular test/plan when a user clicks on it */
             window.addEventListener('hashchange', function () {
+                const { activeApiRequest, activeResultsXml, showAiSummary } = getActiveData();
                 renderTests(
-                    resultsXml,
+                    activeResultsXml,
                     isPassed(overallResult) || document.getElementById('show_passed').checked,
-                    apiRequest
+                    activeApiRequest,
+                    false,
+                    showAiSummary
                 );
+            });
+        }
+
+        // wire AI toggle to fetch AI data on first use and re-render
+        if (hasAiData) {
+            document.getElementById('show_ai_summary').addEventListener('change', async (ev) => {
+                if (ev.target.checked && !aiApiRequest && !aiResultsXml) {
+                    if (hasAiApi) {
+                        aiApiRequest = await fetchJSON(baseUrl + '/api-ai.json');
+                    }
+                    if (hasAiResults) {
+                        aiResultsXml = await fetchXML(baseUrl + '/results-ai.xml');
+                        if (aiResultsXml) {
+                            selectInlineLogs(aiResultsXml, false);
+                        }
+                    }
+                }
+                const { activeApiRequest, activeResultsXml, showAiSummary } = getActiveData();
+                const showPassed = isPassed(overallResult) || document.getElementById('show_passed').checked;
+                renderTests(activeResultsXml, showPassed, activeApiRequest, false, showAiSummary);
             });
         }
 
