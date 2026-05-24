@@ -286,6 +286,33 @@ describe('tmt-single-fail', () => it('run', () => {
     // notes should be visible
     cy.get('.notes > li:nth-child(1)').should('have.text', "check 'dmesg' failed");
     cy.get('.notes > li:nth-child(2)').should('have.text', 'original test result: pass');
+
+    // AI toggle should not be visible (no AI files)
+    cy.get('#ai-config').should('not.be.visible');
+}));
+
+describe('tmt-single-fail-ai', () => it('run', () => {
+    cy.visit(addRequestId('/results.html?url=scenarios/tmt-single-fail-ai'));
+    cy.get('#overall-result').should('have.text', 'failed');
+
+    // AI toggle visible in separate config box, unchecked by default
+    cy.get('#ai-config').should('be.visible');
+    cy.get('#show_ai_summary').should('not.be.checked');
+
+    // no AI summary box before toggling
+    cy.get('.ai-summary').should('not.exist');
+
+    // enable AI toggle
+    cy.get('#show_ai_summary').click({ force: true });
+
+    // AI summary box appears with ai_summary content
+    cy.get('.ai-summary').should('be.visible')
+        .and('contain', 'AI Summary')
+        .and('contain', 'dmesg check detecting kernel warnings');
+
+    // disable AI toggle — AI summary box removed
+    cy.get('#show_ai_summary').click({ force: true });
+    cy.get('.ai-summary').should('not.exist');
 }));
 
 describe('tmt-double-pass', () => it('run', () => {
@@ -384,7 +411,7 @@ describe('tmt-mixed', () => it('run', () => {
         .should('be.visible')
         .should('not.be.selected');
     // show passed tests
-    cy.get('#config input').click();
+    cy.get('#show_passed').click({ force: true });
     cy.get('main > details:first-of-type summary')
         .should('have.class', 'result-pass')
         .should('contain', '/plans/features/advanced');
@@ -905,7 +932,7 @@ describe('tf-error-show-passed', () => it('run', () => {
     cy.get('#main > details:not([hidden])').should('have.length', 2);
 
     // show passed tests
-    cy.get('#config input').click();
+    cy.get('#show_passed').click({ force: true });
 
     // inspect the plans and tests
     cy.get('#main > details:not([hidden])').should('have.length', 3);
