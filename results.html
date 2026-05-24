@@ -233,6 +233,85 @@
         height: 18px;
         background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 640 512'%3E%3Cpath fill='%237c4dff' d='M320 0c17.7 0 32 14.3 32 32l0 64 120 0c39.8 0 72 32.2 72 72l0 272c0 39.8-32.2 72-72 72l-304 0c-39.8 0-72-32.2-72-72l0-272c0-39.8 32.2-72 72-72l120 0 0-64c0-17.7 14.3-32 32-32zM208 384c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zm96 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l32 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-32 0zM264 256a40 40 0 1 0-80 0 40 40 0 1 0 80 0zm152 40a40 40 0 1 0 0-80 40 40 0 1 0 0 80zM48 224l16 0 0 192-16 0c-26.5 0-48-21.5-48-48l0-96c0-26.5 21.5-48 48-48zm544 0c26.5 0 48 21.5 48 48l0 96c0 26.5-21.5 48-48 48l-16 0 0-192 16 0z'/%3E%3C/svg%3E") no-repeat center/contain;
     }
+    .ai-feedback-btn {
+        display: inline-block;
+        margin: 0.5em 1em;
+        padding: 0.3em 1em;
+        font-size: 11px;
+        cursor: pointer;
+        background: #7c4dff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+    }
+    .ai-feedback-btn:hover { background: #6535d8; }
+    .ai-feedback-form {
+        margin: 0.5em 1em 1em;
+        padding: 1em;
+        border-top: 1px solid #ddd;
+    }
+    .ai-feedback-form label {
+        display: block;
+        font-size: 12px;
+        font-weight: bold;
+        margin: 0.5em 0 0.2em;
+    }
+    .ai-feedback-form input[type="text"],
+    .ai-feedback-form textarea {
+        width: 100%;
+        max-width: 400px;
+        padding: 0.4em;
+        font-size: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    .ai-feedback-form textarea {
+        height: 80px;
+        resize: vertical;
+    }
+    .ai-feedback-submit {
+        margin-top: 0.8em;
+        padding: 0.4em 1.5em;
+        font-size: 12px;
+        cursor: pointer;
+        background: #7c4dff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+    }
+    .ai-feedback-submit:hover { background: #6535d8; }
+    .ai-feedback-submit:disabled {
+        background: #ccc;
+        cursor: not-allowed;
+    }
+    .ai-feedback-success {
+        color: green;
+        font-size: 12px;
+        font-weight: bold;
+        margin: 0.5em 1em;
+    }
+    .ai-star-rating {
+        display: inline-flex;
+        flex-direction: row-reverse;
+        gap: 2px;
+    }
+    .ai-star-rating input { display: none; }
+    /* Font Awesome 6.7.2 star (CC BY 4.0) — inlined */
+    .ai-star-rating label {
+        display: inline-block !important;
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 576 512'%3E%3Cpath fill='%23ccc' d='M287.9 0c9.2 0 17.6 5.2 21.6 13.5l68.6 141.3 153.2 22.6c9 1.3 16.5 7.6 19.3 16.3s.5 18.1-5.9 24.5L433.6 328.4l26.2 155.6c1.5 9-2.2 18.1-9.7 23.5s-17.3 6-25.3 1.7l-137-73.2L151 509.1c-8.1 4.3-17.9 3.7-25.3-1.7s-11.2-14.5-9.7-23.5l26.2-155.6L31.1 218.2c-6.5-6.4-8.7-15.9-5.9-24.5s10.3-14.9 19.3-16.3l153.2-22.6L266.3 13.5C270.4 5.2 278.7 0 287.9 0z'/%3E%3C/svg%3E") no-repeat center/contain;
+        margin: 0 !important;
+        font-weight: normal !important;
+    }
+    .ai-star-rating label:hover,
+    .ai-star-rating label:hover ~ label,
+    .ai-star-rating input:checked ~ label {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 576 512'%3E%3Cpath fill='%23f9a825' d='M287.9 0c9.2 0 17.6 5.2 21.6 13.5l68.6 141.3 153.2 22.6c9 1.3 16.5 7.6 19.3 16.3s.5 18.1-5.9 24.5L433.6 328.4l26.2 155.6c1.5 9-2.2 18.1-9.7 23.5s-17.3 6-25.3 1.7l-137-73.2L151 509.1c-8.1 4.3-17.9 3.7-25.3-1.7s-11.2-14.5-9.7-23.5l26.2-155.6L31.1 218.2c-6.5-6.4-8.7-15.9-5.9-24.5s10.3-14.9 19.3-16.3l153.2-22.6L266.3 13.5C270.4 5.2 278.7 0 287.9 0z'/%3E%3C/svg%3E");
+    }
   </style>
 </head>
 
@@ -298,6 +377,18 @@ import {
 } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/all/lit-all.min.js';
 import { AnsiUp } from 'https://cdn.jsdelivr.net/npm/ansi_up@6.0.2/ansi_up.js';
 import jsyaml from 'https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/+esm';
+
+let Sentry = null;
+async function getSentry () {
+    if (!Sentry) {
+        Sentry = await import(
+            'https://cdn.jsdelivr.net/npm/@sentry/browser@9.27.0/+esm');
+        Sentry.init({
+            dsn: 'https://dd41af82ab92f9e9d17ed35d63667fc1@o490301.ingest.us.sentry.io/4511435579260928'
+        });
+    }
+    return Sentry;
+}
 
 const ansiUp = new AnsiUp();
 
@@ -969,6 +1060,7 @@ function renderTests (resultsXml, showPassed, apiRequest, isPipelineRunning, sho
 
     // show AI summary when toggle is on
     if (aiSummary) {
+        const reqId = window.location.href.match(uuidRegex)?.[0] ?? 'unknown';
         items.unshift(html`<details class="ai-summary" open>
         <summary class="result-info">
             <span class="ai-robot-icon"></span> AI Summary
@@ -978,6 +1070,66 @@ function renderTests (resultsXml, showPassed, apiRequest, isPipelineRunning, sho
         ))}</div>
         <p class="ai-disclaimer">This summary was generated by AI and may contain
             inaccuracies. Always verify against the actual test logs.</p>
+        <button class="ai-feedback-btn" id="ai-feedback-btn"
+            @click=${(e) => {
+                e.target.style.display = 'none';
+                document.getElementById('ai-feedback-form').style.display = 'block';
+            }}>Feedback</button>
+        <div class="ai-feedback-form" id="ai-feedback-form"
+            style="display:none;">
+            <label for="ai-fb-user">Username *</label>
+            <input type="text" id="ai-fb-user" required
+                .value=${localStorage.getItem('oculusFeedbackUser') ?? ''} />
+            <label>Rating *</label>
+            <div class="ai-star-rating">
+                <input type="radio" id="ai-star5" name="ai-rating" value="5" />
+                <label for="ai-star5"></label>
+                <input type="radio" id="ai-star4" name="ai-rating" value="4" />
+                <label for="ai-star4"></label>
+                <input type="radio" id="ai-star3" name="ai-rating" value="3" />
+                <label for="ai-star3"></label>
+                <input type="radio" id="ai-star2" name="ai-rating" value="2" />
+                <label for="ai-star2"></label>
+                <input type="radio" id="ai-star1" name="ai-rating" value="1" />
+                <label for="ai-star1"></label>
+            </div>
+            <label for="ai-fb-desc">Description *</label>
+            <textarea id="ai-fb-desc"></textarea>
+            <br />
+            <button class="ai-feedback-submit" @click=${async () => {
+                const user = document.getElementById('ai-fb-user').value.trim();
+                const rating = document.querySelector(
+                    'input[name="ai-rating"]:checked')?.value;
+                const desc = document.getElementById('ai-fb-desc').value.trim();
+                if (!user || !rating || !desc) {
+                    alert('All fields required. Select a rating.');
+                    return;
+                }
+                localStorage.setItem('oculusFeedbackUser', user);
+                const sentry = await getSentry();
+                sentry.captureFeedback({
+                    name: user,
+                    message: desc
+                }, {
+                    captureContext: {
+                        tags: {
+                            'ai_feedback.rating': rating,
+                            'ai_feedback.request_id': reqId
+                        },
+                        contexts: {
+                            ai_feedback: {
+                                rating: parseInt(rating),
+                                request_id: reqId,
+                                base_url: baseUrl
+                            }
+                        }
+                    }
+                });
+                document.getElementById('ai-feedback-form').innerHTML =
+            '<p class="ai-feedback-success">' +
+            'Thank you for your feedback!</p>';
+            }}>Submit</button>
+        </div>
       </details>`);
     }
 
@@ -1032,6 +1184,10 @@ async function main () {
 
     if (hasAiData) {
         document.getElementById('ai-config').removeAttribute('hidden');
+        getSentry();
+        if (localStorage.getItem('oculusShowAiSummary') === 'true') {
+            document.getElementById('show_ai_summary').checked = true;
+        }
     }
 
     // handle complete and error requests
@@ -1081,6 +1237,7 @@ async function main () {
         // wire AI toggle to fetch AI data on first use and re-render
         if (hasAiData) {
             document.getElementById('show_ai_summary').addEventListener('change', async (ev) => {
+                localStorage.setItem('oculusShowAiSummary', ev.target.checked);
                 if (ev.target.checked && !aiApiRequest && !aiResultsXml) {
                     if (hasAiApi) {
                         aiApiRequest = await fetchJSON(baseUrl + '/api-ai.json');
@@ -1098,9 +1255,25 @@ async function main () {
             });
         }
 
+        // fetch AI data if toggle was restored from localStorage
+        if (hasAiData && document.getElementById('show_ai_summary').checked) {
+            if (hasAiApi) {
+                aiApiRequest = await fetchJSON(baseUrl + '/api-ai.json');
+            }
+            if (hasAiResults) {
+                aiResultsXml = await fetchXML(baseUrl + '/results-ai.xml');
+                if (aiResultsXml) {
+                    selectInlineLogs(aiResultsXml, false);
+                }
+            }
+        }
+
         document.getElementById('overall-result').innerHTML = overallResult;
 
-        renderTests(resultsXml, isPassed(overallResult), apiRequest);
+        const { activeApiRequest, activeResultsXml, showAiSummary } = getActiveData();
+        renderTests(
+            activeResultsXml, isPassed(overallResult), activeApiRequest,
+            false, showAiSummary);
     } else if (apiRequest.state === 'running') {
         // fetch results.xml
         const resultsXml = await fetchXML(baseUrl + '/results.xml', { cache: 'no-store' });
