@@ -415,7 +415,9 @@ class LogViewer extends LitElement {
 
     updated (changedProperties) {
         if (changedProperties.has('url')) {
-            fetchFile(this.url).then(text => {
+            const fetchedUrl = this.url;
+            fetchFile(fetchedUrl).then(text => {
+                if (!this.isConnected || this.url !== fetchedUrl) return;
                 this._loading = true;
                 if (text) {
                     // is this a directory index? if so, load all of its *.txt files and concatenate
@@ -423,8 +425,11 @@ class LogViewer extends LitElement {
                         const indexDoc = new DOMParser().parseFromString(text, 'text/html');
                         const fetches = [];
                         indexDoc.querySelectorAll('a[href*=".txt"]').forEach(link =>
-                            fetches.push(fetchFile(this.url + '/' + link.getAttribute('href'))));
-                        Promise.all(fetches).then(texts => { this._contents = texts.join('\n\n') });
+                            fetches.push(fetchFile(fetchedUrl + '/' + link.getAttribute('href'))));
+                        Promise.all(fetches).then(texts => {
+                            if (!this.isConnected || this.url !== fetchedUrl) return;
+                            this._contents = texts.join('\n\n');
+                        });
                     } else {
                         // plain file
                         this._contents = text;
