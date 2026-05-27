@@ -1,0 +1,76 @@
+<testsuites overall-result="failed">
+ <properties>
+  <property name="baseosci.overall-result" value="failed"/>
+ </properties>
+ <testsuite name="/plans/all" result="failed" tests="3">
+  <logs>
+   <log href="./scenarios/tmt-log-race/workdir/tmt-reproducer.sh" name="tmt-reproducer"/>
+   <log href="./scenarios/tmt-log-race/workdir" name="workdir"/>
+  </logs>
+  <properties>
+   <property name="baseosci.result" value="failed"/>
+   <property name="id" value="plans-all"/>
+  </properties>
+  <testcase name="/tests/passed-first" result="passed" serial-number="1">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.distro" value="Fedora-41"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="id" value="plans-all_1_default-0"/>
+   </properties>
+   <logs>
+    <log href="./scenarios/tmt-log-race/workdir/passed-first/output.txt" name="testout.log"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-41"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-41"/>
+   </testing-environment>
+   <guest name="default-0"/>
+  </testcase>
+  <testcase name="/tests/passed-second" result="passed" serial-number="2">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.distro" value="Fedora-41"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="id" value="plans-all_2_default-0"/>
+   </properties>
+   <logs>
+    <log href="./scenarios/tmt-log-race/workdir/passed-second/output.txt" name="testout.log"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-41"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-41"/>
+   </testing-environment>
+   <guest name="default-0"/>
+  </testcase>
+  <testcase name="/tests/failed" result="failed" serial-number="3">
+   <properties>
+    <property name="baseosci.arch" value="x86_64"/>
+    <property name="baseosci.distro" value="Fedora-41"/>
+    <property name="baseosci.status" value="Complete"/>
+    <property name="id" value="plans-all_3_default-0"/>
+   </properties>
+   <logs>
+    <log href="./scenarios/tmt-log-race/workdir/failed/output.txt" name="testout.log"/>
+   </logs>
+   <failure/>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-41"/>
+   </testing-environment>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-41"/>
+   </testing-environment>
+   <guest name="default-0"/>
+  </testcase>
+ </testsuite>
+</testsuites>

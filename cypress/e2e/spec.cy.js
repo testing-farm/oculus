@@ -1098,3 +1098,62 @@ describe('tmt-error-pending', () => it('run', () => {
     .should('contain', 'Tests failed to run')
 
 }));
+
+// Regression test: toggling "show passed" must not display another test's log content.
+// Lit reuses <log-viewer> elements by position; without a staleness guard in updated(),
+// a slow fetch for the old URL can overwrite _contents after the URL has changed.
+//
+// We monkey-patch window.fetch to delay responses for `failed/output.txt` by DELAY_MS,
+// creating a deterministic race window: the old in-flight fetch resolves *after* the
+// element's URL has already changed to a different test's log.
+describe('tmt-log-race', () => it('run', () => {
+    const DELAY_MS = 2000;
+
+    cy.visit(addRequestId('/results.html?url=scenarios/tmt-log-race'), {
+        onBeforeLoad (win) {
+            const originalFetch = win.fetch.bind(win);
+            let delayedOnce = false;
+            win.fetch = function (...args) {
+                const url = typeof args[0] === 'string' ? args[0] : args[0]?.url;
+                if (!delayedOnce && url && url.includes('failed/output.txt')) {
+                    delayedOnce = true;
+                    return originalFetch(...args).then(
+                        response => new Promise(resolve => setTimeout(() => resolve(response), DELAY_MS))
+                    );
+                }
+                return originalFetch(...args);
+            };
+        }
+    });
+
+    cy.get('#overall-result').should('have.text', 'failed');
+
+    // only failed test visible initially (passed tests hidden by default)
+    cy.get('main > details > details').should('have.length', 1);
+    cy.get('main > details > details').should('contain', '/tests/failed');
+
+    // toggle "show passed" while delayed fetch for failed/output.txt is still in-flight
+    cy.get('#show_passed').click({ force: true });
+
+    // now all 3 testcases visible
+    cy.get('main > details > details').should('have.length', 3);
+
+    // wait for the delayed fetch to resolve and (on unfixed code) potentially overwrite
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(DELAY_MS + 500);
+
+    // position 1 must show passed-first content, NOT the stale failed content
+    cy.get('#plans-all_1_default-0 log-viewer')
+        .shadow().find('pre')
+        .should('contain', 'PASSED-FIRST-LOG-CONTENT')
+        .and('not.contain', 'FAILED-TEST-LOG-CONTENT');
+
+    cy.get('#plans-all_2_default-0 log-viewer')
+        .shadow().find('pre')
+        .should('contain', 'PASSED-SECOND-LOG-CONTENT');
+
+    // failed test must still show its own log after the toggle
+    cy.get('#plans-all_3_default-0 log-viewer')
+        .shadow().find('pre')
+        .should('contain', 'FAILED-TEST-LOG-CONTENT');
+}));
