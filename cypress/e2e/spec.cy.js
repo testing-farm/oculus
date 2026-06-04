@@ -310,6 +310,29 @@ describe('tmt-single-fail-ai', () => it('run', () => {
         .and('contain', 'AI Summary')
         .and('contain', 'dmesg check detecting kernel warnings');
 
+    // feedback button visible, form hidden
+    cy.get('#ai-feedback-btn').should('be.visible');
+    cy.get('#ai-feedback-form').should('not.be.visible');
+
+    // click feedback button — form appears, button hides
+    cy.get('#ai-feedback-btn').click();
+    cy.get('#ai-feedback-btn').should('not.be.visible');
+    cy.get('#ai-feedback-form').should('be.visible');
+
+    // select 4-star rating
+    cy.get('#ai-star4').click({ force: true });
+    cy.get('#ai-star4').should('be.checked');
+
+    // fill form and submit
+    cy.get('#ai-fb-user').type('testuser');
+    cy.get('#ai-fb-desc').type('Good summary but missing details');
+    cy.get('.ai-feedback-submit').click();
+
+    // success message shown
+    cy.get('.ai-feedback-success')
+        .should('be.visible')
+        .and('contain', 'Thank you for your feedback');
+
     // disable AI toggle — AI summary box removed
     cy.get('#show_ai_summary').click({ force: true });
     cy.get('.ai-summary').should('not.exist');
