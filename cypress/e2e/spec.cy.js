@@ -326,9 +326,121 @@ describe('tmt-single-fail-ai', () => it('run', () => {
     // original notes are unchanged
     cy.get('.notes > li:nth-child(1)').should('have.text', "check 'dmesg' failed");
 
+    // the Sentry ingest endpoint first fails, so the test never sends real feedback
+    cy.intercept('POST', /ingest\.us\.sentry\.io\/api\//, { forceNetworkError: true }).as('sentryDown');
+
+    // feedback button shown, form hidden
+    cy.get('.ai-summary ai-feedback').should('have.length', 1);
+    cy.get('.ai-feedback-btn').should('be.visible');
+    cy.get('.ai-feedback-form').should('not.exist');
+
+    // click feedback button — form appears, button hides
+    cy.get('.ai-feedback-btn').click();
+    cy.get('.ai-feedback-btn').should('not.exist');
+    cy.get('.ai-feedback-form').should('be.visible');
+
+    // submitting an incomplete form shows an error and sends nothing
+    cy.get('.ai-feedback-submit').click();
+    cy.get('.ai-feedback-error').should('contain', 'Fill in all fields');
+
+    // rating radios are one named group and stay keyboard-focusable
+    cy.get('.ai-star-rating input[type="radio"]').should('have.length', 5).each(radio => {
+        expect(radio.attr('name')).to.match(/^ai-fb-rating-\d+$/);
+    });
+    cy.get('.ai-star-rating input[value="1"]').focus().should('have.focus');
+
+    // select 4-star rating
+    cy.get('.ai-star-rating label[title="4 of 5"]').click();
+    cy.get('.ai-star-rating label.selected').should('have.length', 4);
+    cy.get('.ai-star-rating input[value="4"]').should('be.checked');
+
+    // fill form and submit
+    cy.get('.ai-fb-user').type('testuser');
+    cy.get('.ai-fb-desc').type('Good summary but missing details');
+    cy.get('.ai-feedback-submit').click();
+
+    // a failed delivery shows an error and keeps the form filled in for a retry
+    cy.wait('@sentryDown');
+    cy.get('.ai-feedback-error').should('contain', 'Sending feedback failed');
+    cy.get('.ai-feedback-success').should('not.exist');
+    cy.get('.ai-fb-desc').should('have.value', 'Good summary but missing details');
+    cy.get('.ai-star-rating label.selected').should('have.length', 4);
+
+    // retry once Sentry accepts the feedback
+    cy.intercept('POST', /ingest\.us\.sentry\.io\/api\//, { statusCode: 200, body: {} }).as('sentry');
+    cy.get('.ai-feedback-submit').click();
+
+    // feedback carries the rating, the request and the test it is about
+    cy.wait('@sentry').its('request.body').should(body => {
+        expect(body).to.contain('Good summary but missing details');
+        expect(body).to.contain('"ai_feedback.rating":"4"');
+        expect(body).to.contain('"ai_feedback.request_id":"aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"');
+        expect(body).to.contain('"test":"/tests"');
+        expect(body).to.contain('"plan":"/plans/all"');
+    });
+
+    // success message shown
+    cy.get('.ai-feedback-success')
+        .should('be.visible')
+        .and('contain', 'Thank you for your feedback');
+
+    // toggle state and username survive a reload
+    cy.reload();
+    cy.get('#show_ai_summary').should('be.checked');
+    cy.get('.ai-summary').should('have.length', 1);
+    cy.get('.ai-feedback-btn').click();
+    cy.get('.ai-fb-user').should('have.value', 'testuser');
+
     // disable AI toggle — AI summary box removed
     cy.get('#show_ai_summary').click({ force: true });
     cy.get('.ai-summary').should('not.exist');
+}));
+
+describe('tmt-2-fails-ai', () => it('run', () => {
+    // hold the Sentry SDK import until the test releases it
+    let releaseSdk;
+    const sdkHeld = new Promise(resolve => { releaseSdk = resolve });
+    cy.intercept('GET', /cdn\.jsdelivr\.net\/npm\/@sentry\/browser@[^/]+\/\+esm/, req => sdkHeld.then(() => req.continue()))
+        .as('sentrySdk');
+    cy.intercept('POST', /ingest\.us\.sentry\.io\/api\//, { statusCode: 200, body: {} }).as('sentry');
+
+    cy.visit(addRequestId('/results.html?url=scenarios/tmt-2-fails-ai'));
+    cy.get('#overall-result').should('have.text', 'failed');
+    cy.get('#show_ai_summary').click({ force: true });
+    cy.get('.ai-summary').should('have.length', 2);
+    cy.get('ai-feedback').should('have.length', 2);
+
+    // rate the first test and submit while the SDK import is still pending
+    cy.contains('main details > summary', '/tests1').click();
+    cy.get('ai-feedback').first().within(() => {
+        cy.get('.ai-feedback-btn').click();
+        cy.get('.ai-star-rating label[title="4 of 5"]').click();
+        cy.get('.ai-fb-user').type('testuser');
+        cy.get('.ai-fb-desc').type('Feedback about the first test');
+        cy.get('.ai-feedback-submit').click();
+        cy.get('.ai-feedback-submit').should('be.disabled');
+    });
+
+    // the search leaves only the second test, lit reuses the pending form's element for it
+    cy.get('#test-search').type('tests2');
+    cy.get('ai-feedback').should('have.length', 1).and('have.prop', 'test', '/tests2');
+    cy.get('.ai-feedback-btn').should('exist');
+    cy.get('.ai-feedback-form').should('not.exist');
+
+    // once the SDK loads, the feedback goes out for the first test with its rating
+    cy.then(() => releaseSdk());
+    cy.wait('@sentry').its('request.body').should(body => {
+        expect(body).to.contain('Feedback about the first test');
+        expect(body).to.contain('"ai_feedback.rating":"4"');
+        expect(body).to.contain('"test":"/tests1"');
+        expect(body).not.to.contain('"test":"/tests2"');
+    });
+
+    // and the second test's form is untouched: no success message, submit not stuck disabled
+    cy.get('.ai-feedback-success').should('not.exist');
+    cy.get('.ai-feedback-btn').click();
+    cy.get('.ai-feedback-submit').should('not.be.disabled');
+    cy.get('.ai-star-rating label.selected').should('have.length', 0);
 }));
 
 describe('tmt-failed-prepare-ai', () => it('run', () => {
