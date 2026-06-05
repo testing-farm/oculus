@@ -653,8 +653,14 @@ describe('tmt-failed-prepare', () => it('run', () => {
         .should('contain', 'pipeline details')
         .should('contain', '[E]rror messages');
 
-    // error reason shown not be shown (no mocked request)
-    cy.get('main > details summary p').should('not.exist')
+    // plan-level error reason shown, linking to the failing phase log
+    cy.get('main > details summary p.result-error')
+        .should('contain', '⚠ guest setup failed: artifact installation failed')
+        .find('a')
+        .should('have.text', 'Copr build(s) installation');
+
+    // no request summary shown (no summary in mocked request)
+    cy.get('main > p.request-summary').should('not.exist')
 }));
 
 describe('tmt-error-no-logs', () => it('run', () => {
@@ -688,9 +694,9 @@ describe('tmt-error-no-logs', () => it('run', () => {
         .should('contain', 'pipeline details')
         .should('contain', 'error messages');
 
-    // error reason shown
-    cy.get('main > details summary p')
-        .should('contain', '⚠ Test environment installation failed: Install packages')
+    // request summary shown at the top
+    cy.get('main > p.request-summary')
+        .should('contain', 'Test environment installation failed: Install packages')
 
     // the "File an issue" link points to the docs issue-reporting page
     cy.get('main > details a')
@@ -861,9 +867,9 @@ describe('tf-complete-error', () => it('run', () => {
         .should('contain', 'pipeline')
         .and('have.attr', 'open');
 
-    // error reason shown
-    cy.get('main > details summary p')
-        .should('contain', '⚠ A nice human-readable error reason.')
+    // request summary shown at the top
+    cy.get('main > p.request-summary')
+        .should('contain', 'A nice human-readable error reason.')
 }));
 
 // check if api link shown
@@ -945,9 +951,9 @@ describe('tf-error-show-passed', () => it('run', () => {
         .should('contain', 'pipeline')
         .and('have.attr', 'open');
 
-    // error reason shown
-    cy.get('main > details:not([hidden]) summary p')
-        .should('contain', '⚠ A nice human-readable error reason.');
+    // request summary shown at the top
+    cy.get('main > p.request-summary')
+        .should('contain', 'A nice human-readable error reason.');
 
     // passed plan not visible yet (hidden via [hidden], no warnings)
     cy.get('#main > details:not([hidden])').should('have.length', 2);

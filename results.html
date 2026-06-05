@@ -29,6 +29,8 @@
       background-color: #F2F2F2;
       box-shadow: 2px 2px 2px lightgrey;
     }
+    /* plans (top-level details) sit tighter to the top */
+    #main > details { margin-top: 1ex; }
     details > summary {
         padding: 1.5em;
         font-family: monospace;
@@ -58,6 +60,7 @@
     .result-running { background-color: paleturquoise; font-size: 12px; }
     .result-warn { background-color: khaki; font-size: 12px; }
     .footer { color:#929292; }
+    .request-summary { margin: 1ex 3ex; padding-left: 1.5em; font-family: monospace; font-weight: bold; }
     .subresult { padding: 1ex; margin: 3ex; background-color: white; box-shadow: 2px 2px 2px lightgrey; }
     .notes { margin-top: 0px; margin-bottom: 0px; padding-left: 0px; }
     .highlight { outline-style: solid; outline-color: navy; }
@@ -84,7 +87,7 @@
         display: none;
     }
     /* Font Awesome 6.7.2 triangle-exclamation (CC BY 4.0) — inlined to avoid loading the full icon library */
-    .warnings-box .warning-icon {
+    .warning-icon {
         display: inline-block;
         vertical-align: middle;
         width: 18px;
@@ -803,6 +806,12 @@ function renderTestList (doc, elementType, subElementType, showPassed, apiReques
         // "note" attribute is an old method of passing note, keeping it for compatibility with old requests
         const note = item.getAttribute('note');
         let notes = null;
+
+        // Plan-level (testsuite) error reason, with an optional link to the log of the failing phase.
+        const errorElement = item.querySelector(':scope > error');
+        const errorMessage = errorElement?.getAttribute('message');
+        const errorLogName = errorElement?.getAttribute('name');
+        const errorLogHref = errorElement?.getAttribute('href');
         const guestsStr = [];
         let guestInfo = null; // displayed for testcases run in multihost pipelines
         let checks = null;
@@ -889,6 +898,11 @@ function renderTestList (doc, elementType, subElementType, showPassed, apiReques
                     <span style="float:right;"><strong>${rightSideTexts.join(', ')}</strong></span><br>
                     ${guestsStr.map((guest) => html`${guest}<br>`)}
                 </monospace>
+                ${errorMessage
+                    ? html`<p class="result-${result}">⚠ ${errorMessage}${errorLogHref
+                        ? html` — <a href="${errorLogHref}">${errorLogName ?? 'log'}</a>`
+                        : ''}</p>`
+                    : ''}
                 ${renderNotes(notes)}
             </summary>
             ${artifactsAnchor ? html`<p><a href="#${artifactsAnchor}">Go to Logs and Artifacts</a></p>` : null}
@@ -1007,6 +1021,10 @@ function renderTests (resultsXml, showPassed, apiRequest, isPipelineRunning, sho
             resultsXml, 'testsuite', 'testcase', showPassed, apiRequest, isPipelineRunning, showAiSummary)
         : [];
 
+    // whether there are any test results to show; computed before prepending
+    // the AI/request summaries below, so those don't suppress the pipeline.log
+    const hasTestResults = items.length > 0;
+
     // show AI summary when toggle is on
     if (aiSummary) {
         items.unshift(html`<details class="ai-summary" open>
@@ -1025,14 +1043,17 @@ function renderTests (resultsXml, showPassed, apiRequest, isPipelineRunning, sho
       </details>`);
     }
 
+    // show the request summary at the top
+    if (errorReason) {
+        items.unshift(html`<p class="request-summary">
+            <span class="warning-icon"></span> ${errorReason}</p>`);
+    }
+
     // show pipeline log in case of errors
-    if (apiRequest.state === 'error' || items.length === 0) {
+    if (apiRequest.state === 'error' || !hasTestResults) {
         items.push(html`<details class="pipeline-log" open>
         <summary class="result-error">
             <a href="${pipelineLogUrl}"}>pipeline.log</a>
-            <monospace>
-                ${errorReason ? html`<p>⚠ ${errorReason}</p>` : null}
-            </monospace>
         </summary>
         <log-viewer url="${pipelineLogUrl}" />
       </details>`);
