@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites overall-result="failed">
+ <properties>
+  <property name="baseosci.overall-result" value="failed"/>
+ </properties>
+ <testsuite name="/testing-farm/sanity" result="failed" tests="3">
+  <logs>
+   <log href="https://artifacts.dev.testing-farm.io/e18543bb-8147-47d5-9598-734280d78e43/work-sanity_xnr3j76/tmt-run.log" name="tmt-log"/>
+   <log href="https://artifacts.dev.testing-farm.io/e18543bb-8147-47d5-9598-734280d78e43/work-sanity_xnr3j76" name="workdir"/>
+  </logs>
+  <properties>
+   <property name="baseosci.result" value="failed"/>
+  </properties>
+  <testcase name="/test-fail" result="failed">
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/e18543bb-8147-47d5-9598-734280d78e43/work-sanity_xnr3j76/testing-farm/sanity/execute/data/guest/default-0/testing-farm/test-fail-1/output.txt" name="testout.log"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/test-pass" result="passed">
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/e18543bb-8147-47d5-9598-734280d78e43/work-sanity_xnr3j76/testing-farm/sanity/execute/data/guest/default-0/testing-farm/test-pass-1/output.txt" name="testout.log"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/test-skip" result="skipped">
+   <logs>
+    <log href="https://artifacts.dev.testing-farm.io/e18543bb-8147-47d5-9598-734280d78e43/work-sanity_xnr3j76/testing-farm/sanity/execute/data/guest/default-0/testing-farm/test-skip-1/output.txt" name="testout.log"/>
+   </logs>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testing-environment name="requested">
+   <property name="arch" value="x86_64"/>
+   <property name="snapshots" value="False"/>
+  </testing-environment>
+ </testsuite>
+</testsuites>

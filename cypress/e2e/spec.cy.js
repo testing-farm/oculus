@@ -1182,3 +1182,32 @@ describe('tmt-log-race', () => it('run', () => {
         .shadow().find('pre')
         .should('contain', 'FAILED-TEST-LOG-CONTENT');
 }));
+
+describe('tmt-skipped', () => it('run', () => {
+    cy.visit(addRequestId('/results.html?url=scenarios/tmt-skipped'));
+    cy.get('#overall-result').should('have.text', 'failed');
+
+    // config box is visible, as there are passed/skipped tests next to the failed one
+    cy.get('#config').should('be.visible');
+    // the "show passed tests" toggle hints that it also reveals skipped tests
+    cy.get('#config .ai-toggle')
+        .should('have.attr', 'title', 'Also shows skipped test results');
+
+    // by default only the failed test is shown; passed and skipped are hidden
+    cy.get('main > details > details').should('have.length', 1);
+    cy.get('main > details > details').should('contain', '/test-fail');
+    cy.get('main > details > details').should('not.contain', '/test-pass');
+    cy.get('main > details > details').should('not.contain', '/test-skip');
+
+    // toggling "show passed tests" also reveals skipped tests
+    cy.get('#show_passed').click({ force: true });
+    cy.get('main > details > details').should('have.length', 3);
+    cy.get('main > details > details').should('contain', '/test-pass');
+    cy.get('main > details > details').should('contain', '/test-skip');
+
+    // the skipped test keeps its skip styling once revealed
+    cy.get('main > details > details')
+        .filter(':contains("/test-skip")')
+        .find('> summary')
+        .should('have.class', 'result-skip');
+}));

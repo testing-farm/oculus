@@ -242,7 +242,7 @@
         width="64" height="64" alt="Testing Farm Logo"/>
     <h1 id="overall-result"></h1>
     <div id="config" hidden>
-        <label class="ai-toggle">
+        <label class="ai-toggle" title="Also shows skipped test results">
             <input id="show_passed" type="checkbox" />
             <span class="ai-toggle-slider"></span>
             Show passed tests
@@ -305,6 +305,11 @@ const SHOW_ATTR = '_show'; /* marks logs which are shown inline */
 const HTML_ATTR = '_html'; /* marks HTML artifacts which are shown inline */
 
 const isPassed = result => result.includes('pass');
+const isSkipped = result => result.includes('skip');
+
+// the "show passed tests" toggle also controls skipped tests; both are hidden
+// by default so only tests that actually need attention are shown
+const isHiddenWhenPassedOff = result => isPassed(result) || isSkipped(result);
 
 // If number of testcases is bigger then the value, both testsuites and
 // testcases will be collapsed.
@@ -807,7 +812,7 @@ function renderTestList (doc, elementType, subElementType, showPassed, apiReques
         const hash = window.location.hash.substring(1);
         const showPassedIteration = idsChildren.includes(hash) ? true : showPassed;
 
-        if (!showPassedIteration && isPassed(result) && elementType !== 'testsuite') { return }
+        if (!showPassedIteration && isHiddenWhenPassedOff(result) && elementType !== 'testsuite') { return }
 
         // render artifacts anchors for top-level plans, as they can be quite far away
         const artifactsAnchor = subElementType ? 'artifacts-' + name : undefined;
@@ -837,8 +842,9 @@ function renderTestList (doc, elementType, subElementType, showPassed, apiReques
             }
             isOpen = (result !== 'pass' || items.length === 1 || idsChildren.includes(hash));
         } else {
-            // As we show only show not passed tests by default, we need to count them and ignore passed
-            const failedTestsCount = Array.from(items).filter(i => !isPassed(i.getAttribute('result'))).length;
+            // As we only show tests that need attention by default, count those and ignore passed/skipped
+            const failedTestsCount =
+                Array.from(items).filter(i => !isHiddenWhenPassedOff(i.getAttribute('result'))).length;
             isOpen = (
                 id === hash || ((result !== 'pass' || items.length === 1) && failedTestsCount < tooManyTestcases)
             );
@@ -873,7 +879,7 @@ function renderTestList (doc, elementType, subElementType, showPassed, apiReques
 
         res.push(html`
           <details id="${id ?? nothing}" ?open="${isOpen}" class="${detailsClass ?? nothing}"
-                   ?hidden="${!showPassedIteration && isPassed(result) && elementType === 'testsuite'}">
+                   ?hidden="${!showPassedIteration && isHiddenWhenPassedOff(result) && elementType === 'testsuite'}">
             <summary class="result-${result}">
                 ${id ? html`<a class="anchor" href=#${id}>${name}</a>` : `${name}`}                
                 ${renderTmtWebLink(item, elementType, apiRequest)}
@@ -1093,7 +1099,8 @@ async function main () {
             overallResult = resultsXml.firstChild.getAttribute('overall-result');
 
             /* keep config hidden if there are only passed or only failed tests */
-            if (!isPassed(overallResult) && resultsXml.querySelectorAll('testcase[result^="pass"]').length > 0) {
+            if (!isPassed(overallResult) &&
+                resultsXml.querySelectorAll('testcase[result^="pass"], testcase[result^="skip"]').length > 0) {
                 document.getElementById('config').removeAttribute('hidden');
                 document.getElementById('show_passed').addEventListener(
                     'change', ev => {
