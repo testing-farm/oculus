@@ -691,6 +691,27 @@ describe('tmt-error-no-logs', () => it('run', () => {
     // error reason shown
     cy.get('main > details summary p')
         .should('contain', '⚠ Test environment installation failed: Install packages')
+
+    // the "File an issue" link points to the docs issue-reporting page
+    cy.get('main > details a')
+        .contains('File an issue')
+        .should('have.attr', 'href', 'https://docs.testing-farm.io/Testing%20Farm/0.1/issues.html');
+}));
+
+// a passed test without logs must NOT be reported as a failure; logs are optional
+describe('tmt-pass-no-logs', () => it('run', () => {
+    cy.visit(addRequestId('/results.html?url=scenarios/tmt-pass-no-logs'));
+    cy.get('#overall-result').should('have.text', 'passed');
+
+    // passed test is shown by default as the overall result is passed
+    cy.get('main > details > details')
+        .should('contain', '/test-no-logs');
+    cy.get('main > details > details > summary').should('have.class', 'result-pass');
+
+    // no logs -> informational note, not the "Tests failed to run" message
+    cy.get('main > details > details')
+        .should('contain', 'No logs available.')
+        .should('not.contain', 'Tests failed to run');
 }));
 
 describe('inprogress', () => it('run', () => {
@@ -1049,20 +1070,24 @@ describe('tmt-inprogress-pending', () => it('run', () => {
     cy.get('#work-sanityo92siaqv_testing-farm-sanity > summary:nth-child(1)')
     .should('have.class', 'result-running')
 
-    // test cases have pending result, rendered as running
+    // test cases have pending result, rendered as running; without logs they show
+    // that the test is being executed, not the "Tests failed to run" message
     cy.get('#work-sanityo92siaqv_testing-farm-sanity > details:nth-of-type(1) > summary:nth-child(1)')
     .should('have.class', 'result-running')
     cy.get('#work-sanityo92siaqv_testing-farm-sanity > details:nth-of-type(1)')
+    .should('contain', 'Test is being executed.')
     .should('not.contain', 'Tests failed to run')
 
     cy.get('#work-sanityo92siaqv_testing-farm-sanity > details:nth-of-type(2) > summary:nth-child(1)')
     .should('have.class', 'result-running')
     cy.get('#work-sanityo92siaqv_testing-farm-sanity > details:nth-of-type(2)')
+    .should('contain', 'Test is being executed.')
     .should('not.contain', 'Tests failed to run')
 
     cy.get('#work-sanityo92siaqv_testing-farm-sanity > details:nth-of-type(3) > summary:nth-child(1)')
     .should('have.class', 'result-running')
     cy.get('#work-sanityo92siaqv_testing-farm-sanity > details:nth-of-type(3)')
+    .should('contain', 'Test is being executed.')
     .should('not.contain', 'Tests failed to run')
 
 }));
