@@ -577,23 +577,29 @@ function renderLogs (logElements, artifactsAnchor, stage, result) {
         }
     });
 
-    // no logs can mean an infrastructure problem, provide some hints how to handle the situation
     if (logElements.length === 0) {
-        // do not print infrastructure problem if the plan/test is still running
-        if (result === 'running') { return }
+        // the test is still running, logs may still appear
+        if (result === 'running') { return html`<p>Test is being executed.</p>` }
 
-        return [
-            html`<p>Tests failed to run. See <a href="#log-links">logs</a> for more details.</p>`,
-            html`
-                <p>This can be an infrastructure problem, check
-                <a href=https://status.testing-farm.io>status page</a>
-                for known outages.</p>
-            `,
-            html`
-                <p><a href="https://gitlab.com/testing-farm/general/-/issues">File an issue</a>
-                if you think you hit a bug.</p>
-            `
-        ];
+        // logs are optional in the results format, so a missing log is only an
+        // infrastructure problem when the result itself indicates the test did
+        // not run; for any other result just note that no logs were provided
+        if (result === 'error') {
+            return [
+                html`<p>Tests failed to run. See <a href="#log-links">logs</a> for more details.</p>`,
+                html`
+                    <p>This can be an infrastructure problem, check
+                    <a href=https://status.testing-farm.io>status page</a>
+                    for known outages.</p>
+                `,
+                html`
+                    <p><a href="https://docs.testing-farm.io/Testing%20Farm/0.1/issues.html">File an issue</a>
+                    if you think you hit a bug.</p>
+                `
+            ];
+        }
+
+        return html`<p>No logs available.</p>`;
     }
 
     return html`<div id=${artifactsAnchor ?? nothing}>

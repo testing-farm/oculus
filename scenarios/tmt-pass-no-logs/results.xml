@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites overall-result="passed">
+ <properties>
+  <property name="baseosci.overall-result" value="passed"/>
+ </properties>
+ <testsuite name="/testing-farm/sanity" result="passed" tests="1">
+  <logs>
+   <log href="https://artifacts.dev.testing-farm.io/e18543bb-8147-47d5-9598-734280d78e43/work-sanity_xnr3j76/tmt-run.log" name="tmt-log"/>
+   <log href="https://artifacts.dev.testing-farm.io/e18543bb-8147-47d5-9598-734280d78e43/work-sanity_xnr3j76" name="workdir"/>
+  </logs>
+  <properties>
+   <property name="baseosci.result" value="passed"/>
+  </properties>
+  <testcase name="/test-no-logs" result="passed">
+   <logs/>
+   <testing-environment name="requested">
+    <property name="arch" value="x86_64"/>
+    <property name="snapshots" value="False"/>
+   </testing-environment>
+  </testcase>
+  <testing-environment name="requested">
+   <property name="arch" value="x86_64"/>
+   <property name="snapshots" value="False"/>
+  </testing-environment>
+ </testsuite>
+</testsuites>
