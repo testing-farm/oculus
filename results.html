@@ -840,13 +840,14 @@ function renderTestList (doc, elementType, subElementType, showPassed, apiReques
                     guestsStr.push(`${arch ? ` 💻 ${arch}` : ''}${compose ? ` 💿 ${compose}` : ''}`);
                 }
             }
-            isOpen = (result !== 'pass' || items.length === 1 || idsChildren.includes(hash));
+            isOpen = (!isHiddenWhenPassedOff(result) || items.length === 1 || idsChildren.includes(hash));
         } else {
             // As we only show tests that need attention by default, count those and ignore passed/skipped
             const failedTestsCount =
                 Array.from(items).filter(i => !isHiddenWhenPassedOff(i.getAttribute('result'))).length;
             isOpen = (
-                id === hash || ((result !== 'pass' || items.length === 1) && failedTestsCount < tooManyTestcases)
+                id === hash ||
+                ((!isHiddenWhenPassedOff(result) || items.length === 1) && failedTestsCount < tooManyTestcases)
             );
             guestName = item.querySelector('guest')?.getAttribute('name');
             guestRole = item.querySelector('guest')?.getAttribute('role');
@@ -1099,8 +1100,12 @@ async function main () {
             overallResult = resultsXml.firstChild.getAttribute('overall-result');
 
             /* keep config hidden if there are only passed or only failed tests */
+            // normalizeResult() maps both "skip*" and "not_applicable" to the skip result, so the
+            // toggle-visibility check must match both raw attribute spellings to reveal those tests
             if (!isPassed(overallResult) &&
-                resultsXml.querySelectorAll('testcase[result^="pass"], testcase[result^="skip"]').length > 0) {
+                resultsXml.querySelectorAll(
+                    'testcase[result^="pass"], testcase[result^="skip"], testcase[result*="not_applicable"]'
+                ).length > 0) {
                 document.getElementById('config').removeAttribute('hidden');
                 document.getElementById('show_passed').addEventListener(
                     'change', ev => {

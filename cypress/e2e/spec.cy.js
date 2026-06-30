@@ -1210,4 +1210,32 @@ describe('tmt-skipped', () => it('run', () => {
         .filter(':contains("/test-skip")')
         .find('> summary')
         .should('have.class', 'result-skip');
+
+    // the failed test is expanded, but revealed passed/skipped tests stay collapsed
+    // (skipped is treated like passed, not like a failure that needs attention)
+    cy.get('main > details > details').filter(':contains("/test-fail")').should('have.attr', 'open');
+    cy.get('main > details > details').filter(':contains("/test-pass")').should('not.have.attr', 'open');
+    cy.get('main > details > details').filter(':contains("/test-skip")').should('not.have.attr', 'open');
+}));
+
+describe('tmt-not-applicable', () => it('run', () => {
+    cy.visit(addRequestId('/results.html?url=scenarios/tmt-not-applicable'));
+    cy.get('#overall-result').should('have.text', 'failed');
+
+    // "not_applicable" normalizes to the skip result, so the toggle must still appear -
+    // otherwise these tests would be hidden with no way to reveal them
+    cy.get('#config').should('be.visible');
+
+    // by default only the failed test is shown; the not_applicable test is hidden
+    cy.get('main > details > details').should('have.length', 1);
+    cy.get('main > details > details').should('contain', '/test-fail');
+    cy.get('main > details > details').should('not.contain', '/test-na');
+
+    // toggling reveals the not_applicable test, styled as skip
+    cy.get('#show_passed').click({ force: true });
+    cy.get('main > details > details').should('have.length', 2);
+    cy.get('main > details > details')
+        .filter(':contains("/test-na")')
+        .find('> summary')
+        .should('have.class', 'result-skip');
 }));
