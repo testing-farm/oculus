@@ -69,6 +69,51 @@
 
     iframe.html-artifact { height: 80vh; }
 
+    #pipeline-stages summary { cursor: pointer; }
+    #pipeline-stages > details > summary { padding: 0.8em; font-weight: bold; }
+    #pipeline-stages .request-stages { padding: 0 1ex; }
+    #pipeline-stages h2 { font: bold 12px monospace; }
+    #pipeline-stages .plan-stages { margin: 1ex 0; background: white; }
+    #pipeline-stages .plan-stages > summary { padding: 0.8em; overflow-wrap: anywhere; }
+    #pipeline-stages table { width: 100%; border-collapse: collapse; font: 12px monospace; }
+    #pipeline-stages th, #pipeline-stages td { padding: 0.5em; text-align: left; vertical-align: top; }
+    #pipeline-stages th { color: #555; border-bottom: 1px solid lightgray; }
+    #pipeline-stages .stage-status { padding: 0.2em 0.5em; border-radius: 3px; background: #e5e7eb; }
+    #pipeline-stages .stage-status.running { background: paleturquoise; }
+    #pipeline-stages .stage-status.failed { background: #ffb3b3; }
+    #pipeline-stages .stage-note, #pipeline-stages .stage-update-warning { color: #795000; font-size: 11px; }
+    #pipeline-stages .stage-note { display: block; margin-top: 0.5em; }
+    #pipeline-stages .stage-update-warning { margin: 0.5em; }
+    #pipeline-stages .stage-detail { position: relative; display: inline-block; cursor: help; }
+    #pipeline-stages .execution-id {
+        display: inline-block;
+        max-width: 30ch;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        vertical-align: bottom;
+        color: #555;
+    }
+    #pipeline-stages [role="tooltip"] {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 1;
+        width: max-content;
+        max-width: min(60ch, 70vw);
+        padding: 0.6em;
+        background: #222;
+        color: white;
+        border-radius: 3px;
+        font: 11px monospace;
+        overflow-wrap: anywhere;
+        white-space: normal;
+    }
+    #pipeline-stages .stage-timing [role="tooltip"] { left: auto; right: 0; }
+    #pipeline-stages .stage-detail:hover [role="tooltip"],
+    #pipeline-stages .stage-detail:focus [role="tooltip"] { display: block; }
+
     .warnings-box {
         background-color: #fff8e1;
         border-left: 4px solid #f9a825;
@@ -290,6 +335,7 @@
   })();
   </script>
 
+  <section id="pipeline-stages" aria-label="Pipeline stages" hidden></section>
   <main id="main"></main>
 
   <footer><hr><div class="footer">Rendered from: <a id="results-xml-src"></a> by <a href="https://gitlab.com/testing-farm/oculus">Oculus</a></div></footer>
@@ -297,7 +343,7 @@
 
 <script type="module">
 import {
-    LitElement, html, unsafeHTML, css, render, nothing
+    LitElement, html, unsafeHTML, css, render, nothing, repeat
 } from 'https://cdn.jsdelivr.net/gh/lit/dist@2/all/lit-all.min.js';
 import { AnsiUp } from 'https://cdn.jsdelivr.net/npm/ansi_up@6.0.2/ansi_up.js';
 import jsyaml from 'https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/+esm';
@@ -394,9 +440,9 @@ async function fetchHeader (url) {
     return false;
 }
 
-async function fetchJSON (url) {
+async function fetchJSON (url, options) {
     try {
-        const response = await fetch(url);
+        const response = await fetch(url, options);
         if (response.ok) {
             return await response.json();
         } else {
@@ -406,6 +452,159 @@ async function fetchJSON (url) {
         console.warn('Failed to fetch', url, ':', error);
     }
 }
+
+const isActiveRequest = request => ['queued', 'running', 'cancel-requested'].includes(request?.state);
+
+function stageTimestamp (value) {
+    return typeof value === 'string' && value.trim() ? Date.parse(value) : NaN;
+}
+
+function formatStageDuration (milliseconds) {
+    if (!Number.isFinite(milliseconds) || milliseconds < 0) return '—';
+    if (milliseconds === 0) return '0s';
+    if (milliseconds < 1000) return '<1s';
+    const seconds = Math.floor(milliseconds / 1000);
+    return [
+        seconds >= 3600 ? `${Math.floor(seconds / 3600)}h` : '',
+        seconds >= 60 ? `${Math.floor(seconds / 60) % 60}m` : '',
+        `${seconds % 60}s`
+    ].filter(Boolean).join(' ');
+}
+
+function stageTimeDetails (value) {
+    const timestamp = stageTimestamp(value);
+    return Number.isFinite(timestamp) ? `${new Date(timestamp).toISOString()} (UTC)` : '—';
+}
+
+const stageNames = {
+    initialization: 'Initialization',
+    'test-discovery': 'Test discovery',
+    testing: 'Testing',
+    archiving: 'Archiving',
+    provisioning: 'Provisioning',
+    'guest-setup': 'Guest setup',
+    running: 'Running',
+    cleanup: 'Cleanup'
+};
+const stageStatuses = { pending: 'Pending', running: 'Running', finished: 'Finished', failed: 'Failed' };
+
+// Kept outside #main so result toggles and log refreshes do not replace stage UI state.
+class PipelineStagesPanel {
+    constructor (element) {
+        this.element = element;
+        this.request = null;
+        this.stale = false;
+        this.pendingFetch = null;
+        this.pollTimer = null;
+        this.tickTimer = null;
+        this.expanded = new Map([['panel', true]]);
+    }
+
+    fetchRequest (url) {
+        // Share an in-flight fetch with main() if the existing log refresh runs at the same time.
+        if (this.pendingFetch) return this.pendingFetch;
+        window.clearTimeout(this.pollTimer);
+        this.pendingFetch = fetchJSON(url, { cache: 'no-store' }).then(request => {
+            this.stale = !request?.state;
+            if (!this.stale) this.request = request;
+            this.render();
+            this.scheduleRefresh(url);
+            return this.request;
+        }).finally(() => { this.pendingFetch = null });
+        return this.pendingFetch;
+    }
+
+    scheduleRefresh (url) {
+        const active = isActiveRequest(this.request);
+        if (!this.request || active) {
+            this.pollTimer = window.setTimeout(() => this.fetchRequest(url), 5000);
+        }
+        const running = active && this.request.run?.stages?.pipeline?.some(stage => stage.status === 'running');
+        if (running && this.tickTimer === null) {
+            this.tickTimer = window.setInterval(() => this.render(), 1000);
+        } else if (!running) {
+            window.clearInterval(this.tickTimer);
+            this.tickTimer = null;
+        }
+    }
+
+    renderStages (stages, groupIndex) {
+        const active = isActiveRequest(this.request);
+        const now = Date.now();
+        return html`<table>
+            <thead><tr><th scope="col">Stage</th><th scope="col">State</th><th scope="col">Duration</th></tr></thead>
+            <tbody>${stages.map((stage, index) => {
+                const started = stageTimestamp(stage.started);
+                const finished = stageTimestamp(stage.finished);
+                const ended = ['finished', 'failed'].includes(stage.status);
+                let end = ended ? finished : NaN;
+                if (active && stage.status === 'running') end = now;
+                const duration = started <= now && end <= now ? formatStageDuration(end - started) : '—';
+                const tooltipId = `stage-time-${groupIndex}-${index}`;
+                const incomplete = !active && ['pending', 'running'].includes(stage.status);
+                const name = Object.hasOwn(stageNames, stage.stage) ? stageNames[stage.stage] : stage.stage;
+                const status = Object.hasOwn(stageStatuses, stage.status) ? stageStatuses[stage.status] : stage.status;
+                return html`<tr data-stage=${stage.stage}>
+                    <td>${name}</td>
+                    <td><span class="stage-status ${stage.status}">${status}</span>
+                        ${incomplete
+                            ? html`<span class="stage-note">Request ended; final stage timing unavailable</span>`
+                            : nothing}</td>
+                    <td><span class="stage-detail stage-timing" tabindex="0" aria-describedby=${tooltipId}>
+                        <span class="stage-duration">${duration}</span>
+                        ${this.stale && active && stage.status === 'running'
+                            ? html`<span class="stage-note">Stale data</span>`
+                            : nothing}
+                        <span id=${tooltipId} role="tooltip">Started: ${stageTimeDetails(stage.started)}<br>
+                            Finished: ${stageTimeDetails(stage.finished)}</span>
+                    </span></td>
+                </tr>`;
+            })}</tbody>
+        </table>`;
+    }
+
+    render () {
+        const stages = this.request?.run?.stages?.pipeline;
+        this.element.hidden = !Array.isArray(stages) || stages.length === 0;
+        if (this.element.hidden) return;
+
+        const requestStages = stages.filter(stage => stage.plan == null);
+        const groups = new Map();
+        for (const stage of stages.filter(stage => stage.plan != null)) {
+            const key = JSON.stringify([stage.plan, stage.id]);
+            if (!groups.has(key)) groups.set(key, { key, plan: stage.plan, id: stage.id, stages: [] });
+            groups.get(key).stages.push(stage);
+        }
+        for (const group of groups.values()) {
+            if (!this.expanded.has(group.key)) {
+                this.expanded.set(group.key, group.stages.some(stage => ['running', 'failed'].includes(stage.status)));
+            }
+        }
+        render(html`<details ?open=${this.expanded.get('panel')}
+                @toggle=${event => this.expanded.set('panel', event.currentTarget.open)}>
+            <summary>Pipeline stages</summary>
+            ${this.stale
+                ? html`<p class="stage-update-warning" role="status">
+                    Stage updates unavailable; showing last known stages.</p>`
+                : nothing}
+            ${requestStages.length
+                ? html`<div class="request-stages"><h2>Request</h2>${this.renderStages(requestStages, 0)}</div>`
+                : nothing}
+            ${repeat([...groups.values()], group => group.key, (group, index) => html`
+                <details class="plan-stages" ?open=${this.expanded.get(group.key)}
+                        @toggle=${event => this.expanded.set(group.key, event.currentTarget.open)}>
+                    <summary>${group.plan} · <span class="stage-detail execution-identity" tabindex="0"
+                            aria-describedby=${`stage-execution-${index}`}>
+                        <span class="execution-id">${group.id}</span>
+                        <span id=${`stage-execution-${index}`} role="tooltip">Execution identifier: ${group.id}</span>
+                    </span></summary>
+                    ${this.renderStages(group.stages, index + 1)}
+                </details>`)}
+        </details>`, this.element);
+    }
+}
+
+const pipelineStages = new PipelineStagesPanel(document.getElementById('pipeline-stages'));
 
 async function fetchXML (url) {
     const raw = await fetchFile(url);
@@ -1081,7 +1280,7 @@ async function main () {
     // fetch the API request
     if (requestId !== undefined) {
         apiRequestUrl = apiUrl + `/${requestId}`;
-        apiRequest = await fetchJSON(apiRequestUrl);
+        apiRequest = await pipelineStages.fetchRequest(apiRequestUrl) ?? apiRequest;
     }
     const resultsXmlLink = baseUrl + '/results.xml';
     document.getElementById('results-xml-src').setAttribute('href', resultsXmlLink);

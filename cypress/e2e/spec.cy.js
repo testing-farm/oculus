@@ -899,9 +899,6 @@ describe('tf-canceled', () => it('run', () => {
         'https://api.testing-farm.io/v0.1/requests/' + requestIdMock,
         { fixture: 'canceled.json' }
     )
-    globalThis.window.location.href = '7614510d-5a51-4cb8-a81b-40b7d78ff111'
-                                      
-
     // this does not matter at all
     cy.visit(addRequestId('/results.html?url=scenarios/tf-synthetic-error'));
 
