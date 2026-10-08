@@ -486,6 +486,49 @@ describe('tmt-mixed', () => it('run', () => {
     cy.get('#main > details:not([hidden])').should('have.length', 2);
 }));
 
+describe('view-controls', () => it('run', () => {
+    cy.visit(addRequestId('/results.html?url=scenarios/tmt-mixed'));
+    cy.get('#overall-result').should('have.text', 'failed');
+    cy.get('#plan-controls').should('be.visible');
+    cy.get('#search-controls').should('be.visible');
+
+    // expand and collapse all plans, including the hidden passed ones
+    cy.get('#collapse-all').click();
+    cy.get('main > details.plan').should('have.length', 8);
+    cy.get('main > details.plan[open]').should('not.exist');
+    cy.get('#expand-all').click();
+    cy.get('main > details.plan:not([open])').should('not.exist');
+    cy.get('#collapse-all').click();
+
+    // search is case-insensitive and shows only the plan containing the matching test
+    cy.get('#test-search').type('DISTGIT');
+    cy.get('main > details.plan').should('have.length', 1)
+        .should('contain', '/plans/features/basic')
+        .should('have.attr', 'open');
+    cy.get('main > details.plan > details').should('have.length', 1)
+        .should('contain', '/tests/discover/distgit');
+
+    // search reveals passed tests even with "Show passed tests" off
+    cy.get('#test-search').clear().type('core/');
+    cy.get('main > details.plan:not([hidden])').should('have.length', 1)
+        .should('contain', '/plans/features/core')
+        .should('have.attr', 'open');
+    cy.get('main > details.plan > details').should('have.length', 16);
+
+    // no match shows a note instead of the pipeline log
+    cy.get('#test-search').clear().type('nonexistent');
+    cy.get('main > details.plan').should('not.exist');
+    cy.get('main').should('contain', 'No tests match "nonexistent".');
+    cy.get('main > details.pipeline-log').should('not.exist');
+
+    // clearing the search restores the default view
+    cy.get('#test-search').clear();
+    cy.get('main > details.plan').should('have.length', 8);
+    cy.get('main > details.plan:not([hidden])').should('have.length', 1)
+        .should('contain', '/plans/features/basic');
+    cy.get('main > details.plan:not([hidden]) > details').should('have.length', 1);
+}));
+
 describe('tmt-multihost-pass', () => it('run', () => {
     cy.visit(addRequestId('/results.html?url=scenarios/tmt-multihost-pass'));
 
@@ -767,6 +810,9 @@ describe('inprogress-no-results-xml', () => it('run', () => {
     cy.get('#docs').should('be.visible');
     // no config box
     cy.get('#config').should('not.be.visible');
+    // no view controls without results.xml
+    cy.get('#plan-controls').should('not.be.visible');
+    cy.get('#search-controls').should('not.be.visible');
     // no results-junit.xml yet
     cy.get('#download-junit').should('not.be.visible');
     // show pipeline.log
@@ -1071,6 +1117,10 @@ describe('tmt-inprogress-pending', () => it('run', () => {
     )
 
     cy.visit(addRequestId('/results.html?url=scenarios/tmt-inprogress-pending'));
+
+    // view controls are available while the testing is still running
+    cy.get('#plan-controls').should('be.visible');
+    cy.get('#search-controls').should('be.visible');
 
     // test suite has undefined result, rendered as running
     cy.get('#work-sanityo92siaqv_testing-farm-sanity > summary:nth-child(1)')

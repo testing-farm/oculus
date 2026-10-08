@@ -11,16 +11,25 @@
         gap: 2ex;
     }
     .stretch { flex: auto; }
-    #config[hidden] {
+    #controls[hidden], #controls > [hidden] {
         display: none;
     }
-    #config {
-        padding: 0.5em 1em;
-        border: 1px solid lightgray;
-        box-shadow: 2px 2px 2px lightgrey;
+    #controls {
+        /* without a border, the controls need more room from the overall result */
+        margin-left: 3em;
+        display: inline-flex;
+        align-items: center;
+        gap: 1em;
+    }
+    #controls > div {
         display: inline-flex;
         align-items: center;
         gap: 0.4em;
+    }
+    /* separate the shown groups */
+    #controls > :not([hidden]) ~ :not([hidden]) {
+        border-left: 1px solid lightgray;
+        padding-left: 1em;
     }
 
     details {
@@ -172,6 +181,42 @@
     .warning-toggle input:checked + .warning-toggle-slider::after {
         transform: translateX(12px);
     }
+    #plan-controls button {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.3em 0.5em;
+        background-color: #F2F2F2;
+        border: 1px solid lightgray;
+        cursor: pointer;
+    }
+    #plan-controls button:hover {
+        background-color: #E0E0E0;
+    }
+    #search-controls .search {
+        width: 24em;
+        padding: 0.2em 0.5em 0.2em 2em;
+        font: inherit;
+        font-size: 0.9em;
+        border: 1px solid lightgray;
+        /* Font Awesome 6.7.2 magnifying-glass (CC BY 4.0) — inlined to avoid loading the full icon library */
+        background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%23888' d='M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z'/%3E%3C/svg%3E") no-repeat 0.6em center/14px;
+    }
+    #search-controls .search:focus {
+        outline: 1px solid navy;
+    }
+    .expand-icon, .collapse-icon {
+        display: inline-block;
+        width: 12px;
+        height: 14px;
+    }
+    /* Font Awesome 6.7.2 angles-down (CC BY 4.0) — inlined to avoid loading the full icon library */
+    .expand-icon {
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3Cpath fill='%23555' d='M246.6 470.6c-12.5 12.5-32.8 12.5-45.3 0l-160-160c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L224 402.7 361.4 265.4c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3l-160 160zm160-352l-160 160c-12.5 12.5-32.8 12.5-45.3 0l-160-160c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L224 210.7 361.4 73.4c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3z'/%3E%3C/svg%3E") no-repeat center/contain;
+    }
+    /* Font Awesome 6.7.2 angles-up (CC BY 4.0) — inlined to avoid loading the full icon library */
+    .collapse-icon {
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3Cpath fill='%23555' d='M246.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L224 109.3 361.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160zm160 352l-160-160c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L224 301.3 361.4 438.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3z'/%3E%3C/svg%3E") no-repeat center/contain;
+    }
     #ai-config[hidden] {
         display: none;
     }
@@ -244,12 +289,26 @@
     <img src="https://gitlab.com/uploads/-/system/group/avatar/5515434/tft-logo.png"
         width="64" height="64" alt="Testing Farm Logo"/>
     <h1 id="overall-result"></h1>
-    <div id="config" hidden>
+    <div id="controls" hidden>
+      <div id="plan-controls" hidden>
+        <button id="expand-all" type="button" title="Expand all plans" aria-label="Expand all plans">
+            <span class="expand-icon"></span>
+        </button>
+        <button id="collapse-all" type="button" title="Collapse all plans" aria-label="Collapse all plans">
+            <span class="collapse-icon"></span>
+        </button>
+      </div>
+      <div id="config" hidden>
         <label class="ai-toggle" title="Also shows skipped test results">
             <input id="show_passed" type="checkbox" />
             <span class="ai-toggle-slider"></span>
             Show passed tests
         </label>
+      </div>
+      <div id="search-controls" hidden>
+        <input id="test-search" class="search" type="search" placeholder="Search tests by name"
+            aria-label="Search tests by name" />
+      </div>
     </div>
     <div id="ai-config" hidden>
         <label class="ai-toggle">
@@ -783,7 +842,9 @@ function renderNotes (notes) {
 
 // testsuites contain a list of testsuite, which contain a list of testcase; these have
 // exactly the same structure, so we can render them with just one function
-function renderTestList (doc, elementType, subElementType, showPassed, apiRequest, isPipelineRunning, showAiSummary) {
+function renderTestList (
+    doc, elementType, subElementType, showPassed, apiRequest, isPipelineRunning, showAiSummary, searchTerm
+) {
     const res = [];
     const items = doc.querySelectorAll(elementType);
     items.forEach(item => {
@@ -819,7 +880,17 @@ function renderTestList (doc, elementType, subElementType, showPassed, apiReques
 
         // Render the test suite with all tests if a test inside is linked
         const hash = window.location.hash.substring(1);
-        const showPassedIteration = idsChildren.includes(hash) ? true : showPassed;
+        let showPassedIteration = idsChildren.includes(hash) ? true : showPassed;
+
+        // When searching, render only tests whose name contains the search term, and only plans
+        // containing such tests. Matching tests are shown regardless of the "show passed" toggle.
+        if (searchTerm) {
+            const matchesSearch = node => node.getAttribute('name')?.toLowerCase().includes(searchTerm);
+            if (elementType === 'testsuite') {
+                if (!Array.from(item.querySelectorAll('testcase')).some(matchesSearch)) { return }
+                showPassedIteration = true;
+            } else if (!matchesSearch(item)) { return }
+        }
 
         if (!showPassedIteration && isHiddenWhenPassedOff(result) && elementType !== 'testsuite') { return }
 
@@ -849,7 +920,9 @@ function renderTestList (doc, elementType, subElementType, showPassed, apiReques
                     guestsStr.push(`${arch ? ` 💻 ${arch}` : ''}${compose ? ` 💿 ${compose}` : ''}`);
                 }
             }
-            isOpen = (!isHiddenWhenPassedOff(result) || items.length === 1 || idsChildren.includes(hash));
+            isOpen = (
+                !isHiddenWhenPassedOff(result) || items.length === 1 || idsChildren.includes(hash) || !!searchTerm
+            );
         } else {
             // As we only show tests that need attention by default, count those and ignore passed/skipped
             const failedTestsCount =
@@ -885,7 +958,10 @@ function renderTestList (doc, elementType, subElementType, showPassed, apiReques
         if (checks && checks.getAttribute('checks') > 0) { rightSideTexts.push(`with ${renderCheckSummary(checks)}`) }
         if (item.getAttribute('time')) { rightSideTexts.push(`took ${item.getAttribute('time')} s`) }
 
-        const detailsClass = id === hash ? 'highlight' : null;
+        const detailsClass = [
+            elementType === 'testsuite' ? 'plan' : null,
+            id === hash ? 'highlight' : null
+        ].filter(Boolean).join(' ') || null;
 
         res.push(html`
           <details id="${id ?? nothing}" ?open="${isOpen}" class="${detailsClass ?? nothing}"
@@ -930,7 +1006,7 @@ function renderTestList (doc, elementType, subElementType, showPassed, apiReques
                 ? renderTestList(
                     item, subElementType, null,
                     showPassedIteration, apiRequest,
-                    isPipelineRunning, showAiSummary)
+                    isPipelineRunning, showAiSummary, searchTerm)
                 : null}
             ${renderSubresults(subresults, artifactsAnchor)}
             ${renderCheckList(checks, artifactsAnchor)}
@@ -1016,14 +1092,20 @@ function selectInlineLogs (results, isPipelineRunning) {
 function renderTests (resultsXml, showPassed, apiRequest, isPipelineRunning, showAiSummary) {
     const errorReason = apiRequest?.result?.summary;
     const aiSummary = showAiSummary ? apiRequest?.result?.ai_summary : null;
+    const searchTerm = document.getElementById('test-search').value.trim().toLowerCase();
     const items = resultsXml
         ? renderTestList(
-            resultsXml, 'testsuite', 'testcase', showPassed, apiRequest, isPipelineRunning, showAiSummary)
+            resultsXml, 'testsuite', 'testcase', showPassed, apiRequest, isPipelineRunning, showAiSummary,
+            searchTerm)
         : [];
 
     // whether there are any test results to show; computed before prepending
     // the AI/request summaries below, so those don't suppress the pipeline.log
     const hasTestResults = items.length > 0;
+
+    if (searchTerm && !hasTestResults) {
+        items.push(html`<p class="request-summary">No tests match "${searchTerm}".</p>`);
+    }
 
     // show AI summary when toggle is on
     if (aiSummary) {
@@ -1049,8 +1131,8 @@ function renderTests (resultsXml, showPassed, apiRequest, isPipelineRunning, sho
             <span class="warning-icon"></span> ${errorReason}</p>`);
     }
 
-    // show pipeline log in case of errors
-    if (apiRequest.state === 'error' || !hasTestResults) {
+    // show pipeline log in case of errors; a search without matches is not an error
+    if (apiRequest.state === 'error' || (!hasTestResults && !searchTerm)) {
         items.push(html`<details class="pipeline-log" open>
         <summary class="result-error">
             <a href="${pipelineLogUrl}"}>pipeline.log</a>
@@ -1059,6 +1141,35 @@ function renderTests (resultsXml, showPassed, apiRequest, isPipelineRunning, sho
       </details>`);
     }
     render(items, document.getElementById('main'));
+}
+
+// show a group of controls together with the box holding them
+function showControls (id) {
+    document.getElementById(id).removeAttribute('hidden');
+    document.getElementById('controls').removeAttribute('hidden');
+}
+
+// show the expand/collapse all plans buttons and the test search box; `rerender` renders the
+// tests with the current state of the other controls
+function setupViewControls (rerender) {
+    const setPlansOpen = open => document.querySelectorAll('#main > details.plan')
+        .forEach(plan => { plan.open = open });
+
+    showControls('plan-controls');
+    showControls('search-controls');
+    document.getElementById('expand-all').onclick = () => setPlansOpen(true);
+    document.getElementById('collapse-all').onclick = () => setPlansOpen(false);
+
+    let searchTimeout = null;
+    document.getElementById('test-search').oninput = ev => {
+        window.clearTimeout(searchTimeout);
+        searchTimeout = window.setTimeout(() => {
+            rerender();
+            // lit does not reapply an unchanged `open` binding, so plans collapsed by hand
+            // would stay collapsed
+            if (ev.target.value.trim()) { setPlansOpen(true) }
+        }, 200);
+    };
 }
 
 function reloadPage () {
@@ -1127,7 +1238,7 @@ async function main () {
                 resultsXml.querySelectorAll(
                     'testcase[result^="pass"], testcase[result^="skip"], testcase[result*="not_applicable"]'
                 ).length > 0) {
-                document.getElementById('config').removeAttribute('hidden');
+                showControls('config');
                 document.getElementById('show_passed').addEventListener(
                     'change', ev => {
                         const { activeApiRequest, activeResultsXml, showAiSummary } = getActiveData();
@@ -1135,8 +1246,7 @@ async function main () {
                     });
             }
 
-            /* render and highlight a particular test/plan when a user clicks on it */
-            window.addEventListener('hashchange', function () {
+            function rerender () {
                 const { activeApiRequest, activeResultsXml, showAiSummary } = getActiveData();
                 renderTests(
                     activeResultsXml,
@@ -1145,7 +1255,14 @@ async function main () {
                     false,
                     showAiSummary
                 );
-            });
+            }
+
+            /* render and highlight a particular test/plan when a user clicks on it */
+            window.addEventListener('hashchange', rerender);
+
+            if (resultsXml.querySelector('testsuite')) {
+                setupViewControls(rerender);
+            }
         }
 
         // wire AI toggle to fetch AI data on first use and re-render
@@ -1181,6 +1298,10 @@ async function main () {
             selectInlineLogs(resultsXml, true);
 
             renderTests(resultsXml, true, apiRequest, true);
+
+            if (resultsXml.querySelector('testsuite')) {
+                setupViewControls(() => renderTests(resultsXml, true, apiRequest, true));
+            }
         } else {
             const pipelineLog = await fetchFile(pipelineLogUrl, { cache: 'no-store' });
             render(html`<pre>${unsafeHTML(ansiUp.ansi_to_html(pipelineLog))}</pre>`, document.getElementById('main'));
