@@ -5,7 +5,7 @@ const globals = require('globals');
 module.exports = [
     { ignores: ['node_modules/', 'scenarios/', 'cypress/'] },
 
-    ...neostandard({ semi: true }),
+    ...neostandard({ semi: true, files: ['**/*.html'] }),
 
     {
         languageOptions: {
@@ -22,6 +22,7 @@ module.exports = [
     },
 
     {
+        files: ['**/*.js', '**/*.html'],
         rules: {
             eqeqeq: ['error', 'smart'],
             '@stylistic/indent': ['error', 4],

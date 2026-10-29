@@ -6,7 +6,7 @@ repos:
     - id: eslint
       additional_dependencies:
         - eslint@9
-        - neostandard
+        - neostandard@0.14.1
         - eslint-plugin-html@8
         - globals
       args:
