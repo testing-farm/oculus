@@ -16,6 +16,17 @@
   <testcase name="/tests" result="failed">
    <note>check 'dmesg' failed</note>
    <note>original test result: pass</note>
+   <ai-summary no-issue-found="false">
+    <explanation>The test itself passed, but the result was changed to failed because the dmesg check run before the test found kernel page allocation failures.
+The failures happened before the test started, so they point to memory pressure on the guest rather than to the test code.</explanation>
+    <solution>Check the guest memory size and other workloads running on it. Rerun the test on a guest with more memory, or ignore the pre-test dmesg check for this test.</solution>
+    <snippets>
+     <snippet line-number="42" source-file="dmesg-before-test.txt">&lt;4&gt;[   12.345678] kworker/0:1: page allocation failure: order:4, mode:0x40cc0(GFP_KERNEL|__GFP_COMP)</snippet>
+     <snippet line-number="7" source-file="output.txt">PASS: some-test
+PASS: some-other-test</snippet>
+     <snippet>Snippet without a source file or line number</snippet>
+    </snippets>
+   </ai-summary>
    <properties>
     <property name="baseosci.arch" value="x86_64"/>
     <property name="baseosci.connectable_host" value="13.58.236.184"/>

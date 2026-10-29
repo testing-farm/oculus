@@ -305,14 +305,44 @@ describe('tmt-single-fail-ai', () => it('run', () => {
     // enable AI toggle
     cy.get('#show_ai_summary').click({ force: true });
 
-    // AI summary box appears with ai_summary content
-    cy.get('.ai-summary').should('be.visible')
+    // the testcase shows its <ai-summary> from results.xml; the plan has none
+    cy.get('.ai-summary').should('have.length', 1);
+    cy.get('main > details > details > .ai-summary').should('be.visible')
         .and('contain', 'AI Summary')
-        .and('contain', 'dmesg check detecting kernel warnings');
+        .and('contain', 'dmesg check run before the test found kernel page allocation failures')
+        .and('contain', 'Suggested solution:')
+        .and('contain', 'Rerun the test on a guest with more memory')
+        .and('not.contain', 'Log Detective found no issue');
+
+    // snippets are collapsed, rendered as text with their source file and line
+    cy.get('.ai-snippets').should('not.have.attr', 'open');
+    cy.get('.ai-snippets > summary').should('contain', 'Relevant log snippets (3)').click();
+    cy.get('.ai-snippet-source').should('have.length', 2);
+    cy.get('.ai-snippet-source').first().should('have.text', 'dmesg-before-test.txt, line 42');
+    cy.get('pre.ai-snippet').should('have.length', 3);
+    cy.get('pre.ai-snippet').first().should('contain.text', '<4>[   12.345678] kworker/0:1: page allocation failure');
+    cy.get('pre.ai-snippet').last().should('have.text', 'Snippet without a source file or line number');
+
+    // original notes are unchanged
+    cy.get('.notes > li:nth-child(1)').should('have.text', "check 'dmesg' failed");
 
     // disable AI toggle — AI summary box removed
     cy.get('#show_ai_summary').click({ force: true });
     cy.get('.ai-summary').should('not.exist');
+}));
+
+describe('tmt-failed-prepare-ai', () => it('run', () => {
+    cy.visit(addRequestId('/results.html?url=scenarios/tmt-failed-prepare-ai'));
+    cy.get('#overall-result').should('have.text', 'error');
+    cy.get('#ai-config').should('be.visible');
+    cy.get('.ai-summary').should('not.exist');
+
+    // a plan without testcases shows the plan-level <ai-summary>
+    cy.get('#show_ai_summary').click({ force: true });
+    cy.get('main > details > .ai-summary').should('be.visible')
+        .and('contain', 'Guest setup failed while installing the Copr build')
+        .and('contain', 'Verify that the Copr repository is available');
+    cy.get('.ai-snippets > summary').should('contain', 'Relevant log snippets (1)');
 }));
 
 describe('tmt-double-pass', () => it('run', () => {
