@@ -1,0 +1,30 @@
+<testsuites overall-result="failed">
+ <properties>
+  <property name="baseosci.overall-result" value="failed"/>
+ </properties>
+ <testsuite name="/plans/all" result="failed" tests="2">
+  <properties>
+   <property name="baseosci.result" value="failed"/>
+  </properties>
+  <testcase name="/tests1" result="failed">
+   <ai-summary no-issue-found="false">
+    <explanation>The first test failed because the service did not start in time.</explanation>
+    <solution>Increase the service start timeout.</solution>
+   </ai-summary>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-37"/>
+   </testing-environment>
+  </testcase>
+  <testcase name="/tests2" result="failed">
+   <ai-summary no-issue-found="false">
+    <explanation>The second test failed because a required package is missing.</explanation>
+    <solution>Add the package to the test requirements.</solution>
+   </ai-summary>
+   <testing-environment name="provisioned">
+    <property name="arch" value="x86_64"/>
+    <property name="compose" value="Fedora-37"/>
+   </testing-environment>
+  </testcase>
+ </testsuite>
+</testsuites>
