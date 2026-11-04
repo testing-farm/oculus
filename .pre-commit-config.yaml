@@ -4,6 +4,7 @@ repos:
   rev: v9.39.0
   hooks:
     - id: eslint
+      language_version: lts
       additional_dependencies:
         - eslint@9
         - neostandard@0.14.1
