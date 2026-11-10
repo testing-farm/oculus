@@ -220,17 +220,6 @@
     .warning-toggle input:checked + .toggle-slider {
         background-color: #f9a825;
     }
-    #ai-config[hidden] {
-        display: none;
-    }
-    #ai-config {
-        padding: 0.5em 1em;
-        border: 1px solid lightgray;
-        box-shadow: 2px 2px 2px lightgrey;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.4em;
-    }
     .ai-toggle {
         font-size: 0.9em;
     }
@@ -396,6 +385,10 @@
             <span class="collapse-icon"></span>
         </button>
       </div>
+      <div id="search-controls" hidden>
+        <input id="test-search" class="search" type="search" placeholder="Search tests by name"
+            aria-label="Search tests by name" />
+      </div>
       <div id="config" hidden>
         <label class="toggle ai-toggle" title="Also shows skipped test results">
             <input id="show_passed" type="checkbox" />
@@ -403,17 +396,13 @@
             Show passed tests
         </label>
       </div>
-      <div id="search-controls" hidden>
-        <input id="test-search" class="search" type="search" placeholder="Search tests by name"
-            aria-label="Search tests by name" />
-      </div>
-    </div>
-    <div id="ai-config" hidden>
+      <div id="ai-config" hidden>
         <label class="toggle ai-toggle">
             <input id="show_ai_summary" type="checkbox" />
             <span class="toggle-slider"></span>
             Show AI summary
         </label>
+      </div>
     </div>
     <div class="stretch"></div>
     <a href="#" id="switchToNewUI" hidden>🚀 Try New UI 🚀</a>
@@ -1499,7 +1488,7 @@ async function main () {
             if (resultsXml.querySelector('testsuite > ai-summary, testcase > ai-summary')) {
                 const aiToggle = document.getElementById('show_ai_summary');
                 aiToggle.checked = storageGet('oculusShowAiSummary') === 'true';
-                document.getElementById('ai-config').removeAttribute('hidden');
+                showControls('ai-config');
                 aiToggle.addEventListener('change', ev => {
                     storageSet('oculusShowAiSummary', ev.target.checked);
                     rerender();
