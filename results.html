@@ -906,9 +906,16 @@ function renderLogs (logElements, artifactsAnchor, stage, result) {
     </div>`;
 }
 
+// tmt web instance for each ranch, keyed by the ranch's artifacts URL prefix
+const tmtWebUrls = {
+    'https://artifacts.dev.testing-farm.io': 'https://tmt.testing-farm.io',
+    'https://artifacts.osci.redhat.com/testing-farm': 'https://tmt.redhat.testing.farm'
+};
+
 function renderTmtWebLink (item, elementType, apiRequest) {
-    // for now Public Ranch only
-    if (!apiRequest.run?.artifacts?.startsWith('https://artifacts.dev.testing-farm.io')) { return html`` }
+    const tmtWebBaseUrl = Object.entries(tmtWebUrls)
+        .find(([artifactsUrl]) => apiRequest.run?.artifacts?.startsWith(artifactsUrl))?.[1];
+    if (!tmtWebBaseUrl) { return html`` }
 
     // fmf data about test suite are derived from API request
     if (!apiRequest?.test?.fmf) { return html`` }
@@ -918,7 +925,7 @@ function renderTmtWebLink (item, elementType, apiRequest) {
     if (elementType === 'testcase' && (!fmfId?.getAttribute('url') || !fmfId?.getAttribute('ref') ||
         !fmfId?.getAttribute('name'))) { return html`` }
 
-    let tmtWebUrl = 'https://tmt.testing-farm.io/?';
+    let tmtWebUrl = `${tmtWebBaseUrl}/?`;
     if (elementType === 'testsuite') {
         tmtWebUrl += `plan-url=${apiRequest.test.fmf.url}` +
             `&plan-ref=${apiRequest.test.fmf.ref}` +
