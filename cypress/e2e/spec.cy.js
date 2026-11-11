@@ -628,12 +628,14 @@ describe('tmt-mixed', () => it('run', () => {
     cy.get('#main > details:not([hidden])').should('have.length', 2);
 }));
 
-describe('tmt-mixed-redhat-ranch', () => it('run', () => {
-    cy.intercept(
-        'GET',
-        'https://api.testing-farm.io/v0.1/requests/' + requestIdMock,
-        { fixture: 'complete-redhat.json' }
-    );
+describe('tmt-mixed-redhat-ranch', () => [
+    'https://artifacts.osci.redhat.com/testing-farm',
+    'https://artifacts.redhat.testing.farm'
+].forEach(artifactsUrl => it(artifactsUrl, () => {
+    cy.fixture('complete.json').then(request => {
+        request.run.artifacts = `${artifactsUrl}/${request.id}`;
+        cy.intercept('GET', 'https://api.testing-farm.io/v0.1/requests/' + requestIdMock, request);
+    });
     cy.visit(addRequestId('/results.html?url=scenarios/tmt-mixed'));
 
     // tmt web links point to the Red Hat Ranch instance
@@ -647,7 +649,7 @@ describe('tmt-mixed-redhat-ranch', () => it('run', () => {
     cy.reload();
     cy.get('#work-basic_WExhR_plans-features-basic_14_default-0 > summary:nth-child(1) > a:nth-child(2)')
         .should("have.attr", "href", "https://tmt.redhat.testing.farm/?test-url=https://gitlab.com/testing-farm/tests&test-ref=main&test-name=/tests/execute/basic&format=html");
-}));
+})));
 
 describe('view-controls', () => it('run', () => {
     cy.visit(addRequestId('/results.html?url=scenarios/tmt-mixed'));
